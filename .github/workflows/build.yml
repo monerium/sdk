@@ -1,0 +1,40 @@
+name: Build
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: denoland/setup-deno@v1.1.0
+        with:
+          deno-version: v1.x
+
+      - name: deno fmt
+        run: deno fmt --check
+      
+      - name: deno lint
+        run: deno lint
+        
+      - name: deno test
+        run: deno test --allow-net=api.monerium.dev
+
+      - name: Get tag version
+        if: startsWith(github.ref, 'refs/tags/')
+        id: get_tag_version
+        run: echo ::set-output name=TAG_VERSION::${GITHUB_REF/refs\/tags\//}
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: npm build
+        run: deno run -A ./scripts/build_node.ts ${{steps.get_tag_version.outputs.TAG_VERSION}}
+
+      - name: npm publish
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: cd node && npm publish
