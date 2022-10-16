@@ -1,0 +1,20 @@
+{
+  "fmt": {
+    "files": {
+      "exclude": ["node/"]
+    },
+    "options": {
+      "lineWidth": 100
+    }
+  },
+  "lint": {
+    "files": {
+      "exclude": ["node/"]
+    }
+  },
+  "test": {
+    "files": {
+      "exclude": ["node/"]
+    }
+  }
+}
