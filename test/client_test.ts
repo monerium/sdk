@@ -1,28 +1,19 @@
 import {
   assertArrayIncludes,
+  assertEquals,
   assertInstanceOf,
   assertObjectMatch,
-  assertEquals,
 } from "https://deno.land/std@0.168.0/testing/asserts.ts";
 
 import { MoneriumClient } from "../mod.ts";
-import {
-  Chain,
-  Currency,
-  Network,
-  OrderKind,
-  PaymentStandard,
-  Order,
-} from "../src/types.ts";
+import { Chain, Currency, Network, Order, OrderKind, PaymentStandard } from "../src/types.ts";
 
 const clientId = "654c9c30-44d3-11ed-adac-b2efc0e6677d";
-const clientSecret =
-  "ac474b7cdc111973aa080b0428ba3a824e82119bee8f65875b4aba0d42416dff";
+const clientSecret = "ac474b7cdc111973aa080b0428ba3a824e82119bee8f65875b4aba0d42416dff";
 
 // punkWallet: https://punkwallet.io/pk#0x3e4936f901535680c505b073a5f70094da38e2085ecf137b153d1866a7aa826b
+// const privateKey = "0x3e4936f901535680c505b073a5f70094da38e2085ecf137b153d1866a7aa826b";
 const publicKey = "0x2d312198e570912844b5a230AE6f7A2E3321371C";
-const privateKey =
-  "0x3e4936f901535680c505b073a5f70094da38e2085ecf137b153d1866a7aa826b";
 
 const message = "I hereby declare that I am the address owner.";
 
@@ -129,7 +120,7 @@ Deno.test("get orders", async () => {
 
   const orders = await client.getOrders();
   const order = orders.find(
-    (o: Order) => o.memo === "Powered by Monerium SDK"
+    (o: Order) => o.memo === "Powered by Monerium SDK",
   ) as Order;
 
   assertArrayIncludes(orders, []);
@@ -212,7 +203,7 @@ Deno.test("place order", async () => {
     (a) =>
       a.address === publicKey &&
       a.currency === Currency.eur &&
-      a.network === Network.goerli
+      a.network === Network.goerli,
   );
 
   const date = "Thu, 29 Dec 2022 14:58 +00:00";

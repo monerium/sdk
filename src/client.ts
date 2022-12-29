@@ -47,12 +47,12 @@ export class MoneriumClient {
       throw new Error("Authentication method could not be detected.");
     }
 
-    this.bearerProfile = await this.#api(
+    this.bearerProfile = (await this.#api(
       "post",
       `auth/token`,
       new URLSearchParams(params as unknown as Record<string, string>),
       true,
-    ) as BearerProfile;
+    )) as BearerProfile;
 
     this.#authPayload = `Bearer ${this.bearerProfile.access_token}`;
   }
@@ -95,14 +95,19 @@ export class MoneriumClient {
 
   getBalances(profileId?: string) {
     if (profileId) {
-      return this.#api("get", `profiles/${profileId}/balances`) as Promise<Balances>;
+      return this.#api(
+        "get",
+        `profiles/${profileId}/balances`,
+      ) as Promise<Balances>;
     } else {
       return this.#api("get", `balances`) as Promise<Balances[]>;
     }
   }
 
-  getOrders(filter?: OrderFiler) {
-    const searchParams = new URLSearchParams(filter as unknown as Record<string, string>);
+  getOrders(filter?: OrderFilter) {
+    const searchParams = new URLSearchParams(
+      filter as unknown as Record<string, string>,
+    );
 
     return this.#api("get", `orders?${searchParams}`) as Promise<Order[]>;
   }
@@ -117,22 +122,41 @@ export class MoneriumClient {
 
   // -- Write Methods
 
+  linkAddress(profileId: string, body: LinkAddress) {
+    return this.#api(
+      "post",
+      `profiles/${profileId}/addresses`,
+      JSON.stringify(body),
+    );
+  }
+
   placeOrder(order: NewOrder, profileId?: string) {
     if (profileId) {
-      return this.#api("post", `profiles/${profileId}/orders`, JSON.stringify(order)) as Promise<
-        Order
-      >;
+      return this.#api(
+        "post",
+        `profiles/${profileId}/orders`,
+        JSON.stringify(order),
+      ) as Promise<Order>;
     } else {
-      return this.#api("post", `orders`, JSON.stringify(order)) as Promise<Order>;
+      return this.#api(
+        "post",
+        `orders`,
+        JSON.stringify(order),
+      ) as Promise<Order>;
     }
   }
 
   uploadSupportingDocument(document: File) {
-    const searchParams = new URLSearchParams(document as unknown as Record<string, string>);
+    const searchParams = new URLSearchParams(
+      document as unknown as Record<string, string>,
+    );
 
-    return this.#api("post", "files/supporting-document", searchParams, true) as Promise<
-      SupportingDoc
-    >;
+    return this.#api(
+      "post",
+      "files/supporting-document",
+      searchParams,
+      true,
+    ) as Promise<SupportingDoc>;
   }
 
   // -- Helper Methods
@@ -141,20 +165,18 @@ export class MoneriumClient {
     method: string,
     resource: string,
     body?: BodyInit,
-    isFormEncoded?: boolean
+    isFormEncoded?: boolean,
   ) {
     const res = await fetch(`${this.#env.api}/${resource}`, {
       method,
       headers: {
-        "Content-Type": `application/${
-          isFormEncoded ? "x-www-form-urlencoded" : "json"
-        }`,
+        "Content-Type": `application/${isFormEncoded ? "x-www-form-urlencoded" : "json"}`,
         Authorization: this.#authPayload || "",
       },
       body,
     });
 
-    let response = await res.json();
+    const response = await res.json();
 
     if (res.ok) {
       return response;
