@@ -9,9 +9,10 @@ import type {
   BearerProfile,
   ClientCredentials,
   Environment,
+  LinkAddress,
   NewOrder,
   Order,
-  OrderFiler,
+  OrderFilter,
   PKCERequest,
   PKCERequestArgs,
   Profile,
@@ -140,21 +141,25 @@ export class MoneriumClient {
     method: string,
     resource: string,
     body?: BodyInit,
-    isFormEncoded?: boolean,
+    isFormEncoded?: boolean
   ) {
     const res = await fetch(`${this.#env.api}/${resource}`, {
       method,
       headers: {
-        "Content-Type": `application/${isFormEncoded ? "x-www-form-urlencoded" : "json"}`,
+        "Content-Type": `application/${
+          isFormEncoded ? "x-www-form-urlencoded" : "json"
+        }`,
         Authorization: this.#authPayload || "",
       },
       body,
     });
 
+    let response = await res.json();
+
     if (res.ok) {
-      return await res.json();
+      return response;
     } else {
-      throw new Error(`${resource}: ${res.statusText}`);
+      throw response;
     }
   }
 

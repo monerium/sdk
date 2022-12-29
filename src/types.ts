@@ -19,7 +19,7 @@ export interface BearerProfile {
 
 // --- Client Methods  --- //
 
-enum Currency {
+export enum Currency {
   eur = "eur",
   usd = "usd",
   gbp = "gbp",
@@ -130,7 +130,7 @@ type KYC = {
   outcome: KYCOutcome;
 };
 
-enum PaymentStandard {
+export enum PaymentStandard {
   iban = "iban",
   scan = "scan",
 }
@@ -142,6 +142,9 @@ type Account = {
   iban?: string;
   sortCode?: string;
   accountNumber?: string;
+  network: Network;
+  chain: Chain;
+  id?: string;
 };
 
 export interface Profile {
@@ -153,16 +156,15 @@ export interface Profile {
 
 // -- getBalances
 
-enum Chain {
+export enum Chain {
   polygon = "polygon",
   ethereum = "ethereum",
+  gnosis = "gnosis",
 }
 
-enum Network {
+export enum Network {
   mainnet = "mainnet",
-  ropsten = "ropsten",
-  rinkeby = "rinkeby",
-  kovan = "kovan",
+  chiado = "chiado",
   goerli = "goerli",
   mumbai = "mumbai",
 }
@@ -182,7 +184,7 @@ export interface Balances {
 
 // --getOrders
 
-enum OrderKind {
+export enum OrderKind {
   redeem = "redeem",
   issue = "issue",
 }
@@ -214,10 +216,12 @@ type SCAN = {
 type Individual = {
   firstName: string;
   lastName: string;
+  country?: string;
 };
 
 type Corporation = {
   companyName: string;
+  country: string;
 };
 
 type Counterpart = {
@@ -236,7 +240,7 @@ type OrderMetadata = {
   sentAmount: string;
 };
 
-export interface OrderFiler {
+export interface OrderFilter {
   address?: string;
   txHash?: string;
   profile?: string;
@@ -306,4 +310,19 @@ export interface SupportingDoc {
   size: number;
   hash: string;
   meta: SupportingDocMetadata;
+}
+
+// -- linkAddress
+
+interface CurrencyAccounts {
+  network: Network;
+  chain: Chain;
+  currency: Currency;
+}
+
+export interface LinkAddress {
+  address: string;
+  message: string;
+  signature: string;
+  accounts: CurrencyAccounts[];
 }
