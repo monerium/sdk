@@ -1,5 +1,5 @@
-import { encode as encodeBase64 } from "https://deno.land/std@0.159.0/encoding/base64.ts";
-import { encode as encodeBase64URL } from "https://deno.land/std@0.159.0/encoding/base64url.ts";
+import { encode as encodeBase64 } from "https://deno.land/std@0.168.0/encoding/base64.ts";
+import { encode as encodeBase64URL } from "https://deno.land/std@0.168.0/encoding/base64url.ts";
 import { MONERIUM_CONFIG } from "./config.ts";
 import type {
   AuthArgs,
