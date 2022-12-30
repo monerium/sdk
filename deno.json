@@ -16,5 +16,6 @@
     "files": {
       "exclude": ["node/"]
     }
-  }
+  },
+  "importMap": "import_map.json"
 }
