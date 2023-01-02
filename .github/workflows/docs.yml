@@ -4,7 +4,7 @@
 # https://github.com/actions/setup-node
 # Using https://github.com/marketplace/actions/deploy-to-github-pages
 
-name: Deploy to TypeDoc to Github pages
+name: Deploy to Github pages
 
 on:
   [push]
@@ -25,8 +25,8 @@ jobs:
         with:
           node-version: "18"
           cache: "yarn"
-      - run: yarn install
-      - run: yarn docs
+      - run: yarn install # TODO: cache
+      - run: yarn docs && yarn test:coverage
       - run: touch docs/.nojekyll
       - name: Deploy docs 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5
@@ -35,4 +35,13 @@ jobs:
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: docs # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
-          COMMIT-MESSAGE: "Deployed SDK Docs to Github Pages (https://monerium.github.io/sdk)"
+          COMMIT-MESSAGE: "Deployed SDK Docs & Code Coverage to Github Pages (https://monerium.github.io/sdk)"
+      - name: Deploy code coverage 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: coverage # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch
+          COMMIT-MESSAGE: "Deployed SDK Docs & Code Coverage to Github Pages (https://monerium.github.io/sdk)"
+          TARGET-FOLDER: coverage
