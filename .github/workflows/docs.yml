@@ -34,4 +34,4 @@ jobs:
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: docs # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
-          COMMIT-MESSAGE: "Deployed SDK Docs to Github Pages (https://monerium.github.io/sdk)"
+          # COMMIT-MESSAGE: "Deployed SDK Docs to Github Pages (https://monerium.github.io/sdk)"

@@ -9,3 +9,6 @@ package-lock.json
 /.vscode
 *.swp
 *.swo
+node_modules
+dist
+coverage
