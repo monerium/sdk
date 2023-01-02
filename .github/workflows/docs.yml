@@ -16,7 +16,7 @@ on:
   #     - vite
 
 jobs:
-  deploy_pages:
+  deploy_docs:
     runs-on: ubuntu-latest
 
     steps:
