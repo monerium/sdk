@@ -8,21 +8,38 @@ that may change the behavior of your application before you upgrade._
 ## Installing
 
 ```sh
-# Node 
+# Node
 yarn add @monerium/sdk
 ```
 
 ## Developing
 
+## Usage
+
+- `start`: Run Vite in host mode for a local development environment (not included in production build)
+- `watch`: Run Vite in watch mode to detect changes to files during development
+- `build`: Run Vite to build a production release distributable
+
+
 If you want to make any code contributions, make sure to run the following commands before you pr
 them:
 
 ```sh
-deno fmt
-deno lint
-deno test --allow-net=api.monerium.dev
+yarn format
+yarn lint
+yarn test
 ```
 
 ## Publishing
 
-Tagging a release on GitHub will publish the package to NPM and Deno Land.
+Update your `package.json` to next version number, and remember to tag a release.
+
+Once ready to submit your package to the NPM Registry, execute the following tasks via `yarn`:
+
+- `yarn clean` &mdash; Assure a clean build
+- `yarn build` &mdash; Build the package
+
+Submit your package to the registry:
+
+```
+yarn publish
