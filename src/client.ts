@@ -1,6 +1,7 @@
-import { encode as encodeBase64 } from "https://deno.land/std@0.168.0/encoding/base64.ts";
-import { encode as encodeBase64URL } from "https://deno.land/std@0.168.0/encoding/base64url.ts";
-import { MONERIUM_CONFIG } from "./config.ts";
+import { MONERIUM_CONFIG } from "./config";
+import encodeBase64Url from "crypto-js/enc-base64url";
+import SHA256 from "crypto-js/sha256";
+import wordArray from "crypto-js/lib-typedarrays";
 import type {
   AuthArgs,
   AuthCode,
@@ -19,7 +20,7 @@ import type {
   RefreshToken,
   SupportingDoc,
   Token,
-} from "./types.ts";
+} from "./types";
 
 export class MoneriumClient {
   #env: Environment;
@@ -51,27 +52,19 @@ export class MoneriumClient {
       "post",
       `auth/token`,
       new URLSearchParams(params as unknown as Record<string, string>),
-      true,
+      true
     )) as BearerProfile;
 
     this.#authPayload = `Bearer ${this.bearerProfile.access_token}`;
   }
 
-  async pkceRequest(args: PKCERequestArgs) {
-    const buffer = crypto.getRandomValues(new Uint8Array(128 / 2));
-
-    let randomString = "";
-
-    for (let i = 0; i < buffer.length; ++i) {
-      randomString += ("0" + buffer[i].toString(16)).slice(-2);
-    }
-
-    this.codeVerifier = randomString;
-
-    const data = new TextEncoder().encode(this.codeVerifier);
-    const digest = await crypto.subtle.digest("SHA-256", data);
-    const base64Digest = encodeBase64(digest);
-    const challenge = encodeBase64URL(base64Digest);
+  pkceRequest(args: PKCERequestArgs): string {
+    // this.codeVerifier = CryptoJS.lib.WordArray.random(64).toString();
+    // const challenge = CryptoJS.enc.Base64url.stringify(
+    //   CryptoJS.SHA256(this.codeVerifier)
+    // );
+    this.codeVerifier = wordArray.random(64).toString();
+    const challenge = encodeBase64Url.stringify(SHA256(this.codeVerifier));
 
     const params: PKCERequest = {
       ...args,
@@ -85,38 +78,38 @@ export class MoneriumClient {
 
   // -- Read Methods
 
-  getAuthContext() {
+  getAuthContext(): Promise<AuthContext> {
     return this.#api("get", `auth/context`) as Promise<AuthContext>;
   }
 
-  getProfile(profileId: string) {
+  getProfile(profileId: string): Promise<Profile> {
     return this.#api("get", `profiles/${profileId}`) as Promise<Profile>;
   }
 
-  getBalances(profileId?: string) {
+  getBalances(profileId?: string): Promise<Balances> | Promise<Balances[]> {
     if (profileId) {
       return this.#api(
         "get",
-        `profiles/${profileId}/balances`,
+        `profiles/${profileId}/balances`
       ) as Promise<Balances>;
     } else {
       return this.#api("get", `balances`) as Promise<Balances[]>;
     }
   }
 
-  getOrders(filter?: OrderFilter) {
+  getOrders(filter?: OrderFilter): Promise<Order[]> {
     const searchParams = new URLSearchParams(
-      filter as unknown as Record<string, string>,
+      filter as unknown as Record<string, string>
     );
 
     return this.#api("get", `orders?${searchParams}`) as Promise<Order[]>;
   }
 
-  getOrder(orderId: string) {
+  getOrder(orderId: string): Promise<Order> {
     return this.#api("get", `orders/${orderId}`) as Promise<Order>;
   }
 
-  getTokens() {
+  getTokens(): Promise<Token[]> {
     return this.#api("get", "tokens") as Promise<Token[]>;
   }
 
@@ -126,36 +119,36 @@ export class MoneriumClient {
     return this.#api(
       "post",
       `profiles/${profileId}/addresses`,
-      JSON.stringify(body),
+      JSON.stringify(body)
     );
   }
 
-  placeOrder(order: NewOrder, profileId?: string) {
+  placeOrder(order: NewOrder, profileId?: string): Promise<Order> {
     if (profileId) {
       return this.#api(
         "post",
         `profiles/${profileId}/orders`,
-        JSON.stringify(order),
+        JSON.stringify(order)
       ) as Promise<Order>;
     } else {
       return this.#api(
         "post",
         `orders`,
-        JSON.stringify(order),
+        JSON.stringify(order)
       ) as Promise<Order>;
     }
   }
 
-  uploadSupportingDocument(document: File) {
+  uploadSupportingDocument(document: File): Promise<SupportingDoc> {
     const searchParams = new URLSearchParams(
-      document as unknown as Record<string, string>,
+      document as unknown as Record<string, string>
     );
 
     return this.#api(
       "post",
       "files/supporting-document",
       searchParams,
-      true,
+      true
     ) as Promise<SupportingDoc>;
   }
 
@@ -165,12 +158,14 @@ export class MoneriumClient {
     method: string,
     resource: string,
     body?: BodyInit,
-    isFormEncoded?: boolean,
+    isFormEncoded?: boolean
   ) {
     const res = await fetch(`${this.#env.api}/${resource}`, {
       method,
       headers: {
-        "Content-Type": `application/${isFormEncoded ? "x-www-form-urlencoded" : "json"}`,
+        "Content-Type": `application/${
+          isFormEncoded ? "x-www-form-urlencoded" : "json"
+        }`,
         Authorization: this.#authPayload || "",
       },
       body,

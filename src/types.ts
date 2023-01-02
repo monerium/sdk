@@ -83,22 +83,22 @@ enum Method {
   apiKey = "apiKey",
 }
 
-enum Type {
+export enum ProfileType {
   corporate = "corporate",
   personal = "personal",
 }
 
-enum Permission {
+export enum Permission {
   read = "read",
   write = "write",
 }
 
-type AuthProfile = {
+export interface AuthProfile {
   id: string;
-  type: Type;
+  type: ProfileType;
   name: string;
   perms: Permission[];
-};
+}
 
 export interface AuthContext {
   userId: string;
@@ -112,30 +112,30 @@ export interface AuthContext {
 
 // -- getProfile
 
-enum KYCState {
+export enum KYCState {
   absent = "absent",
   submitted = "submitted",
   pending = "pending",
   confirmed = "confirmed",
 }
 
-enum KYCOutcome {
+export enum KYCOutcome {
   approved = "approved",
   rejected = "rejected",
   unknown = "unknown",
 }
 
-type KYC = {
+export interface KYC {
   state: KYCState;
   outcome: KYCOutcome;
-};
+}
 
 export enum PaymentStandard {
   iban = "iban",
   scan = "scan",
 }
 
-type Account = {
+export interface Account {
   address: string;
   currency: Currency;
   standard: PaymentStandard;
@@ -145,7 +145,7 @@ type Account = {
   network: Network;
   chain: Chain;
   id?: string;
-};
+}
 
 export interface Profile {
   id: string;
@@ -169,10 +169,10 @@ export enum Network {
   mumbai = "mumbai",
 }
 
-type Balance = {
+export interface Balance {
   currency: Currency;
   amount: string;
-};
+}
 
 export interface Balances {
   id: string;
@@ -189,47 +189,47 @@ export enum OrderKind {
   issue = "issue",
 }
 
-enum OrderState {
+export enum OrderState {
   placed = "placed",
   pending = "pending",
   processed = "processed",
   rejected = "rejected",
 }
 
-type Fee = {
+export interface Fee {
   provider: "satchel";
   currency: Currency;
   amount: string;
-};
+}
 
-type IBAN = {
+export interface IBAN {
   standard: PaymentStandard.iban;
   iban: string;
-};
+}
 
-type SCAN = {
+export interface SCAN {
   standard: PaymentStandard.scan;
   sortCode: string;
   accountNumber: string;
-};
+}
 
-type Individual = {
+export interface Individual {
   firstName: string;
   lastName: string;
   country?: string;
-};
+}
 
-type Corporation = {
+export interface Corporation {
   companyName: string;
   country: string;
-};
+}
 
-type Counterpart = {
+export interface Counterpart {
   identifier: IBAN | SCAN;
   details: Individual | Corporation;
-};
+}
 
-type OrderMetadata = {
+export interface OrderMetadata {
   approvedAt: string;
   processedAt: string;
   rejectedAt: string;
@@ -238,7 +238,7 @@ type OrderMetadata = {
   placedAt: string;
   receivedAmount: string;
   sentAmount: string;
-};
+}
 
 export interface OrderFilter {
   address?: string;
@@ -297,11 +297,11 @@ export interface NewOrder {
 
 // -- uploadSupportingDocument
 
-type SupportingDocMetadata = {
+export interface SupportingDocMetadata {
   uploadedBy: string;
   createdAt: string;
   updatedAt: string;
-};
+}
 
 export interface SupportingDoc {
   id: string;
@@ -314,7 +314,7 @@ export interface SupportingDoc {
 
 // -- linkAddress
 
-interface CurrencyAccounts {
+export interface CurrencyAccounts {
   network: Network;
   chain: Chain;
   currency: Currency;
