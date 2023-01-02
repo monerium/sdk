@@ -20,16 +20,6 @@ yarn add @monerium/sdk
 - `watch`: Run Vite in watch mode to detect changes to files during development
 - `build`: Run Vite to build a production release distributable
 
-
-If you want to make any code contributions, make sure to run the following commands before you pr
-them:
-
-```sh
-yarn format
-yarn lint
-yarn test
-```
-
 ## Publishing
 
 Update your `package.json` to next version number, and remember to tag a release.
@@ -43,3 +33,4 @@ Submit your package to the registry:
 
 ```
 yarn publish
+```
