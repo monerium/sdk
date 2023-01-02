@@ -1,8 +1,8 @@
-name: Running Code Coverage and deploy to Github Pages
+name: Running Code Coverage
 
 on:
   workflow_run:
-    workflows: ["Deploy to TypeDoc to Github pages"]
+    workflows: [Deploy to TypeDoc to Github pages]
     types:
       - completed
 
