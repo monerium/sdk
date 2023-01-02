@@ -6,12 +6,13 @@
 name: Deploy to TypeDoc to Github pages
 
 on:
-  push:
-    #tags:
-    #  - v*
-    branches:
-      - main
-      - vite
+  [push]
+  # push:
+  #   #tags:
+  #   #  - v*
+  #   branches:
+  #     - main
+  #     - vite
 
 jobs:
   deploy_pages:

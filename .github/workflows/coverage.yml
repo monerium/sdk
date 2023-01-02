@@ -1,13 +1,12 @@
 name: Running Code Coverage and deploy to Github Pages
 
-on: [push]
+on:
+  workflow_run:
+    workflows: ["Deploy to TypeDoc to Github pages"]
+    types:
+      - completed
 
 jobs:
-  on:
-    workflow_run:
-      workflows: ["Deploy to TypeDoc to Github pages"]
-      types:
-        - completed
   build:
     runs-on: ubuntu-latest
     strategy:
