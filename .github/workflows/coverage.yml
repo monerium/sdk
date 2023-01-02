@@ -1,11 +1,11 @@
-name: Running Code Coverage
+name: Running Code Coverage and deploy to Github Pages
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
+  workflows: ["Deploy to TypeDoc to Github pages"]
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [18.x]
@@ -22,13 +22,15 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: npm install
+        run: yarn install
 
       - name: Run the tests
-        run: npm test -- --coverage
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        run: yarn test:coverage
+      - name: Deploy coverage 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: coverage # The folder the action should deploy.
+          COMMIT-MESSAGE: "Deployed SDK Docs to Github Pages (https://monerium.github.io/sdk/coverage)"
+          TARGET-FOLDER: coverage

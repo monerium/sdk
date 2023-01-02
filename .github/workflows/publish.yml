@@ -1,4 +1,4 @@
-name: Node.js build and publish package
+name: Build and publish package
 
 on:
   release:
