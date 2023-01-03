@@ -21,6 +21,7 @@ import type {
   SupportingDoc,
   Token,
 } from "./types";
+// import pjson from "../package.json";
 
 export class MoneriumClient {
   #env: Environment;
@@ -167,6 +168,7 @@ export class MoneriumClient {
           isFormEncoded ? "x-www-form-urlencoded" : "json"
         }`,
         Authorization: this.#authPayload || "",
+        // "User-Agent": "sdk/" + pjson.version,
       },
       body,
     });
