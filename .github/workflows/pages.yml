@@ -34,7 +34,7 @@ jobs:
         with:
           name: root
           path: .
-  deploy-docs:
+  docs:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -49,8 +49,8 @@ jobs:
           FOLDER: docs # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
           COMMIT-MESSAGE: "Deployed SDK Docs & Code Coverage to Github Pages (https://monerium.github.io/sdk)"
-  deploy-coverage:
-    needs: [build, deploy-docs]
+  coverage:
+    needs: [build, docs]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/download-artifact@v3
