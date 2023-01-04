@@ -25,7 +25,6 @@ jobs:
           cache: "yarn"
       - run: yarn --prefer-offline
       - run: yarn docs && yarn test:coverage
-      - run: touch docs/.nojekyll
       - run: mkdir static
       - run: mv coverage/lcov-report static/coverage
       - run: mv docs/* static/
