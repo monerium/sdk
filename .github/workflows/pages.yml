@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: "18"
           cache: "yarn"
-      - run: yarn install # TODO: cache
+      - run: yarn --prefer-offline
       - run: yarn docs && yarn test:coverage
       - run: touch docs/.nojekyll
       - uses: actions/upload-artifact@v3
