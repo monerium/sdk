@@ -1,14 +1,23 @@
 {
-  "name": "SDK for Monerium e-money issuer",
+  "name": "Monerium SDK",
   "out": "../docs",
-  "includeVersion": true,
   "githubPages": true,
   "titleLink": "https://www.npmjs.com/package/@monerium/sdk",
   "tsconfig": "../tsconfig.json",
   "readme": "../README.md",
+  "entryPoints": ["../src/index.ts"],
+  "kindSortOrder": [
+    "Class",
+    "Interface",
+    "Enum"
+  ],
+  "excludePrivate": true,
   "navigationLinks": {
-    "Monerium": "https://monerium.com/",
+    "E-money": "https://monerium.com/",
     "App": "https://monerium.app/",
-    "Docs": "https://monerium.dev/"
+  },
+  "sidebarLinks": {
+    "Developer portal": "https://monerium.dev/",
+    "API docs": "https://monerium.dev/api-docs"
   }
 }
