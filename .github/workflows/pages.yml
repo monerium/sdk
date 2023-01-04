@@ -28,7 +28,7 @@ jobs:
       - run: touch docs/.nojekyll
       - run: mkdir static
       - run: mv coverage/lcov-report static/coverage
-      - run: mv docs/ static/
+      - run: mv docs/* static/
       - uses: actions/upload-artifact@v3
         with:
           name: static
