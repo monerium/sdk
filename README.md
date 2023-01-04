@@ -1,6 +1,5 @@
 # @monerium/sdk
 
-
 Everything you need to interact with the Monerium API - an electronic money issuer.
 
 _This package is in development. Please make sure to check if any future updates contain commits

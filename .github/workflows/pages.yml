@@ -5,11 +5,9 @@
 # Using https://github.com/marketplace/actions/deploy-to-github-pages
 
 name: Deploy to Github pages
-
 on:
-  push:
-    branches:
-      - docs
+  release:
+    types: [created]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -33,6 +31,7 @@ jobs:
           name: static
           path: static/
   docs:
+    name: Deploy to Github pages
     needs: build
     runs-on: ubuntu-latest
     steps:
