@@ -1,0 +1,14 @@
+{
+  "name": "SDK for Monerium e-money issuer",
+  "out": "../docs",
+  "includeVersion": true,
+  "githubPages": true,
+  "titleLink": "https://www.npmjs.com/package/@monerium/sdk",
+  "tsconfig": "../tsconfig.json",
+  "readme": "../README.md",
+  "navigationLinks": {
+    "Monerium": "https://monerium.com/",
+    "App": "https://monerium.app/",
+    "Docs": "https://monerium.dev/"
+  }
+}

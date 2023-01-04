@@ -22,7 +22,7 @@
   "scripts": {
     "build": "tsc && vite build && dts-bundle-generator --config ./dts-bundle-generator.config.ts",
     "clean": "rm -rf dist",
-    "docs": "typedoc src/index.ts --out docs",
+    "docs": "typedoc src/index.ts --options configs/typedoc.json",
     "format": "prettier . --write",
     "lint": "eslint . --ext .ts",
     "prepare": "husky install",
