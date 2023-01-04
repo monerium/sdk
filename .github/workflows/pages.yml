@@ -32,15 +32,17 @@ jobs:
       - run: touch docs/.nojekyll
       - uses: actions/upload-artifact@v3
         with:
-          name: root
-          path: .
+          name: static
+          path: |
+            docs/
+            coverage/
   docs:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: root
+          name: static
       - name: Deploy docs 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
@@ -55,7 +57,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: root
+          name: static
       - name: Deploy code coverage 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
