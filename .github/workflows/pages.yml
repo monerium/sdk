@@ -61,6 +61,7 @@ jobs:
         with:
           name: static
       - name: Deploy code coverage 🚀
+        if: ${{ env.DEPLOYMENT_STATUS }} == "success"
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
