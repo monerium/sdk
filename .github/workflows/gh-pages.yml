@@ -25,7 +25,6 @@ jobs:
       - run: yarn docs && yarn test:coverage
       - run: touch docs/.nojekyll
       - name: Deploy docs 🚀
-        if: ${{ env.DEPLOYMENT_STATUS }} == "success"
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -33,12 +32,13 @@ jobs:
           FOLDER: docs # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
           COMMIT-MESSAGE: "Deployed SDK Docs & Code Coverage to Github Pages (https://monerium.github.io/sdk)"
-      # - name: Deploy code coverage 🚀
-      #   uses: JamesIves/github-pages-deploy-action@v4.2.5
-      #   with:
-      #     TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     BRANCH: gh-pages # The branch the action should deploy to.
-      #     FOLDER: coverage/lcov-report # The folder the action should deploy.
-      #     CLEAN: true # Automatically remove deleted files from the deploy branch
-      #     COMMIT-MESSAGE: "Deployed SDK Docs & Code Coverage to Github Pages (https://monerium.github.io/sdk)"
-      #     TARGET-FOLDER: coverage
+      - name: Deploy code coverage 🚀
+        if: ${{ env.DEPLOYMENT_STATUS }} == "success"
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: coverage/lcov-report # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch
+          COMMIT-MESSAGE: "Deployed SDK Docs & Code Coverage to Github Pages (https://monerium.github.io/sdk)"
+          TARGET-FOLDER: coverage
