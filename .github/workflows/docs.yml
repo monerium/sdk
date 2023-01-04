@@ -1,5 +1,5 @@
 # A workflow for deploying the Unit Tests coverage report to GitHub Pages
-name: Deploy coverage report to Pages
+name: Deploy docs to Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -16,9 +16,9 @@ on:
 #   id-token: write
 
 # Allow one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+# concurrency:
+#   group: "pages"
+#   cancel-in-progress: true
 
 jobs:
   #build job...
