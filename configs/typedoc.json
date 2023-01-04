@@ -1,6 +1,6 @@
 {
   "name": "SDK for Monerium e-money issuer",
-  "out": "docs",
+  "out": "../docs",
   "includeVersion": true,
   "githubPages": true,
   "titleLink": "https://www.npmjs.com/package/@monerium/sdk",
