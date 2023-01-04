@@ -13,7 +13,6 @@ on:
 
 jobs:
   deploy-gh-pages:
-    concurrency: ci-${{ github.ref }}
     name: Deploy SDK TypeDoc and Code Coverage to Github Pages.
     runs-on: ubuntu-latest
     steps:
@@ -26,6 +25,7 @@ jobs:
       - run: yarn docs && yarn test:coverage
       - run: touch docs/.nojekyll
       - name: Deploy docs 🚀
+        if: ${{ env.DEPLOYMENT_STATUS }} == "success"
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
