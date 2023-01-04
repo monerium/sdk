@@ -53,9 +53,9 @@ jobs:
     needs: [build, docs]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/download-artifact@v3
-      with:
-        name: root
+      - uses: actions/download-artifact@v3
+        with:
+          name: root
       - name: Deploy code coverage 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
@@ -65,4 +65,3 @@ jobs:
           CLEAN: true # Automatically remove deleted files from the deploy branch
           COMMIT-MESSAGE: "Deployed SDK Docs & Code Coverage to Github Pages (https://monerium.github.io/sdk)"
           TARGET-FOLDER: coverage
-
