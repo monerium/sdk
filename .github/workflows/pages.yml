@@ -1,0 +1,68 @@
+#
+# Builds the docs and deploys to GitHub pages
+#
+# https://github.com/actions/setup-node
+# Using https://github.com/marketplace/actions/deploy-to-github-pages
+
+name: Deploy to Github pages
+
+on:
+  push:
+    branches:
+      - docs
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build static pages.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+          cache: "yarn"
+      - run: yarn install # TODO: cache
+      - run: yarn docs && yarn test:coverage
+      - run: touch docs/.nojekyll
+      - uses: actions/upload-artifact@v3
+        with:
+          name: root
+          path: .
+  deploy-docs:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: root
+      - name: Deploy docs 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: docs # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch
+          COMMIT-MESSAGE: "Deployed SDK Docs & Code Coverage to Github Pages (https://monerium.github.io/sdk)"
+  deploy-coverage:
+    needs: [build, deploy-docs]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: root
+      - name: Deploy code coverage 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: coverage/lcov-report # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch
+          COMMIT-MESSAGE: "Deployed SDK Docs & Code Coverage to Github Pages (https://monerium.github.io/sdk)"
+          TARGET-FOLDER: coverage
+
