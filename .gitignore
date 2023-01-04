@@ -1,0 +1,16 @@
+.DS_Store
+/node
+.env
+.env.*
+!.env.example
+yarn-error.log
+package-lock.json
+.gitsigners
+/.vscode
+*.swp
+*.swo
+node_modules
+dist
+coverage
+docs
+
