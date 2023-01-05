@@ -40,6 +40,7 @@ jobs:
       release_created: ${{ steps.release.outputs.release_created }}
   test:
     needs: [release-please]
+    runs-on: ubuntu-latest
     steps:
       - run: echo '${{ needs.release-please.outputs.release_created }}'
   deploy-static:
