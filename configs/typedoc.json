@@ -5,7 +5,7 @@
   "titleLink": "https://www.npmjs.com/package/@monerium/sdk",
   "tsconfig": "../tsconfig.json",
   "readme": "../README.md",
-  "entryPoints": ["../src/client.ts","../src/types.ts"],
+  "entryPoints": ["../src/client.ts", "../src/types.ts"],
   "kindSortOrder": ["Class", "Interface", "Enum"],
   "excludePrivate": true,
   "navigationLinks": {
