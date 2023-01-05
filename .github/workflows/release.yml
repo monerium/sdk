@@ -1,10 +1,9 @@
 name: Release Please
 
 on:
-  [push]
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
 jobs:
   release-please:
     name: "Create release"
@@ -38,7 +37,7 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
-  test:
+  echo:
     needs: [release-please]
     runs-on: ubuntu-latest
     steps:
