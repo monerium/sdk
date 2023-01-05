@@ -15,30 +15,29 @@ on:
     inputs:
       release_created:
         description: "Has package been released to NPM"
-        required: true
-        type: string
-        default: true
+        type: boolean
 
 jobs:
   build:
-    name: Build static pages.
-    if: ${{ inputs.release_created }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-          cache: "yarn"
-      - run: yarn --prefer-offline
-      - run: yarn docs && yarn test:coverage
-      - run: mkdir static
-      - run: mv coverage/lcov-report static/coverage
-      - run: mv docs/* static/
-      - uses: actions/upload-artifact@v3
-        with:
-          name: static
-          path: static/
+    - run: echo '${{inputs.release_created}}'
+      name: Build static pages.
+      if: ${{ inputs.release_created }}
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: "18"
+            cache: "yarn"
+        - run: yarn --prefer-offline
+        - run: yarn docs && yarn test:coverage
+        - run: mkdir static
+        - run: mv coverage/lcov-report static/coverage
+        - run: mv docs/* static/
+        - uses: actions/upload-artifact@v3
+          with:
+            name: static
+            path: static/
   docs:
     name: Deploy to Github pages
     needs: build

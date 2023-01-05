@@ -8,8 +8,6 @@ jobs:
   release-please:
     name: "Create release"
     runs-on: ubuntu-latest
-    outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
     steps:
       - uses: google-github-actions/release-please-action@v3
         id: release
@@ -37,6 +35,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         if: ${{ steps.release.outputs.release_created }}
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
   deploy-static:
     name: Trigger static pages deploy
     needs: [release-please]
