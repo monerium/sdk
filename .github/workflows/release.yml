@@ -27,7 +27,7 @@ jobs:
           node-version: 18
           registry-url: "https://registry.npmjs.org"
         if: ${{ steps.release.outputs.release_created }}
-      - run: yarn ci
+      - run: rm -rf node_modules && yarn install --frozen-lockfile
         if: ${{ steps.release.outputs.release_created }}
       - run: yarn publish
         env:
