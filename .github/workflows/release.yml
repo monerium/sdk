@@ -38,12 +38,14 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
+  test:
+    needs: [release-please]
+    steps:
+      - run: echo '${{ needs.release-please.outputs.release_created }}'
   deploy-static:
     name: Trigger static pages deploy
     needs: [release-please]
     uses: "./.github/workflows/pages.yml"
-    steps:
-      - run: echo '${{ needs.release-please.outputs.release_created }}'
     with:
       release_created: ${{ needs.release-please.outputs.release_created  }}
     secrets: inherit
