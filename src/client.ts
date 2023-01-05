@@ -1,7 +1,7 @@
-import { MONERIUM_CONFIG } from "./config";
 import encodeBase64Url from "crypto-js/enc-base64url";
-import SHA256 from "crypto-js/sha256";
 import wordArray from "crypto-js/lib-typedarrays";
+import SHA256 from "crypto-js/sha256";
+import { MONERIUM_CONFIG } from "./config";
 import type {
   AuthArgs,
   AuthCode,
@@ -22,11 +22,26 @@ import type {
   Token,
 } from "./types";
 // import pjson from "../package.json";
-
+/**
+ * How to authenticate
+ * ```ts
+ *
+ * import { MoneriumClient } from '@monerium/sdk'
+ *
+ * const client = new MoneriumClient();
+ *
+ * // Start by authenticating
+ * await client.auth({
+ *  client_id:
+ *  client_secret:
+ * })
+ * ```
+ * */
 export class MoneriumClient {
   #env: Environment;
-  #authPayload?: string;
 
+  #authPayload?: string;
+  /** The PKCE code verifier */
   codeVerifier?: string;
   bearerProfile?: BearerProfile;
 
@@ -83,10 +98,16 @@ export class MoneriumClient {
     return this.#api("get", `auth/context`) as Promise<AuthContext>;
   }
 
+  /**
+   * @param {string} profileId - the id of the profile to fetch.
+   */
   getProfile(profileId: string): Promise<Profile> {
     return this.#api("get", `profiles/${profileId}`) as Promise<Profile>;
   }
 
+  /**
+   * @param {string=} profileId - the id of the profile to fetch balances.
+   */
   getBalances(profileId?: string): Promise<Balances> | Promise<Balances[]> {
     if (profileId) {
       return this.#api(

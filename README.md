@@ -5,6 +5,10 @@ Everything you need to interact with the Monerium API - an electronic money issu
 _This package is in development. Please make sure to check if any future updates contain commits
 that may change the behavior of your application before you upgrade._
 
+[Documentation](https://monerium.github.io/sdk/)
+
+[Code coverage](https://monerium.github.io/sdk/coverage)
+
 ## Installing
 
 ```sh
@@ -22,15 +26,4 @@ yarn add @monerium/sdk
 
 ## Publishing
 
-Update your `package.json` to next version number, and remember to tag a release.
-
-Once ready to submit your package to the NPM Registry, execute the following tasks via `yarn`:
-
-- `yarn clean` &mdash; Assure a clean build
-- `yarn build` &mdash; Build the package
-
-Submit your package to the registry:
-
-```
-yarn publish
-```
+When changes are merged to the `main` branch that follows the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) standard, [release-please](https://github.com/googleapis/release-please) workflow creates a pull request, preparing for the next release. If kept open, the following commits will also be added to the PR. Merging that PR will create a new release, a workflow will publish it on NPM and tag it on Github.
