@@ -42,11 +42,11 @@ jobs:
     needs: [release-please]
     runs-on: ubuntu-latest
     steps:
-      - run: echo '${{ needs.release-please.outputs.release_created }}'
+      - run: echo '${{ needs.release-please.outputs.release_created || false }}'
   deploy-static:
     name: Trigger static pages deploy
     needs: [release-please]
     uses: "./.github/workflows/pages.yml"
     with:
-      release_created: ${{ needs.release-please.outputs.release_created  }}
+      release_created: ${{ needs.release-please.outputs.release_created || false  }}
     secrets: inherit
