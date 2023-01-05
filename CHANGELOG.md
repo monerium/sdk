@@ -1,40 +1,10 @@
 # Changelog
 
-## [2.0.5](https://github.com/monerium/sdk/compare/v2.0.4...v2.0.5) (2023-01-05)
+## [2.0.5](https://github.com/monerium/sdk/compare/v2.0.0...v2.0.5) (2023-01-05)
 
 
 ### Bug Fixes
 
-* variable not sent as boolean across workflow, is a string ([bd1777a](https://github.com/monerium/sdk/commit/bd1777a332c573862d199beb5fcbe4ad764a6c23))
+* Update TypeDocs and adjust workflows ([42e5b41
+](https://github.com/monerium/sdk/commit/42e5b417eca0e2e1f7d7af51a5cde59df28c1ba0))
 
-## [2.0.4](https://github.com/monerium/sdk/compare/v2.0.3...v2.0.4) (2023-01-05)
-
-
-### Bug Fixes
-
-* variable is a string ([831bcca](https://github.com/monerium/sdk/commit/831bcca6b1b646dc4a537790fe07d1195903a070))
-* workflow not triggering static page deploy ([#12](https://github.com/monerium/sdk/issues/12)) ([d481570](https://github.com/monerium/sdk/commit/d48157046a65b46a31e75d1212158a9178f509e1))
-
-## [2.0.3](https://github.com/monerium/sdk/compare/v2.0.2...v2.0.3) (2023-01-05)
-
-### Bug Fixes
-
-- build missing and static page deploy not being triggered([#7](https://github.com/monerium/sdk/issues/7)) ([#9](https://github.com/monerium/sdk/issues/9)) ([0c5e955](https://github.com/monerium/sdk/commit/0c5e955a9823c9d2c79cac5d21120fa49ce79741))
-- workflow ([cb27cb4](https://github.com/monerium/sdk/commit/cb27cb484e6f46beb379d9e46d1874c436eb7208))
-- workflow broken ([09623f0](https://github.com/monerium/sdk/commit/09623f0eee78535ee5e3712e6009e44c6082bbd7))
-
-## [2.0.2](https://github.com/monerium/sdk/compare/v2.0.1...v2.0.2) (2023-01-05)
-
-### Bug Fixes
-
-- Update TypeDocs and set workflow to run only on release ([#7](https://github.com/monerium/sdk/issues/7)) ([79c9ec9](https://github.com/monerium/sdk/commit/79c9ec9e7a68ccfb4d9debaacbc9b7b90be0fcde))
-
-## [2.0.1](https://github.com/monerium/sdk/compare/v2.0.0...v2.0.1) (2023-01-05)
-
-### Bug Fixes
-
-- Update TypeDocs and set workflow to run only on release ([#7](https://github.com/monerium/sdk/issues/7)) ([553d765](https://github.com/monerium/sdk/commit/553d765a4a40c807de6628b31b59ddf3064f89a4))
-
-### Miscellaneous
-
-- cleanup ([5aeebbc](https://github.com/monerium/sdk/commit/5aeebbca9a53592e7229168ad66849113638d070))
