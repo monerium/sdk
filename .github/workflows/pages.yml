@@ -15,12 +15,12 @@ on:
     inputs:
       release_created:
         description: "Has package been released to NPM"
-        type: boolean
+        type: string
 
 jobs:
   build:
     name: Build static pages.
-    if: ${{ inputs.release_created }}
+    if: ${{ inputs.release_created == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

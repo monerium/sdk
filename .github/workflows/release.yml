@@ -47,5 +47,5 @@ jobs:
     needs: [release-please]
     uses: "./.github/workflows/pages.yml"
     with:
-      release_created: ${{ needs.release-please.outputs.release_created || false }}
+      release_created: ${{ needs.release-please.outputs.release_created || 'false' }}
     secrets: inherit
