@@ -1,9 +1,10 @@
 name: Release Please
 
 on:
-  push:
-    branches:
-      - main
+  [push]
+  # push:
+  #   branches:
+  #     - main
 jobs:
   release-please:
     name: "Create release"
@@ -41,6 +42,7 @@ jobs:
     name: Trigger static pages deploy
     needs: [release-please]
     uses: "./.github/workflows/pages.yml"
+    rus
     with:
-      release_created: ${{ needs.release-please.outputs.release_created || 'false' }}
+      release_created: ${{ needs.release-please.outputs.release_created }}
     secrets: inherit
