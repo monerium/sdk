@@ -10,14 +10,23 @@ on:
     types: [created]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  # Allows other workflows to trigger this one
+  workflow_call:
+    inputs:
+      release_created:
+        description: "Has package been released to NPM"
+        required: true
+        type: boolean
+        default: true
 
 jobs:
   build:
     name: Build static pages.
+    if: ${{ inputs.release_created }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: "18"
           cache: "yarn"
