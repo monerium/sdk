@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/monerium/sdk/compare/v2.0.1...v2.0.2) (2023-01-05)
+
+
+### Bug Fixes
+
+* Update TypeDocs and set workflow to run only on release ([#7](https://github.com/monerium/sdk/issues/7)) ([79c9ec9](https://github.com/monerium/sdk/commit/79c9ec9e7a68ccfb4d9debaacbc9b7b90be0fcde))
+
 ## [2.0.1](https://github.com/monerium/sdk/compare/v2.0.0...v2.0.1) (2023-01-05)
 
 
