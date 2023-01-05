@@ -1,0 +1,10 @@
+name: ARG
+
+on: [push]
+jobs:
+  deploy-static:
+    name: Trigger stuff
+    uses: "./.github/workflows/pages.yml"
+    with:
+      release_created: ${{ false }}
+    secrets: inherit
