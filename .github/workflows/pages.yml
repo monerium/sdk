@@ -20,38 +20,37 @@ on:
 jobs:
   build:
     name: Build static pages.
-    # if: ${{ inputs.release_created }}
+    if: ${{ inputs.release_created }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo '${{inputs.release_created}}'
-  #     - uses: actions/checkout@v3
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: "18"
-  #         cache: "yarn"
-  #     - run: yarn --prefer-offline
-  #     - run: yarn docs && yarn test:coverage
-  #     - run: mkdir static
-  #     - run: mv coverage/lcov-report static/coverage
-  #     - run: mv docs/* static/
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: static
-  #         path: static/
-  # docs:
-  #   name: Deploy to Github pages
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/download-artifact@v3
-  #       with:
-  #         name: static
-  #     - name: Deploy docs 🚀
-  #       uses: JamesIves/github-pages-deploy-action@v4.2.5
-  #       with:
-  #         TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         BRANCH: gh-pages # The branch the action should deploy to.
-  #         FOLDER: . # The folder the action should deploy.
-  #         CLEAN: true # Automatically remove deleted files from the deploy branch
-  #         COMMIT-MESSAGE: "Deployed SDK Docs & Code Coverage to Github Pages (https://monerium.github.io/sdk)"
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "yarn"
+      - run: yarn --prefer-offline
+      - run: yarn docs && yarn test:coverage
+      - run: mkdir static
+      - run: mv coverage/lcov-report static/coverage
+      - run: mv docs/* static/
+      - uses: actions/upload-artifact@v3
+        with:
+          name: static
+          path: static/
+  docs:
+    name: Deploy to Github pages
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v3
+        with:
+          name: static
+      - name: Deploy docs 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: . # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch
+          COMMIT-MESSAGE: "Deployed SDK Docs & Code Coverage to Github Pages (https://monerium.github.io/sdk)"
