@@ -8,8 +8,6 @@ jobs:
   release-please:
     name: "Create release"
     runs-on: ubuntu-latest
-    outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
     steps:
       - uses: google-github-actions/release-please-action@v3
         id: release
@@ -37,10 +35,17 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         if: ${{ steps.release.outputs.release_created }}
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+  echo:
+    needs: [release-please]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo '${{ needs.release-please.outputs.release_created || false }}'
   deploy-static:
     name: Trigger static pages deploy
     needs: [release-please]
     uses: "./.github/workflows/pages.yml"
     with:
-      release_created: ${{ needs.release-please.outputs.release_created || 'false' }}
+      release_created: ${{ needs.release-please.outputs.release_created || false }}
     secrets: inherit

@@ -15,9 +15,7 @@ on:
     inputs:
       release_created:
         description: "Has package been released to NPM"
-        required: true
-        type: string
-        default: true
+        type: boolean
 
 jobs:
   build:
