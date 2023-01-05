@@ -42,7 +42,6 @@ jobs:
     name: Trigger static pages deploy
     needs: [release-please]
     uses: "./.github/workflows/pages.yml"
-    rus
     with:
       release_created: ${{ needs.release-please.outputs.release_created }}
     secrets: inherit
