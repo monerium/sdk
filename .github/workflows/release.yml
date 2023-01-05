@@ -42,7 +42,8 @@ jobs:
     name: Trigger static pages deploy
     needs: [release-please]
     uses: "./.github/workflows/pages.yml"
-    run: echo '${{ needs.release-please.outputs.release_created }}'
+    steps:
+      - run: echo '${{ needs.release-please.outputs.release_created }}'
     with:
       release_created: ${{ needs.release-please.outputs.release_created  }}
     secrets: inherit
