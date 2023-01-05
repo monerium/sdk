@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.4](https://github.com/monerium/sdk/compare/v2.0.3...v2.0.4) (2023-01-05)
+
+
+### Bug Fixes
+
+* variable is a string ([831bcca](https://github.com/monerium/sdk/commit/831bcca6b1b646dc4a537790fe07d1195903a070))
+* workflow not triggering static page deploy ([#12](https://github.com/monerium/sdk/issues/12)) ([d481570](https://github.com/monerium/sdk/commit/d48157046a65b46a31e75d1212158a9178f509e1))
+
 ## [2.0.3](https://github.com/monerium/sdk/compare/v2.0.2...v2.0.3) (2023-01-05)
 
 ### Bug Fixes
