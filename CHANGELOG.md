@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.5](https://github.com/monerium/sdk/compare/v2.0.4...v2.0.5) (2023-01-05)
+
+
+### Bug Fixes
+
+* variable not sent as boolean across workflow, is a string ([bd1777a](https://github.com/monerium/sdk/commit/bd1777a332c573862d199beb5fcbe4ad764a6c23))
+
 ## [2.0.4](https://github.com/monerium/sdk/compare/v2.0.3...v2.0.4) (2023-01-05)
 
 
