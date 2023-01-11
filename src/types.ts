@@ -68,7 +68,7 @@ export type PKCERequest = {
   code_challenge: string;
   code_challenge_method: string;
   response_type: string;
-  state: string;
+  state?: string;
   redirect_uri?: string;
   scope?: string;
   address?: string;
