@@ -22,21 +22,7 @@ import type {
   Token,
 } from "./types";
 // import pjson from "../package.json";
-/**
- * How to authenticate
- * ```ts
- *
- * import { MoneriumClient } from '@monerium/sdk'
- *
- * const client = new MoneriumClient();
- *
- * // Start by authenticating
- * await client.auth({
- *  client_id: "your_client_id"
- *  client_secret: "your_client_secret"
- * })
- * ```
- * */
+
 export class MoneriumClient {
   #env: Environment;
 
@@ -76,14 +62,7 @@ export class MoneriumClient {
 
   /**
    * Construct the url to the authorization code flow,
-   * the code verifier is needed afterwards to obtain an access token and is therefore stored in this.codeVerifier
-   *
-   * ```
-   * let authFlowUrl = client.pkceRequest({
-   *  client_id:
-   *  redirect_uri:
-   * })
-   * ```
+   * the code verifier is needed afterwards to obtain an access token and is therefore stored in `this.codeVerifier`
    * @returns string
    */
   pkceRequest(args: PKCERequestArgs): string {
