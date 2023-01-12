@@ -32,8 +32,8 @@ import type {
  *
  * // Start by authenticating
  * await client.auth({
- *  client_id:
- *  client_secret:
+ *  client_id: "your_client_id"
+ *  client_secret: "your_client_secret"
  * })
  * ```
  * */
@@ -74,11 +74,19 @@ export class MoneriumClient {
     this.#authPayload = `Bearer ${this.bearerProfile.access_token}`;
   }
 
+  /**
+   * Construct the url to the authorization code flow,
+   * the code verifier is needed afterwards to obtain an access token and is therefore stored in this.codeVerifier
+   *
+   * ```
+   * let authFlowUrl = client.pkceRequest({
+   *  client_id:
+   *  redirect_uri:
+   * })
+   * ```
+   * @returns string
+   */
   pkceRequest(args: PKCERequestArgs): string {
-    // this.codeVerifier = CryptoJS.lib.WordArray.random(64).toString();
-    // const challenge = CryptoJS.enc.Base64url.stringify(
-    //   CryptoJS.SHA256(this.codeVerifier)
-    // );
     this.codeVerifier = wordArray.random(64).toString();
     const challenge = encodeBase64Url.stringify(SHA256(this.codeVerifier));
 

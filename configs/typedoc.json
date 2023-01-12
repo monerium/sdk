@@ -15,5 +15,8 @@
   "sidebarLinks": {
     "Developer portal": "https://monerium.dev/",
     "API docs": "https://monerium.dev/api-docs"
-  }
+  },
+  "entryPointStrategy": "Expand",
+  "plugin": ["typedoc-theme-hierarchy"],
+  "theme": "hierarchy",
 }

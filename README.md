@@ -18,6 +18,8 @@ yarn add @monerium/sdk
 
 ## Developing
 
+We are using [commitlint](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional) to enforce that developers format the commit messages according to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines.
+
 ## Usage
 
 - `start`: Run Vite in host mode for a local development environment (not included in production build)

@@ -7,7 +7,12 @@ import {
   OrderKind,
   PaymentStandard,
 } from "../src/types";
+import SHA256 from "crypto-js/sha256";
 
+import encodeBase64Url from "crypto-js/enc-base64url";
+
+const clientAuthId = "654c9c30-44d3-11ed-adac-b2efc0e6677d";
+const redirectUri = "http://localhost:5173/integration";
 const clientId = "654c9c30-44d3-11ed-adac-b2efc0e6677d";
 const clientSecret =
   "ac474b7cdc111973aa080b0428ba3a824e82119bee8f65875b4aba0d42416dff";
@@ -39,6 +44,20 @@ test("authenticate with client credentials", async () => {
   const authContext = await client.getAuthContext();
 
   expect(authContext.userId).toBe("05cc17db-17d0-11ed-81e7-a6f0ef57aabb");
+});
+
+test("authorization code flow", async () => {
+  const client = new MoneriumClient();
+
+  const authFlowUrl = await client.pkceRequest({
+    client_id: clientAuthId,
+    redirect_uri: redirectUri,
+  });
+
+  const challenge = encodeBase64Url.stringify(
+    SHA256(client?.codeVerifier as string)
+  );
+  expect(authFlowUrl).toContain(challenge);
 });
 
 test("link address", async () => {
