@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.0.7](https://github.com/monerium/sdk/compare/v2.0.6...v2.0.7) (2023-01-11)
+
+
+### Miscellaneous
+
+* add commitlint ([bdae6d8](https://github.com/monerium/sdk/commit/bdae6d83ed386d80be0f27e362e6622ad6ca0ffd))
+* add theme for typedoc to expand and make the sidebar more useful ([355f0f8](https://github.com/monerium/sdk/commit/355f0f839b27bdaeaead2463c0afc48409080041))
+* fix and document pckeRequest ([3905283](https://github.com/monerium/sdk/commit/390528378206149862795ee7a46b54649927e384))
+
 ## [2.0.6](https://github.com/monerium/sdk/compare/v2.0.0...v2.0.6) (2023-01-05)
 
 
