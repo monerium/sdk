@@ -18,5 +18,5 @@
   },
   "entryPointStrategy": "Expand",
   "plugin": ["typedoc-theme-hierarchy"],
-  "theme": "hierarchy",
+  "theme": "hierarchy"
 }

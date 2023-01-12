@@ -2,7 +2,6 @@
 
 Everything you need to interact with the [Monerium API](https://monerium.dev/api-docs) - an electronic money issuer.
 
-
 _This package is in development. Please make sure to check if any future updates contain commits
 that may change the behavior of your application before you upgrade._
 
@@ -16,7 +15,6 @@ that may change the behavior of your application before you upgrade._
 # Node
 yarn add @monerium/sdk
 ```
-
 
 ## Usage
 
@@ -67,6 +65,7 @@ await client.auth({
 // User is now authenticated, get authentication data
 await client.getAuthContext()
 ```
+
 ## Developing
 
 We are using [commitlint](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional) to enforce that developers format the commit messages according to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines.
@@ -74,4 +73,3 @@ We are using [commitlint](https://github.com/conventional-changelog/commitlint/t
 ## Publishing
 
 When changes are merged to the `main` branch that follows the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) standard, [release-please](https://github.com/googleapis/release-please) workflow creates a pull request, preparing for the next release. If kept open, the following commits will also be added to the PR. Merging that PR will create a new release, a workflow will publish it on NPM and tag it on Github.
-

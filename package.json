@@ -20,7 +20,7 @@
     "node": "18.x"
   },
   "scripts": {
-    "build": "tsc && vite build && dts-bundle-generator --config ./dts-bundle-generator.config.ts",
+    "build": "tsc && vite build && dts-bundle-generator --config ./configs/dts-bundle-generator.ts",
     "clean": "rm -rf dist && rm -rf node_modules",
     "docs": "typedoc --options configs/typedoc.json",
     "docs:watch": "yarn docs --watch",
