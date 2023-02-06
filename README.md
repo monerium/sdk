@@ -45,7 +45,7 @@ await client.getAuthContext()
 /** Or, authenticate using auth flow */
 
 // Construct the authFlowUrl for your application and redirect your customer.
-let authFlowUrl = client.pkceRequest({
+let authFlowUrl = client.getAuthFlowURI({
   client_id: "your_client_authflow_uuid"
   redirect_uri: "http://your-webpage.com/monerium-integration"
 })
