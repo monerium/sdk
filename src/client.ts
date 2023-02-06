@@ -22,21 +22,7 @@ import type {
   Token,
 } from "./types";
 // import pjson from "../package.json";
-/**
- * How to authenticate
- * ```ts
- *
- * import { MoneriumClient } from '@monerium/sdk'
- *
- * const client = new MoneriumClient();
- *
- * // Start by authenticating
- * await client.auth({
- *  client_id: "your_client_id"
- *  client_secret: "your_client_secret"
- * })
- * ```
- * */
+
 export class MoneriumClient {
   #env: Environment;
 
@@ -44,6 +30,8 @@ export class MoneriumClient {
   /** The PKCE code verifier */
   codeVerifier?: string;
   bearerProfile?: BearerProfile;
+
+  clientId?: string;
 
   constructor(env: "production" | "sandbox" = "sandbox") {
     this.#env = MONERIUM_CONFIG.environments[env];
@@ -63,7 +51,7 @@ export class MoneriumClient {
     } else {
       throw new Error("Authentication method could not be detected.");
     }
-
+    this.clientId = args.client_id;
     this.bearerProfile = (await this.#api(
       "post",
       `auth/token`,
@@ -76,22 +64,17 @@ export class MoneriumClient {
 
   /**
    * Construct the url to the authorization code flow,
-   * the code verifier is needed afterwards to obtain an access token and is therefore stored in this.codeVerifier
-   *
-   * ```
-   * let authFlowUrl = client.pkceRequest({
-   *  client_id:
-   *  redirect_uri:
-   * })
-   * ```
+   * the code verifier is needed afterwards to obtain an access token and is therefore stored in `this.codeVerifier`
    * @returns string
    */
-  pkceRequest(args: PKCERequestArgs): string {
+
+  getAuthFlowURI(args: PKCERequestArgs): string {
     this.codeVerifier = wordArray.random(64).toString();
     const challenge = encodeBase64Url.stringify(SHA256(this.codeVerifier));
 
     const params: PKCERequest = {
       ...args,
+      client_id: this.clientId || args?.client_id,
       code_challenge: challenge,
       code_challenge_method: "S256",
       response_type: "code",
@@ -99,6 +82,10 @@ export class MoneriumClient {
 
     return `${this.#env.api}/auth?${new URLSearchParams(params)}`;
   }
+  /**
+   *  @deprecated since v2.0.7, use getAuthFlowURI instead.
+   */
+  pkceRequest = this.getAuthFlowURI;
 
   // -- Read Methods
 

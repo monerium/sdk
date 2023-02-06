@@ -16,10 +16,10 @@
 <a href="#moneriumsdk" id="moneriumsdk" style="color: inherit; text-decoration: none;">
   <h1>@monerium/sdk</h1>
 </a>
-<p>Everything you need to interact with the Monerium API - an electronic money issuer.</p>
+<p>Everything you need to interact with the <a href="https://monerium.dev/api-docs">Monerium API</a> - an electronic money issuer.</p>
 <p><em>This package is in development. Please make sure to check if any future updates contain commits
 that may change the behavior of your application before you upgrade.</em></p>
-<p><a href="https://monerium.github.io/sdk/">Documentation</a></p>
+<p><a href="https://monerium.github.io/sdk/">SDK Documentation</a></p>
 <p><a href="https://monerium.github.io/sdk/coverage">Code coverage</a></p>
 
 <a href="#installing" id="installing" style="color: inherit; text-decoration: none;">
@@ -27,11 +27,6 @@ that may change the behavior of your application before you upgrade.</em></p>
 </a>
 <pre><code class="language-sh"><span class="hl-0"># Node</span><br/><span class="hl-1">yarn add @monerium/sdk</span>
 </code></pre>
-
-<a href="#developing" id="developing" style="color: inherit; text-decoration: none;">
-  <h2>Developing</h2>
-</a>
-<p>We are using <a href="https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional">commitlint</a> to enforce that developers format the commit messages according to the <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits</a> guidelines.</p>
 
 <a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
   <h2>Usage</h2>
@@ -41,6 +36,18 @@ that may change the behavior of your application before you upgrade.</em></p>
 <li><code>watch</code>: Run Vite in watch mode to detect changes to files during development</li>
 <li><code>build</code>: Run Vite to build a production release distributable</li>
 </ul>
+
+<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+  <h3>Getting started</h3>
+</a>
+<p>If you are new here, we recommend starting in the <a href="https://monerium.dev/docs/welcome">Developer Portal</a>. There you will more about <code>client_id</code>&#39;s and ways of authenticating.</p>
+<pre><code class="language-ts"><span class="hl-2">import</span><span class="hl-1"> { </span><span class="hl-3">MoneriumClient</span><span class="hl-1"> } </span><span class="hl-2">from</span><span class="hl-1"> </span><span class="hl-4">&#39;@monerium/sdk&#39;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">client</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-7">MoneriumClient</span><span class="hl-1">();</span><br/><br/><span class="hl-0">/** Authenticate using client credentials */</span><br/><br/><span class="hl-2">await</span><span class="hl-1"> </span><span class="hl-3">client</span><span class="hl-1">.</span><span class="hl-7">auth</span><span class="hl-1">({</span><br/><span class="hl-1"> </span><span class="hl-3">client_id:</span><span class="hl-1"> </span><span class="hl-4">&quot;your_client_credentials_uuid&quot;</span><br/><span class="hl-1"> </span><span class="hl-3">client_secret</span><span class="hl-1">: </span><span class="hl-4">&quot;your_client_secret&quot;</span><br/><span class="hl-1">})</span><br/><br/><span class="hl-0">// User is now authenticated, get authentication data</span><br/><span class="hl-2">await</span><span class="hl-1"> </span><span class="hl-3">client</span><span class="hl-1">.</span><span class="hl-7">getAuthContext</span><span class="hl-1">()</span><br/><br/><span class="hl-0">/*************************************/</span><br/><span class="hl-0">/** Or, authenticate using auth flow */</span><br/><br/><span class="hl-0">// Construct the authFlowUrl for your application and redirect your customer.</span><br/><span class="hl-5">let</span><span class="hl-1"> </span><span class="hl-3">authFlowUrl</span><span class="hl-1"> = </span><span class="hl-3">client</span><span class="hl-1">.</span><span class="hl-7">getAuthFlowURI</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-3">client_id:</span><span class="hl-1"> </span><span class="hl-4">&quot;your_client_authflow_uuid&quot;</span><br/><span class="hl-1">  </span><span class="hl-3">redirect_uri</span><span class="hl-1">: </span><span class="hl-4">&quot;http://your-webpage.com/monerium-integration&quot;</span><br/><span class="hl-1">})</span><br/><span class="hl-0">// Redirecting to the Monerium onboarding / Authentication flow.</span><br/><span class="hl-3">window</span><span class="hl-1">.</span><span class="hl-3">location</span><span class="hl-1">.</span><span class="hl-7">replace</span><span class="hl-1">(</span><span class="hl-3">authFlowUrl</span><span class="hl-1">)</span><br/><br/><span class="hl-0">// As the final step of the flow, the customer will be routed back to the `redirect_uri` with a `code` parameter attached to it.</span><br/><span class="hl-0">// i.e. http://your-webpage.com/monerium-integration?code=1234abcd</span><br/><br/><span class="hl-2">await</span><span class="hl-1"> </span><span class="hl-3">client</span><span class="hl-1">.</span><span class="hl-7">auth</span><span class="hl-1">({</span><br/><span class="hl-1"> </span><span class="hl-3">client_id:</span><span class="hl-1"> </span><span class="hl-4">&quot;your_client_authflow_uuid&quot;</span><span class="hl-1">,</span><br/><span class="hl-1"> </span><span class="hl-3">code:</span><span class="hl-1"> </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-7">URLSearchParams</span><span class="hl-1">(</span><span class="hl-3">window</span><span class="hl-1">.</span><span class="hl-3">location</span><span class="hl-1">.</span><span class="hl-3">search</span><span class="hl-1">).</span><span class="hl-7">get</span><span class="hl-1">(</span><span class="hl-4">&#39;code&#39;</span><span class="hl-1">),</span><br/><span class="hl-1"> </span><span class="hl-3">code_verifier:</span><span class="hl-1"> </span><span class="hl-3">client</span><span class="hl-1">.</span><span class="hl-3">code_verifier</span><span class="hl-1">,</span><br/><span class="hl-1"> </span><span class="hl-3">redirect_url:</span><span class="hl-1"> </span><span class="hl-4">&quot;http://your-webpage.com/monerium-integration&quot;</span><br/><span class="hl-1">})</span><br/><br/><span class="hl-0">// User is now authenticated, get authentication data</span><br/><span class="hl-2">await</span><span class="hl-1"> </span><span class="hl-3">client</span><span class="hl-1">.</span><span class="hl-7">getAuthContext</span><span class="hl-1">()</span>
+</code></pre>
+
+<a href="#developing" id="developing" style="color: inherit; text-decoration: none;">
+  <h2>Developing</h2>
+</a>
+<p>We are using <a href="https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional">commitlint</a> to enforce that developers format the commit messages according to the <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits</a> guidelines.</p>
 
 <a href="#publishing" id="publishing" style="color: inherit; text-decoration: none;">
   <h2>Publishing</h2>
