@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.9](https://github.com/monerium/sdk/compare/v2.0.8...v2.0.9) (2023-02-06)
+
+
+### Bug Fixes
+
+* build files ([1b0f99f](https://github.com/monerium/sdk/commit/1b0f99fcc6635de69b62de72198f22daa2d36b10))
+
 ## [2.0.8](https://github.com/monerium/sdk/compare/v2.0.7...v2.0.8) (2023-02-06)
 
 
