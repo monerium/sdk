@@ -72,6 +72,9 @@ export type PKCERequest = {
   redirect_uri?: string;
   scope?: string;
   address?: string;
+  signature?: string;
+  network?: Network;
+  chain?: Chain;
 };
 
 // -- authContext

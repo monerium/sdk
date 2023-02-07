@@ -65,6 +65,7 @@ export class MoneriumClient {
   /**
    * Construct the url to the authorization code flow,
    * the code verifier is needed afterwards to obtain an access token and is therefore stored in `this.codeVerifier`
+   * For automatic wallet link, add the following properties: `address`, `signature`, `chain` & `network`
    * @returns string
    */
 
