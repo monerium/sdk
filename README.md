@@ -22,17 +22,21 @@ yarn add @monerium/sdk
 - `watch`: Run Vite in watch mode to detect changes to files during development
 - `build`: Run Vite to build a production release distributable
 
-### Getting started
+## Getting started
 
 If you are new here, we recommend starting in the [Developer Portal](https://monerium.dev/docs/welcome). There you will more about `client_id`'s and ways of authenticating.
+
+### Import the SDK and initialize a client
 
 ```ts
 import { MoneriumClient } from '@monerium/sdk'
 
 const client = new MoneriumClient();
+```
 
-/** Authenticate using client credentials */
+### Authenticate using client credentials
 
+```ts
 await client.auth({
  client_id: "your_client_credentials_uuid"
  client_secret: "your_client_secret"
@@ -40,14 +44,20 @@ await client.auth({
 
 // User is now authenticated, get authentication data
 await client.getAuthContext()
+```
 
-/*************************************/
-/** Or, authenticate using auth flow */
+### Authenticate using auth flow
 
+```ts
 // Construct the authFlowUrl for your application and redirect your customer.
 let authFlowUrl = client.getAuthFlowURI({
   client_id: "your_client_authflow_uuid"
-  redirect_uri: "http://your-webpage.com/monerium-integration"
+  // optional automatic wallet selection:
+  network: "mumbai",
+  chain: "polygon",
+  address: "0xValidAddress72413Fa92980B889A1eCE84dD",
+  signature: "0xValidSignature0df2b6c9e0fc067ab29bdbf322bec30aad7c46dcd97f62498a91ef7795957397e0f49426e000b0f500c347219ddd98dc5080982563055e918031c"
+
 })
 // Redirecting to the Monerium onboarding / Authentication flow.
 window.location.replace(authFlowUrl)

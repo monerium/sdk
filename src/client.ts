@@ -31,8 +31,6 @@ export class MoneriumClient {
   codeVerifier?: string;
   bearerProfile?: BearerProfile;
 
-  clientId?: string;
-
   constructor(env: "production" | "sandbox" = "sandbox") {
     this.#env = MONERIUM_CONFIG.environments[env];
   }
@@ -51,7 +49,7 @@ export class MoneriumClient {
     } else {
       throw new Error("Authentication method could not be detected.");
     }
-    this.clientId = args.client_id;
+
     this.bearerProfile = (await this.#api(
       "post",
       `auth/token`,
@@ -68,14 +66,13 @@ export class MoneriumClient {
    * For automatic wallet link, add the following properties: `address`, `signature`, `chain` & `network`
    * @returns string
    */
-
   getAuthFlowURI(args: PKCERequestArgs): string {
     this.codeVerifier = wordArray.random(64).toString();
     const challenge = encodeBase64Url.stringify(SHA256(this.codeVerifier));
 
     const params: PKCERequest = {
       ...args,
-      client_id: this.clientId || args?.client_id,
+      client_id: args?.client_id,
       code_challenge: challenge,
       code_challenge_method: "S256",
       response_type: "code",
@@ -83,10 +80,11 @@ export class MoneriumClient {
 
     return `${this.#env.api}/auth?${new URLSearchParams(params)}`;
   }
+
   /**
-   *  @deprecated since v2.0.7, use getAuthFlowURI instead.
+   *  @deprecated since v2.0.7, use {@link getAuthFlowURI} instead.
    */
-  pkceRequest = this.getAuthFlowURI;
+  pkceRequest = (args: PKCERequestArgs) => this.getAuthFlowURI(args);
 
   // -- Read Methods
 
