@@ -29,7 +29,7 @@ If you are new here, we recommend starting in the [Developer Portal](https://mon
 ### Import the SDK and initialize a client
 
 ```ts
-import { MoneriumClient } from '@monerium/sdk'
+import { MoneriumClient } from "@monerium/sdk";
 
 const client = new MoneriumClient();
 ```
