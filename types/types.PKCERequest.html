@@ -16,28 +16,56 @@
 <li><a href="../modules/types.html">types</a></li>
 <li><a href="types.PKCERequest.html">PKCERequest</a></li></ul>
 <h1>Type alias PKCERequest</h1></div>
-<div class="tsd-signature">PKCERequest<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span><br/><span>    </span>address<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>client_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>code_challenge<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>code_challenge_method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>redirect_uri<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>response_type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>scope<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>state<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-signature">PKCERequest<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span><br/><span>    </span>address<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>chain<span class="tsd-signature-symbol">?: </span><a href="../enums/types.Chain.html" class="tsd-signature-type" data-tsd-kind="Enumeration">Chain</a><span class="tsd-signature-symbol">; </span><br/><span>    </span>client_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>code_challenge<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>code_challenge_method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;S256&quot;</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>network<span class="tsd-signature-symbol">?: </span><a href="../enums/types.Network.html" class="tsd-signature-type" data-tsd-kind="Enumeration">Network</a><span class="tsd-signature-symbol">; </span><br/><span>    </span>redirect_uri<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>response_type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;code&quot;</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>scope<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>signature<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>state<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span></div>
 <div class="tsd-type-declaration">
 <h4>Type declaration</h4>
 <ul class="tsd-parameters">
 <li class="tsd-parameter">
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> address<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5></li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> address<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>the address of the wallet to automatically link</p>
+</div></li>
 <li class="tsd-parameter">
-<h5>client_<wbr/>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5></li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> chain<span class="tsd-signature-symbol">?: </span><a href="../enums/types.Chain.html" class="tsd-signature-type" data-tsd-kind="Enumeration">Chain</a></h5>
+<div class="tsd-comment tsd-typography"><p>the chain of the wallet to automatically link</p>
+</div></li>
 <li class="tsd-parameter">
-<h5>code_<wbr/>challenge<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5></li>
+<h5>client_<wbr/>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>the authentication flow client id of the application</p>
+</div></li>
 <li class="tsd-parameter">
-<h5>code_<wbr/>challenge_<wbr/>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5></li>
+<h5>code_<wbr/>challenge<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>the code challenge automatically generated by the SDK</p>
+</div></li>
 <li class="tsd-parameter">
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> redirect_<wbr/>uri<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5></li>
+<h5>code_<wbr/>challenge_<wbr/>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;S256&quot;</span></h5>
+<div class="tsd-comment tsd-typography"><p>the code challenge method for the authentication flow , handled by the SDK</p>
+</div></li>
 <li class="tsd-parameter">
-<h5>response_<wbr/>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5></li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> network<span class="tsd-signature-symbol">?: </span><a href="../enums/types.Network.html" class="tsd-signature-type" data-tsd-kind="Enumeration">Network</a></h5>
+<div class="tsd-comment tsd-typography"><p>the network of the wallet to automatically link</p>
+</div></li>
 <li class="tsd-parameter">
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> scope<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5></li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> redirect_<wbr/>uri<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>the redirect uri of the application</p>
+</div></li>
 <li class="tsd-parameter">
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> state<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5></li></ul></div><aside class="tsd-sources">
+<h5>response_<wbr/>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;code&quot;</span></h5>
+<div class="tsd-comment tsd-typography"><p>the response type of the authentication flow, handled by the SDK</p>
+</div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> scope<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>the scope of the application</p>
+</div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> signature<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>the signature of the wallet to automatically link</p>
+</div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> state<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>the state of the application</p>
+</div></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/monerium/sdk/blob/f303564/src/types.ts#L66">types.ts:66</a></li></ul></aside></div>
+<li>Defined in <a href="https://github.com/monerium/sdk/blob/86ac1de/src/types.ts#L69">types.ts:69</a></li></ul></aside></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tree">
 <div class="tree-settings">

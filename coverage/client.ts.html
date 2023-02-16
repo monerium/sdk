@@ -30,23 +30,23 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.68% </span>
+                <span class="strong">70.58% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>14/19</span>
+                <span class='fraction'>12/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.66% </span>
+                <span class="strong">92.3% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>11/12</span>
+                <span class='fraction'>12/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.09% </span>
+                <span class="strong">83.72% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>37/44</span>
+                <span class='fraction'>36/43</span>
             </div>
         
             
@@ -274,8 +274,7 @@
 <a name='L209'></a><a href='#L209'>209</a>
 <a name='L210'></a><a href='#L210'>210</a>
 <a name='L211'></a><a href='#L211'>211</a>
-<a name='L212'></a><a href='#L212'>212</a>
-<a name='L213'></a><a href='#L213'>213</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L212'></a><a href='#L212'>212</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -301,8 +300,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -328,13 +325,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -343,13 +333,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -358,6 +344,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -520,8 +518,6 @@ export class MoneriumClient {
   codeVerifier?: string;
   bearerProfile?: BearerProfile;
 &nbsp;
-  clientId?: string;
-&nbsp;
   constructor(env: "production" | "sandbox" = "sandbox") {
     this.#env = MONERIUM_CONFIG.environments[env];
   }
@@ -540,7 +536,7 @@ export class MoneriumClient {
     } else <span class="missing-if-branch" title="else path not taken" >E</span>{
 <span class="cstat-no" title="statement not covered" >      throw new Error("Authentication method could not be detected.");</span>
     }
-    this.clientId = args.client_id;
+&nbsp;
     this.bearerProfile = (await this.#api(
       "post",
       `auth/token`,
@@ -554,16 +550,16 @@ export class MoneriumClient {
   /**
    * Construct the url to the authorization code flow,
    * the code verifier is needed afterwards to obtain an access token and is therefore stored in `this.codeVerifier`
+   * For automatic wallet link, add the following properties: `address`, `signature`, `chain` &amp; `network`
    * @returns string
    */
-&nbsp;
   getAuthFlowURI(args: PKCERequestArgs): string {
     this.codeVerifier = wordArray.random(64).toString();
     const challenge = encodeBase64Url.stringify(SHA256(this.codeVerifier));
 &nbsp;
     const params: PKCERequest = {
       ...args,
-      client_id: this.clientId || args?.client_id,
+      client_id: args?.client_id,
       code_challenge: challenge,
       code_challenge_method: "S256",
       response_type: "code",
@@ -571,10 +567,11 @@ export class MoneriumClient {
 &nbsp;
     return `${this.#env.api}/auth?${new URLSearchParams(params)}`;
   }
+&nbsp;
   /**
-   *  @deprecated since v2.0.7, use getAuthFlowURI instead.
+   *  @deprecated since v2.0.7, use {@link getAuthFlowURI} instead.
    */
-  pkceRequest = this.getAuthFlowURI;
+  pkceRequest = (args: PKCERequestArgs) =&gt; this.getAuthFlowURI(args);
 &nbsp;
   // -- Read Methods
 &nbsp;
@@ -706,7 +703,7 @@ export class MoneriumClient {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-06T10:57:43.523Z
+                at 2023-02-16T21:14:04.920Z
             </div>
         <script src="prettify.js"></script>
         <script>
