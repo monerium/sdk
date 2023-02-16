@@ -23,7 +23,6 @@ const publicKey = "0x2d312198e570912844b5a230AE6f7A2E3321371C";
 
 const message = "I hereby declare that I am the address owner.";
 
-// TODO: use ethers to generate signatures.
 const ownerSignatureHash =
   "0xe206a1b5a268c9161d6874eeeab49cff554fddf485389b744491cf3920e6881d697c48a2e76453d04179b55d757365e2c591e9e8ad40f129c8f4bb592692f4031c";
 
