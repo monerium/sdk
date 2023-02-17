@@ -8,7 +8,7 @@ import {
   PaymentStandard,
 } from "../src/types";
 import SHA256 from "crypto-js/sha256";
-
+import { burnerSign, retrieveWalletAndSign } from "./utils";
 import encodeBase64Url from "crypto-js/enc-base64url";
 
 const clientAuthId = "654c9c30-44d3-11ed-adac-b2efc0e6677d";
@@ -19,12 +19,27 @@ const clientSecret =
 
 // punkWallet: https://punkwallet.io/pk#0x3e4936f901535680c505b073a5f70094da38e2085ecf137b153d1866a7aa826b
 // const privateKey = "0x3e4936f901535680c505b073a5f70094da38e2085ecf137b153d1866a7aa826b";
-const publicKey = "0x2d312198e570912844b5a230AE6f7A2E3321371C";
+// const publicKey = "0x2d312198e570912844b5a230AE6f7A2E3321371C";
 
 const message = "I hereby declare that I am the address owner.";
 
-const ownerSignatureHash =
-  "0xe206a1b5a268c9161d6874eeeab49cff554fddf485389b744491cf3920e6881d697c48a2e76453d04179b55d757365e2c591e9e8ad40f129c8f4bb592692f4031c";
+let ownerSignatureHash = "";
+let publicKey = "";
+let privateKey = "";
+
+beforeAll(async () => {
+  const {
+    signature,
+    publicKey: pubkey,
+    privateKey: privkey,
+  } = await burnerSign(message);
+
+  console.log(`https://punkwallet.io/pk#${privateKey}`);
+
+  ownerSignatureHash = signature;
+  publicKey = pubkey;
+  privateKey = privkey;
+});
 
 test("client initialization", () => {
   const client = new MoneriumClient();
@@ -60,6 +75,44 @@ test("authorization code flow", async () => {
 });
 
 test("link address", async () => {
+  const client = new MoneriumClient();
+
+  await client.auth({
+    client_id: clientId,
+    client_secret: clientSecret,
+  });
+
+  const authContext = await client.getAuthContext();
+
+  const response = await client.linkAddress(authContext.defaultProfile, {
+    address: publicKey,
+    message: message,
+    signature: ownerSignatureHash,
+    accounts: [
+      {
+        network: Network.goerli,
+        chain: Chain.ethereum,
+        currency: Currency.eur,
+      },
+      {
+        network: Network.chiado,
+        chain: Chain.gnosis,
+        currency: Currency.eur,
+      },
+      {
+        network: Network.mumbai,
+        chain: Chain.polygon,
+        currency: Currency.eur,
+      },
+    ],
+  });
+
+  expect(response.address).toBe(publicKey);
+  expect(response.message).toBe(message);
+  expect(response.profile).toBe(authContext.defaultProfile);
+});
+
+test("link address error", async () => {
   const client = new MoneriumClient();
 
   await client.auth({
@@ -220,9 +273,14 @@ test("place order", async () => {
   });
   const authContext = await client.getAuthContext();
   const profile = await client.getProfile(authContext.profiles[0].id);
+
+  // punkWallet: https://punkwallet.io/pk#0x3e4936f901535680c505b073a5f70094da38e2085ecf137b153d1866a7aa826b
+  // const privateKey = "0x3e4936f901535680c505b073a5f70094da38e2085ecf137b153d1866a7aa826b";
+  const address = "0x2d312198e570912844b5a230AE6f7A2E3321371C";
+
   const account = profile.accounts.find(
     (a) =>
-      a.address === publicKey &&
+      a.address === address &&
       a.currency === Currency.eur &&
       a.network === Network.goerli
   );
@@ -232,28 +290,33 @@ test("place order", async () => {
   const placeOrderSignatureHash =
     "0xe2baa7df880f140e37d4a0d9cb1aaa8969b40650f69dc826373efdcc0945050d45f64cf5a2c96fe6bba959abe1bee115cfa31cedc378233e051036cdebd992181c";
 
-  const order = await client.placeOrder({
-    kind: OrderKind.redeem,
-    amount: "1",
-    signature: placeOrderSignatureHash,
-    accountId: account?.id,
-    address: publicKey,
-    currency: Currency.eur,
-    counterpart: {
-      identifier: {
-        standard: PaymentStandard.iban,
-        iban: "GR1601101250000000012300695",
+  let order;
+  try {
+    order = await client.placeOrder({
+      kind: OrderKind.redeem,
+      amount: "1",
+      signature: placeOrderSignatureHash,
+      accountId: account?.id,
+      address: address,
+      currency: Currency.eur,
+      counterpart: {
+        identifier: {
+          standard: PaymentStandard.iban,
+          iban: "GR1601101250000000012300695",
+        },
+        details: {
+          firstName: "Mockbank",
+          lastName: "Testerson",
+        },
       },
-      details: {
-        firstName: "Mockbank",
-        lastName: "Testerson",
-      },
-    },
-    message: placeOrderMessage,
-    memo: "Powered by Monerium SDK",
-    chain: Chain.ethereum,
-    network: Network.goerli,
-  });
+      message: placeOrderMessage,
+      memo: "Powered by Monerium SDK",
+      chain: Chain.ethereum,
+      network: Network.goerli,
+    });
+  } catch (e) {
+    console.error(e);
+  }
 
   const expected = {
     profile: "04f5b0d5-17d0-11ed-81e7-a6f0ef57aabb",
