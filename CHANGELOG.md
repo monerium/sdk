@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.12](https://github.com/monerium/sdk/compare/v2.0.11...v2.0.12) (2023-02-25)
+
+
+### Bug Fixes
+
+* replace encodeBase64Url, not available in the downgraded version of crypto-js ([c883b64](https://github.com/monerium/sdk/commit/c883b6422b1d068752a420abce2ce3a14d8a4092))
+
 ## [2.0.11](https://github.com/monerium/sdk/compare/v2.0.10...v2.0.11) (2023-02-25)
 
 
