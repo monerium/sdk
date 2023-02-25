@@ -1,6 +1,6 @@
 {
   "name": "@monerium/sdk",
-  "version": "2.0.10",
+  "version": "2.0.12",
   "description": "Everything you need to interact with the Monerium API - an electronic money issuer.",
   "license": "MIT",
   "repository": {
@@ -36,12 +36,12 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.1",
     "@commitlint/config-conventional": "^17.4.0",
-    "@types/crypto-js": "^4.1.1",
+    "@types/crypto-js": "^3.1.9",
     "@types/jest": "^29.2.4",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.46.0",
     "@typescript-eslint/parser": "^5.46.0",
-    "crypto-js": "^4.1.1",
+    "crypto-js": "^3.1.9-1",
     "dts-bundle-generator": "^7.1.0",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
