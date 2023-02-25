@@ -1,5 +1,4 @@
-import encodeBase64 from "crypto-js/enc-base64";
-import utf8 from "crypto-js/enc-utf8";
+import encodeBase64Url from "crypto-js/enc-base64url";
 import wordArray from "crypto-js/lib-typedarrays";
 import SHA256 from "crypto-js/sha256";
 import { MONERIUM_CONFIG } from "./config";
@@ -69,9 +68,7 @@ export class MoneriumClient {
    */
   getAuthFlowURI(args: PKCERequestArgs): string {
     this.codeVerifier = wordArray.random(64).toString();
-    const challenge = utf8.stringify(
-      encodeBase64.stringify(SHA256(this.codeVerifier as string))
-    );
+    const challenge = encodeBase64Url.stringify(SHA256(this.codeVerifier));
 
     const params: PKCERequest = {
       ...args,
