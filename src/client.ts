@@ -1,6 +1,5 @@
 import encodeBase64Url from "crypto-js/enc-base64url";
 import SHA256 from "crypto-js/sha256";
-import wordArray from "crypto-js/lib-typedarrays";
 import { MONERIUM_CONFIG } from "./config";
 import type {
   AuthArgs,
@@ -67,7 +66,9 @@ export class MoneriumClient {
    * @returns string
    */
   getAuthFlowURI(args: PKCERequestArgs): string {
-    this.codeVerifier = wordArray.random(64).toString();
+    this.codeVerifier = new Array(128).join().replace(/(.|$)/g, function () {
+      return ((Math.random() * 36) | 0).toString(36);
+    });
     const challenge = encodeBase64Url.stringify(
       SHA256(this.codeVerifier as string)
     );
