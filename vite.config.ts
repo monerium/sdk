@@ -1,5 +1,6 @@
 import path from "path";
 import { defineConfig } from "vite";
+import nodePolyfills from "vite-plugin-node-stdlib-browser";
 
 export default defineConfig({
   base: "./",
@@ -12,4 +13,5 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`,
     },
   },
+  plugins: [nodePolyfills()],
 });
