@@ -41,7 +41,7 @@
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.46.0",
     "@typescript-eslint/parser": "^5.46.0",
-    "crypto-js": "^3.1.9-1",
+    "crypto-js": "^4.1.1",
     "dts-bundle-generator": "^7.1.0",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
