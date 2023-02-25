@@ -38,6 +38,7 @@
     "@commitlint/config-conventional": "^17.4.0",
     "@types/jest": "^29.2.4",
     "@types/node": "^18.11.18",
+    "@types/randombytes": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^5.46.0",
     "@typescript-eslint/parser": "^5.46.0",
     "dts-bundle-generator": "^7.1.0",
@@ -54,10 +55,11 @@
     "typedoc": "^0.23.23",
     "typedoc-theme-hierarchy": "^3.0.2",
     "typescript": "^4.9.4",
-    "vite": "^4.0.0",
-    "vite-plugin-node-stdlib-browser": "^0.1.1"
+    "vite": "^4.0.0"
   },
   "dependencies": {
-    "node-stdlib-browser": "^1.2.0"
+    "@types/crypto-js": "^4.1.1",
+    "crypto-js": "^4.1.1",
+    "randombytes": "^2.1.0"
   }
 }
