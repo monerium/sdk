@@ -7,9 +7,7 @@ import {
   OrderKind,
   PaymentStandard,
 } from "../src/types";
-import SHA256 from "crypto-js/sha256";
-
-import encodeBase64Url from "crypto-js/enc-base64url";
+import { generatePKCEChallenge } from "../src/utils";
 
 const clientAuthId = "654c9c30-44d3-11ed-adac-b2efc0e6677d";
 const redirectUri = "http://localhost:5173/integration";
@@ -53,9 +51,8 @@ test("authorization code flow", async () => {
     redirect_uri: redirectUri,
   });
 
-  const challenge = encodeBase64Url.stringify(
-    SHA256(client?.codeVerifier as string)
-  );
+  const challenge = generatePKCEChallenge(client?.codeVerifier as string);
+
   expect(authFlowUrl).toContain(challenge);
 });
 
