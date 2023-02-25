@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.17](https://github.com/monerium/sdk/compare/v2.0.16...v2.0.17) (2023-02-25)
+
+
+### Miscellaneous
+
+* dont use crypto-js for randomizing a string ([412957e](https://github.com/monerium/sdk/commit/412957e028d968bbc483dbc6f8724f7e2da4739a))
+
 ## [2.0.16](https://github.com/monerium/sdk/compare/v2.0.15...v2.0.16) (2023-02-25)
 
 
