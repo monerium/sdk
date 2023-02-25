@@ -12,9 +12,4 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`,
     },
   },
-  resolve: {
-    alias: {
-      crypto: "crypto-browserify",
-    },
-  },
 });
