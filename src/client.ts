@@ -1,5 +1,6 @@
 import encodeBase64Url from "crypto-js/enc-base64url";
 import SHA256 from "crypto-js/sha256";
+import { generateRandomString } from "./utils";
 import { MONERIUM_CONFIG } from "./config";
 import type {
   AuthArgs,
@@ -66,9 +67,9 @@ export class MoneriumClient {
    * @returns string
    */
   getAuthFlowURI(args: PKCERequestArgs): string {
-    this.codeVerifier = new Array(128).join().replace(/(.|$)/g, function () {
-      return ((Math.random() * 36) | 0).toString(36);
-    });
+    // Using crypto-js to generate a random string was causing the following error:
+    // `Error: Native crypto module could not be used to get secure random number.`
+    this.codeVerifier = generateRandomString();
     const challenge = encodeBase64Url.stringify(
       SHA256(this.codeVerifier as string)
     );
