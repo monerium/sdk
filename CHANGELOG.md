@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.0.18](https://github.com/monerium/sdk/compare/v2.0.17...v2.0.18) (2023-04-21)
+
+
+### Bug Fixes
+
+* es6 module imports ([00edf8d](https://github.com/monerium/sdk/commit/00edf8d600e6944fbcc17da00351ffae9ee79b53))
+* test credentials ([00edf8d](https://github.com/monerium/sdk/commit/00edf8d600e6944fbcc17da00351ffae9ee79b53))
+
+
+### Miscellaneous
+
+* explain and add uppercase to the -randomness- ([5ed54d8](https://github.com/monerium/sdk/commit/5ed54d86a79b88293c595bd23ecf07cd30aafe63))
+
 ## [2.0.17](https://github.com/monerium/sdk/compare/v2.0.16...v2.0.17) (2023-02-25)
 
 

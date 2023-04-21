@@ -59,21 +59,25 @@ let authFlowUrl = client.getAuthFlowURI({
   signature: "0xValidSignature0df2b6c9e0fc067ab29bdbf322bec30aad7c46dcd97f62498a91ef7795957397e0f49426e000b0f500c347219ddd98dc5080982563055e918031c"
 
 })
+// Store the code verifier in localStorage
+window.localStorage.setItem("myCodeVerifier", client.code_verifier);
 // Redirecting to the Monerium onboarding / Authentication flow.
 window.location.replace(authFlowUrl)
+```
 
+```ts
 // As the final step of the flow, the customer will be routed back to the `redirect_uri` with a `code` parameter attached to it.
 // i.e. http://your-webpage.com/monerium-integration?code=1234abcd
 
 await client.auth({
- client_id: "your_client_authflow_uuid",
- code: new URLSearchParams(window.location.search).get('code'),
- code_verifier: client.code_verifier,
- redirect_url: "http://your-webpage.com/monerium-integration"
-})
+  client_id: "your_client_authflow_uuid",
+  code: new URLSearchParams(window.location.search).get("code"),
+  code_verifier: window.localStorage.getItem("myCodeVerifier"),
+  redirect_url: "http://your-webpage.com/monerium-integration",
+});
 
 // User is now authenticated, get authentication data
-await client.getAuthContext()
+await client.getAuthContext();
 ```
 
 ## Developing

@@ -9,7 +9,13 @@ export default defineConfig({
       entry: path.resolve(__dirname, "src/index.ts"),
       name: "monerium-sdk",
       //   formats: ["es", "cjs", "umd", "iife"],
-      fileName: (format) => `index.${format}.js`,
+      fileName: (format) => {
+        if (format === "es") {
+          return "index.mjs";
+        } else {
+          return `index.${format}.js`;
+        }
+      },
     },
   },
 });
