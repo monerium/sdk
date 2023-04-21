@@ -70,14 +70,14 @@ window.location.replace(authFlowUrl)
 // i.e. http://your-webpage.com/monerium-integration?code=1234abcd
 
 await client.auth({
- client_id: "your_client_authflow_uuid",
- code: new URLSearchParams(window.location.search).get('code'),
- code_verifier: window.localStorage.getItem("myCodeVerifier"),
- redirect_url: "http://your-webpage.com/monerium-integration"
-})
+  client_id: "your_client_authflow_uuid",
+  code: new URLSearchParams(window.location.search).get("code"),
+  code_verifier: window.localStorage.getItem("myCodeVerifier"),
+  redirect_url: "http://your-webpage.com/monerium-integration",
+});
 
 // User is now authenticated, get authentication data
-await client.getAuthContext()
+await client.getAuthContext();
 ```
 
 ## Developing

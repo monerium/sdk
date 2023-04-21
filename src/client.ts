@@ -192,7 +192,12 @@ export class MoneriumClient {
       body,
     });
 
-    const response = await res.json();
+    let response;
+    try {
+      response = await res.json();
+    } catch (err) {
+      throw await res.text();
+    }
 
     if (res.ok) {
       return response;

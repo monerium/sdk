@@ -12,9 +12,9 @@ import SHA256 from "crypto-js/sha256";
 
 const clientAuthId = "654c9c30-44d3-11ed-adac-b2efc0e6677d";
 const redirectUri = "http://localhost:5173/integration";
-const clientId = "654c9c30-44d3-11ed-adac-b2efc0e6677d";
+const clientId = "654e15da-44d3-11ed-adac-b2efc0e6677d";
 const clientSecret =
-  "ac474b7cdc111973aa080b0428ba3a824e82119bee8f65875b4aba0d42416dff";
+  "7bb679cd597b62d77836cb877c432c80dcb1fcb6d8a2b8b703967bc9d12cd991";
 
 // punkWallet: https://punkwallet.io/pk#0x3e4936f901535680c505b073a5f70094da38e2085ecf137b153d1866a7aa826b
 // const privateKey = "0x3e4936f901535680c505b073a5f70094da38e2085ecf137b153d1866a7aa826b";
