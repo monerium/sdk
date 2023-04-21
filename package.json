@@ -17,7 +17,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">= 17.5"
+    "node": "18.x"
   },
   "scripts": {
     "build": "NODE_OPTIONS=--experimental-fetch tsc && vite build && dts-bundle-generator --config ./configs/dts-bundle-generator.ts",

@@ -15,38 +15,33 @@
 
 ## [2.0.17](https://github.com/monerium/sdk/compare/v2.0.16...v2.0.17) (2023-02-25)
 
-
 ### Miscellaneous
 
-* dont use crypto-js for randomizing a string ([412957e](https://github.com/monerium/sdk/commit/412957e028d968bbc483dbc6f8724f7e2da4739a))
+- dont use crypto-js for randomizing a string ([412957e](https://github.com/monerium/sdk/commit/412957e028d968bbc483dbc6f8724f7e2da4739a))
 
 ## [2.0.16](https://github.com/monerium/sdk/compare/v2.0.15...v2.0.16) (2023-02-25)
 
-
 ### Bug Fixes
 
-* broken build ([b05107c](https://github.com/monerium/sdk/commit/b05107c9e7246153807fe9a8ca65066f9fede989))
+- broken build ([b05107c](https://github.com/monerium/sdk/commit/b05107c9e7246153807fe9a8ca65066f9fede989))
 
 ## [2.0.15](https://github.com/monerium/sdk/compare/v2.0.14...v2.0.15) (2023-02-25)
 
-
 ### Bug Fixes
 
-* broken build ([8278788](https://github.com/monerium/sdk/commit/8278788a9bc456016805e9fc65cb1137174e096e))
+- broken build ([8278788](https://github.com/monerium/sdk/commit/8278788a9bc456016805e9fc65cb1137174e096e))
 
 ## [2.0.14](https://github.com/monerium/sdk/compare/v2.0.13...v2.0.14) (2023-02-25)
 
-
 ### Bug Fixes
 
-* broken package ([e3cc93e](https://github.com/monerium/sdk/commit/e3cc93ecab62129387b4bd6ba7d4151adab48ca3))
+- broken package ([e3cc93e](https://github.com/monerium/sdk/commit/e3cc93ecab62129387b4bd6ba7d4151adab48ca3))
 
 ## [2.0.13](https://github.com/monerium/sdk/compare/v2.0.12...v2.0.13) (2023-02-25)
 
-
 ### Bug Fixes
 
-* pkce incorrect encoding + replaced crypto-js with node:crypto polyfill. ([c1b4e66](https://github.com/monerium/sdk/commit/c1b4e66b4bcf906c414b15250d6aaf9485f931a7))
+- pkce incorrect encoding + replaced crypto-js with node:crypto polyfill. ([c1b4e66](https://github.com/monerium/sdk/commit/c1b4e66b4bcf906c414b15250d6aaf9485f931a7))
 
 ## [2.0.12](https://github.com/monerium/sdk/compare/v2.0.11...v2.0.12) (2023-02-25)
 
