@@ -11,6 +11,7 @@
 ## [2.1.20](https://github.com/monerium/sdk/compare/v2.0.19...v2.1.20) (2023-04-24)
 
 Issues with Github Actions and Yarn v3 resolved.
+
 ## [2.0.19](https://github.com/monerium/sdk/compare/v2.0.18...v2.0.19) (2023-04-24)
 
 ### Bug Fixes
