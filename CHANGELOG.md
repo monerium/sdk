@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.11](https://github.com/monerium/sdk/compare/v2.1.10...v2.1.11) (2023-04-24)
+
+
+### Bug Fixes
+
+* auth issue ([28aeb1d](https://github.com/monerium/sdk/commit/28aeb1d8b77b68c10d86db07784664a5c143df03))
+
 ## [2.1.10](https://github.com/monerium/sdk/compare/v2.1.9...v2.1.10) (2023-04-24)
 
 
