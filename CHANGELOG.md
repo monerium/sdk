@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.1.20](https://github.com/monerium/sdk/compare/v2.1.19...v2.1.20) (2023-04-24)
+
+
+### Bug Fixes
+
+* auth ([9eafd6e](https://github.com/monerium/sdk/commit/9eafd6e5f65dd328ab61067dc345b4cb1388f70b))
+* missing semicolon ([2e87267](https://github.com/monerium/sdk/commit/2e87267849957c957b122dd2a0af0c1a282f948f))
+* scope shouldnt have at prefix ([4c5ab0f](https://github.com/monerium/sdk/commit/4c5ab0f2a4c24ef637b3a266c39c5e41f05d97ac))
+
 ## [2.1.19](https://github.com/monerium/sdk/compare/v2.1.18...v2.1.19) (2023-04-24)
 
 
