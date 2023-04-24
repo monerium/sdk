@@ -17,10 +17,10 @@ on:
         description: "Has package been released to NPM"
         type: string
 
-  on:
-    push:
-      branches:
-        - test2
+  push:
+    branches:
+      - test2
+
 
 jobs:
   build:
