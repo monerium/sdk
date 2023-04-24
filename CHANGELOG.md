@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.15](https://github.com/monerium/sdk/compare/v2.1.14...v2.1.15) (2023-04-24)
+
+
+### Bug Fixes
+
+* add publish registry ([582fabd](https://github.com/monerium/sdk/commit/582fabd4602f30f1ae4c971a651c4cc8ec89d68a))
+* global set npm auth ([4ae8d49](https://github.com/monerium/sdk/commit/4ae8d498792fd5dd9eb892e1e18ccda5184fa2d3))
+
 ## [2.1.14](https://github.com/monerium/sdk/compare/v2.1.13...v2.1.14) (2023-04-24)
 
 
