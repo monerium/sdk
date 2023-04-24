@@ -1,6 +1,18 @@
 # Changelog
 
 
+## [2.1.0](https://github.com/monerium/sdk/compare/v2.1.5...v2.1.0) (2023-04-24)
+
+
+### Bug Fixes
+
+* npm scope ([5412bf9](https://github.com/monerium/sdk/commit/5412bf97d85e18d8d6b121199519271036345d05))
+
+
+### Miscellaneous
+
+* release 2.1.0 ([6f4d549](https://github.com/monerium/sdk/commit/6f4d5490843aaf2385dfd83e77159f4f28da8f42))
+
 ## [2.1.3](https://github.com/monerium/sdk/compare/v2.1.2...v2.1.3) (2023-04-24)
 
 
