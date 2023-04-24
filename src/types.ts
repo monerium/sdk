@@ -342,4 +342,6 @@ export interface LinkAddress {
   message: string;
   signature: string;
   accounts: CurrencyAccounts[];
+  network?: Network;
+  chain?: Chain;
 }
