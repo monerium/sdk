@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.1.5](https://github.com/monerium/sdk/compare/v2.1.4...v2.1.5) (2023-04-24)
+
+
+### Bug Fixes
+
+* remove verbose ([c9a1097](https://github.com/monerium/sdk/commit/c9a10976c5dd2de7cc68c01af4e663a392de3224))
+
 ## [2.1.4](https://github.com/monerium/sdk/compare/v2.1.3...v2.1.4) (2023-04-24)
 
 
