@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.20](https://github.com/monerium/sdk/compare/v2.0.19...v2.0.20) (2023-04-24)
+
+* Force update Please Release
+
 ## [2.0.19](https://github.com/monerium/sdk/compare/v2.0.18...v2.0.19) (2023-04-24)
 
 
