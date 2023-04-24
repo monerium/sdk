@@ -3,7 +3,7 @@
 
 ## [2.0.19](https://github.com/monerium/sdk/compare/v2.0.18...v2.0.19) (2023-04-24)
 
-Force Please Release update.
+Force Please Release update..
 
 ### Bug Fixes
 
