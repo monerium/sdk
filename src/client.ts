@@ -37,7 +37,7 @@ export class MoneriumClient {
 
   // -- Authentication
 
-  async auth(args: AuthArgs) {
+  async auth(args: AuthArgs): Promise<BearerProfile> {
     let params: AuthCode | RefreshToken | ClientCredentials;
 
     if (this.#isAuthCode(args)) {
@@ -58,6 +58,7 @@ export class MoneriumClient {
     )) as BearerProfile;
 
     this.#authPayload = `Bearer ${this.bearerProfile.access_token}`;
+    return this.bearerProfile;
   }
 
   /**
