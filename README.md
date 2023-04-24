@@ -26,6 +26,16 @@ yarn add @monerium/sdk
 
 If you are new here, we recommend starting in the [Developer Portal](https://monerium.dev/docs/welcome). There you will more about `client_id`'s and ways of authenticating.
 
+### Environments
+
+Sandbox:
+chains: ethereum, polygon, goerli.
+networks: goerli, mumbai, chiado.
+
+Production:
+chains: ethereum, polygon, goerli.
+networks: mainnet, mainnet, mainnet.
+
 ### Import the SDK and initialize a client
 
 ```ts
