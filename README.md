@@ -22,6 +22,20 @@ yarn add @monerium/sdk
 - `watch`: Run Vite in watch mode to detect changes to files during development
 - `build`: Run Vite to build a production release distributable
 
+### Environments
+
+#### Sandbox:
+
+chains: `ethereum`, `polygon`, `gnosis`.
+
+networks: `goerli`, `mumbai`, `chiado`.
+
+#### Production:
+
+chains: `ethereum`, `polygon`, `gnosis`.
+
+networks: `mainnet`, `mainnet`, `mainnet`.
+
 ## Getting started
 
 If you are new here, we recommend starting in the [Developer Portal](https://monerium.dev/docs/welcome). There you will more about `client_id`'s and ways of authenticating.
