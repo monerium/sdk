@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.9](https://github.com/monerium/sdk/compare/v2.1.8...v2.1.9) (2023-04-24)
+
+
+### Bug Fixes
+
+* always auth ([2ceafec](https://github.com/monerium/sdk/commit/2ceafece261751653bc824729b0e0553e53c8d17))
+* npm scope ([cc27404](https://github.com/monerium/sdk/commit/cc27404f76eab0ffab0d1b2aad1823685335c07a))
+
 ## [2.1.8](https://github.com/monerium/sdk/compare/v2.1.7...v2.1.8) (2023-04-24)
 
 
