@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.14](https://github.com/monerium/sdk/compare/v2.1.13...v2.1.14) (2023-04-24)
+
+
+### Bug Fixes
+
+* add token ([ff30c0a](https://github.com/monerium/sdk/commit/ff30c0afbca9f7467e3aef2546244bcd57b709d1))
+* missing bracket ([817e366](https://github.com/monerium/sdk/commit/817e366c540395ea10c24cb79e1f173d81f337b5))
+
 ## [2.1.13](https://github.com/monerium/sdk/compare/v2.1.12...v2.1.13) (2023-04-24)
 
 
