@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.7](https://github.com/monerium/sdk/compare/v2.1.6...v2.1.7) (2023-04-24)
+
+
+### Bug Fixes
+
+* the internet says this might fix our problems ([2757bc8](https://github.com/monerium/sdk/commit/2757bc84e3851f893a71145b1d82bf32688549e3))
+
 ## [2.1.6](https://github.com/monerium/sdk/compare/v2.1.0...v2.1.6) (2023-04-24)
 
 
