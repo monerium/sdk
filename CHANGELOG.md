@@ -1,131 +1,126 @@
 # Changelog
 
-## [2.1.20](https://github.com/monerium/sdk/compare/v2.1.19...v2.1.20) (2023-04-24)
 
+## [2.1.20](https://github.com/monerium/sdk/compare/v2.0.19...v2.1.20) (2023-04-24)
 
-### Bug Fixes
-
-* auth ([9eafd6e](https://github.com/monerium/sdk/commit/9eafd6e5f65dd328ab61067dc345b4cb1388f70b))
-* missing semicolon ([2e87267](https://github.com/monerium/sdk/commit/2e87267849957c957b122dd2a0af0c1a282f948f))
-* scope shouldnt have at prefix ([4c5ab0f](https://github.com/monerium/sdk/commit/4c5ab0f2a4c24ef637b3a266c39c5e41f05d97ac))
-
-## [2.1.19](https://github.com/monerium/sdk/compare/v2.1.18...v2.1.19) (2023-04-24)
-
+Issues with Github Actions and Yarn v3 resolved.
+## [2.0.19](https://github.com/monerium/sdk/compare/v2.0.18...v2.0.19) (2023-04-24)
 
 ### Bug Fixes
 
-* npm server ([b6a1e11](https://github.com/monerium/sdk/commit/b6a1e11827b898263d058634c6f4d1b37b34d078))
-
-## [2.1.18](https://github.com/monerium/sdk/compare/v2.1.17...v2.1.18) (2023-04-24)
-
-
-### Bug Fixes
-
-* npm auth ([36a8a47](https://github.com/monerium/sdk/commit/36a8a47e117b25561dbd669a9361b407a915fb89))
-
-## [2.1.17](https://github.com/monerium/sdk/compare/v2.1.16...v2.1.17) (2023-04-24)
-
-
-### Bug Fixes
-
-* npm ([f55a9f1](https://github.com/monerium/sdk/commit/f55a9f18bf2b798cfe7d4425b8dc5e6b680ff192))
-
-## [2.1.16](https://github.com/monerium/sdk/compare/v2.1.15...v2.1.16) (2023-04-24)
-
-
-### Bug Fixes
-
-* npmAuthToken ([5a3416d](https://github.com/monerium/sdk/commit/5a3416dd2f44370a782d54359035ffd9f8ea2c1f))
-
-## [2.1.15](https://github.com/monerium/sdk/compare/v2.1.14...v2.1.15) (2023-04-24)
-
-
-### Bug Fixes
-
-* add publish registry ([582fabd](https://github.com/monerium/sdk/commit/582fabd4602f30f1ae4c971a651c4cc8ec89d68a))
-* global set npm auth ([4ae8d49](https://github.com/monerium/sdk/commit/4ae8d498792fd5dd9eb892e1e18ccda5184fa2d3))
-
-## [2.1.14](https://github.com/monerium/sdk/compare/v2.1.13...v2.1.14) (2023-04-24)
-
-
-### Bug Fixes
-
-* add token ([ff30c0a](https://github.com/monerium/sdk/commit/ff30c0afbca9f7467e3aef2546244bcd57b709d1))
-* missing bracket ([817e366](https://github.com/monerium/sdk/commit/817e366c540395ea10c24cb79e1f173d81f337b5))
-
-## [2.1.13](https://github.com/monerium/sdk/compare/v2.1.12...v2.1.13) (2023-04-24)
-
-
-### Bug Fixes
-
-* login & whoami ([b22f8db](https://github.com/monerium/sdk/commit/b22f8db0c130dd12ad594e19541ba8988a5848c2))
-
-## [2.1.12](https://github.com/monerium/sdk/compare/v2.1.11...v2.1.12) (2023-04-24)
-
-
-### Bug Fixes
-
-* npm scope with at ([a0b645f](https://github.com/monerium/sdk/commit/a0b645f4f1cf9950b653c7ab40e71c72573a2a5b))
-
-## [2.1.11](https://github.com/monerium/sdk/compare/v2.1.10...v2.1.11) (2023-04-24)
-
-
-### Bug Fixes
-
-* auth issue ([28aeb1d](https://github.com/monerium/sdk/commit/28aeb1d8b77b68c10d86db07784664a5c143df03))
-
-## [2.1.10](https://github.com/monerium/sdk/compare/v2.1.9...v2.1.10) (2023-04-24)
-
-
-### Bug Fixes
-
-* npm scope ([8f2ea68](https://github.com/monerium/sdk/commit/8f2ea68549d9385fd8eef50fa3820e485efa56c2))
-
-## [2.1.9](https://github.com/monerium/sdk/compare/v2.1.8...v2.1.9) (2023-04-24)
-
-
-### Bug Fixes
-
-* always auth ([2ceafec](https://github.com/monerium/sdk/commit/2ceafece261751653bc824729b0e0553e53c8d17))
-* npm scope ([cc27404](https://github.com/monerium/sdk/commit/cc27404f76eab0ffab0d1b2aad1823685335c07a))
-
-## [2.1.8](https://github.com/monerium/sdk/compare/v2.1.7...v2.1.8) (2023-04-24)
-
-
-### Bug Fixes
-
-* ja pierdole ([a657bf7](https://github.com/monerium/sdk/commit/a657bf77b5d3f819c780874050042312e4b7dcb1))
-
-## [2.1.7](https://github.com/monerium/sdk/compare/v2.1.6...v2.1.7) (2023-04-24)
-
-
-### Bug Fixes
-
-* the internet says this might fix our problems ([2757bc8](https://github.com/monerium/sdk/commit/2757bc84e3851f893a71145b1d82bf32688549e3))
-
-## [2.1.6](https://github.com/monerium/sdk/compare/v2.1.0...v2.1.6) (2023-04-24)
-
-
-### Bug Fixes
-
-* add registry server ([46f5711](https://github.com/monerium/sdk/commit/46f5711560307acce80391b70cf945d35d58d11c))
-* cant force version numbers for PleaseRelease ([fc2f2d5](https://github.com/monerium/sdk/commit/fc2f2d5fab12733b9a2cb5f0a567b8b4fcfb5cf0))
-* fix ([2d781e3](https://github.com/monerium/sdk/commit/2d781e3780eda0d1ad5cf520f39eab9abfb10c7c))
-* frozen lockfile deprecated ([143cb31](https://github.com/monerium/sdk/commit/143cb31c847cc88b1bbcf1a8ba8d2e653ad94001))
-* npm scope ([5412bf9](https://github.com/monerium/sdk/commit/5412bf97d85e18d8d6b121199519271036345d05))
-* npmAuthToken can be empty, static deploy github action doesnt need it ([e7e553b](https://github.com/monerium/sdk/commit/e7e553b03def857101b02fcb31b1d4f0f6ba0479))
-* remove verbose ([c9a1097](https://github.com/monerium/sdk/commit/c9a10976c5dd2de7cc68c01af4e663a392de3224))
-* yarn cache ([cacbdfb](https://github.com/monerium/sdk/commit/cacbdfbd637966290c2dbd313179cc128e5c0bb4))
-* zero install ([f563c15](https://github.com/monerium/sdk/commit/f563c1514801675b9baf63b10aa7ac8d856cb7fa))
-
+- include network and chain in linkAccount ([cd7fe6e](https://github.com/monerium/sdk/commit/cd7fe6e4b52dc38f589e081b7afa6dc36f2436f8))
+- pipeline error ([d489695](https://github.com/monerium/sdk/commit/d489695a567630b0da0a7ec2269569b0eaac93f2))
+- return BearerProfile from auth function ([ef7fe3b](https://github.com/monerium/sdk/commit/ef7fe3b58b21e3671602c70545e4a04669dd6461))
 
 ### Miscellaneous
 
-* **main:** release 2.1.0 ([#52](https://github.com/monerium/sdk/issues/52)) ([c2b9590](https://github.com/monerium/sdk/commit/c2b95906eb0f654f51c5d3fb54fdcf21b87e5d44))
-* **main:** release 2.1.1 ([#47](https://github.com/monerium/sdk/issues/47)) ([c39eed0](https://github.com/monerium/sdk/commit/c39eed01763cc3506adea0d25caeb51e088b6634))
-* **main:** release 2.1.2 ([#48](https://github.com/monerium/sdk/issues/48)) ([5ed5b48](https://github.com/monerium/sdk/commit/5ed5b486378300298cd9ae9a80b0972fc3c9542a))
-* **main:** release 2.1.3 ([#49](https://github.com/monerium/sdk/issues/49)) ([9b517f4](https://github.com/monerium/sdk/commit/9b517f497e8e7a42265f065c0b71fbb3796bd7cd))
-* **main:** release 2.1.4 ([#50](https://github.com/monerium/sdk/issues/50)) ([83d3127](https://github.com/monerium/sdk/commit/83d3127364411b4bc57e842d68ddaafc9ada4355))
-* **main:** release 2.1.5 ([#51](https://github.com/monerium/sdk/issues/51)) ([b977d7e](https://github.com/monerium/sdk/commit/b977d7e262e98c8683952bf2ca59986f19265fb6))
-* release 2.1.0 ([6f4d549](https://github.com/monerium/sdk/commit/6f4d5490843aaf2385dfd83e77159f4f28da8f42))
-* release 2.1.6 ([68c01f3](https://github.com/monerium/sdk/commit/68c01f38fda0e9cd95322ae653fb3db391939c6f))
+- added backwards compatibility to node v17.5 ([61bba5e](https://github.com/monerium/sdk/commit/61bba5e15131e7d125ce03fcb65b39120559d9f3))
+- migrate to yarn v3 ([4d47d6f](https://github.com/monerium/sdk/commit/4d47d6fe4e798e8af61eab7dd03b188322fd0f31))
+- set node engine &gt;= 17.5 ([407cf66](https://github.com/monerium/sdk/commit/407cf66eefa9734e89df9e031f523db70abf7674))
+
+## [2.0.18](https://github.com/monerium/sdk/compare/v2.0.17...v2.0.18) (2023-04-21)
+
+### Bug Fixes
+
+- es6 module imports ([00edf8d](https://github.com/monerium/sdk/commit/00edf8d600e6944fbcc17da00351ffae9ee79b53))
+- test credentials ([00edf8d](https://github.com/monerium/sdk/commit/00edf8d600e6944fbcc17da00351ffae9ee79b53))
+
+### Miscellaneous
+
+- explain and add uppercase to the -randomness- ([5ed54d8](https://github.com/monerium/sdk/commit/5ed54d86a79b88293c595bd23ecf07cd30aafe63))
+
+## [2.0.17](https://github.com/monerium/sdk/compare/v2.0.16...v2.0.17) (2023-02-25)
+
+### Miscellaneous
+
+- dont use crypto-js for randomizing a string ([412957e](https://github.com/monerium/sdk/commit/412957e028d968bbc483dbc6f8724f7e2da4739a))
+
+## [2.0.16](https://github.com/monerium/sdk/compare/v2.0.15...v2.0.16) (2023-02-25)
+
+### Bug Fixes
+
+- broken build ([b05107c](https://github.com/monerium/sdk/commit/b05107c9e7246153807fe9a8ca65066f9fede989))
+
+## [2.0.15](https://github.com/monerium/sdk/compare/v2.0.14...v2.0.15) (2023-02-25)
+
+### Bug Fixes
+
+- broken build ([8278788](https://github.com/monerium/sdk/commit/8278788a9bc456016805e9fc65cb1137174e096e))
+
+## [2.0.14](https://github.com/monerium/sdk/compare/v2.0.13...v2.0.14) (2023-02-25)
+
+### Bug Fixes
+
+- broken package ([e3cc93e](https://github.com/monerium/sdk/commit/e3cc93ecab62129387b4bd6ba7d4151adab48ca3))
+
+## [2.0.13](https://github.com/monerium/sdk/compare/v2.0.12...v2.0.13) (2023-02-25)
+
+### Bug Fixes
+
+- pkce incorrect encoding + replaced crypto-js with node:crypto polyfill. ([c1b4e66](https://github.com/monerium/sdk/commit/c1b4e66b4bcf906c414b15250d6aaf9485f931a7))
+
+## [2.0.12](https://github.com/monerium/sdk/compare/v2.0.11...v2.0.12) (2023-02-25)
+
+### Bug Fixes
+
+- replace encodeBase64Url, not available in the downgraded version of crypto-js ([c883b64](https://github.com/monerium/sdk/commit/c883b6422b1d068752a420abce2ce3a14d8a4092))
+
+## [2.0.11](https://github.com/monerium/sdk/compare/v2.0.10...v2.0.11) (2023-02-25)
+
+### Bug Fixes
+
+- crypto-js to 3.1.9-1 because of https://github.com/brix/crypto-js/issues/256 ([00bffd9](https://github.com/monerium/sdk/commit/00bffd9e7e90315f09cee4a8ade60121d1e1b75a))
+
+### Miscellaneous
+
+- remove unnecessary comment ([c8d64ad](https://github.com/monerium/sdk/commit/c8d64adad6157eecd1e2a3faf0bec0a86da74f07))
+
+## [2.0.10](https://github.com/monerium/sdk/compare/v2.0.9...v2.0.10) (2023-02-16)
+
+### Miscellaneous
+
+- define properties for automatic wallet link on auth flow ([#19](https://github.com/monerium/sdk/issues/19)) ([3bf845c](https://github.com/monerium/sdk/commit/3bf845cac60bb8a2d5ee7a9dbfa56c76f6996178))
+
+## [2.0.9](https://github.com/monerium/sdk/compare/v2.0.8...v2.0.9) (2023-02-06)
+
+### Bug Fixes
+
+- build files ([1b0f99f](https://github.com/monerium/sdk/commit/1b0f99fcc6635de69b62de72198f22daa2d36b10))
+
+## [2.0.8](https://github.com/monerium/sdk/compare/v2.0.7...v2.0.8) (2023-02-06)
+
+### Bug Fixes
+
+- move dts-bundle config to configs and update paths ([2de558f](https://github.com/monerium/sdk/commit/2de558f6c69b5c72d77ee1065e326d05072ad16c))
+
+### Miscellaneous
+
+- add getting started to README and document pckeRequest ([8cf68dd](https://github.com/monerium/sdk/commit/8cf68dd7fcf28b098192ca0da8dfdb3878a3e449))
+- deprecate pkceRequest for getAuthFlowURI ([4f33174](https://github.com/monerium/sdk/commit/4f33174abbdbc0758b61efc4161e4fc234524ca5))
+
+## [2.0.7](https://github.com/monerium/sdk/compare/v2.0.6...v2.0.7) (2023-01-11)
+
+### Miscellaneous
+
+- add commitlint ([bdae6d8](https://github.com/monerium/sdk/commit/bdae6d83ed386d80be0f27e362e6622ad6ca0ffd))
+- add theme for typedoc to expand and make the sidebar more useful ([355f0f8](https://github.com/monerium/sdk/commit/355f0f839b27bdaeaead2463c0afc48409080041))
+- fix and document pckeRequest ([3905283](https://github.com/monerium/sdk/commit/390528378206149862795ee7a46b54649927e384))
+
+## [2.0.6](https://github.com/monerium/sdk/compare/v2.0.0...v2.0.6) (2023-01-05)
+
+### Bug Fixes
+
+- Update TypeDocs and set workflow to run only on release ([42e5b41](https://github.com/monerium/sdk/commit/42e5b417eca0e2e1f7d7af51a5cde59df28c1ba0))
+- Update TypeDocs and set workflow to run only on release ([#7](https://github.com/monerium/sdk/issues/7)) ([42e5b41](https://github.com/monerium/sdk/commit/42e5b417eca0e2e1f7d7af51a5cde59df28c1ba0))
+
+### Miscellaneous
+
+- cleanup ([5c75dea](https://github.com/monerium/sdk/commit/5c75dea7ee3cd8468a09fdf2f70024047e87f3a0))
+- **main:** release 2.0.5 ([#13](https://github.com/monerium/sdk/issues/13)) ([21c4052](https://github.com/monerium/sdk/commit/21c405262a6f6d0503dadc11aea483c2ebf3574f))
+
+## [2.0.5](https://github.com/monerium/sdk/compare/v2.0.0...v2.0.5) (2023-01-05)
+
+### Bug Fixes
+
+- Update TypeDocs and adjust workflows ([42e5b41
+  ](https://github.com/monerium/sdk/commit/42e5b417eca0e2e1f7d7af51a5cde59df28c1ba0))
