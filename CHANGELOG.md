@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.21](https://github.com/monerium/sdk/compare/v2.0.20...v2.0.21) (2023-04-24)
+
+
+### Bug Fixes
+
+* npm publish ([e2f4d46](https://github.com/monerium/sdk/commit/e2f4d46635715f82ce0b84de24cbf14d642fede4))
+
 ## [2.0.20](https://github.com/monerium/sdk/compare/v2.0.19...v2.0.20) (2023-04-24)
 
 * Force update Please Release
