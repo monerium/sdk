@@ -12,10 +12,10 @@ on:
   workflow_dispatch:
   # Allows other workflows to trigger this one
   workflow_call:
-  inputs:
-    release_created:
-      description: "Has package been released to NPM"
-      type: string
+    inputs:
+      release_created:
+        description: "Has package been released to NPM"
+        type: string
 
 jobs:
   build:
