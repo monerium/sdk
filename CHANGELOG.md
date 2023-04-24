@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.1.3](https://github.com/monerium/sdk/compare/v2.1.2...v2.1.3) (2023-04-24)
+
+
+### Bug Fixes
+
+* zero install ([f563c15](https://github.com/monerium/sdk/commit/f563c1514801675b9baf63b10aa7ac8d856cb7fa))
+
 ## [2.1.2](https://github.com/monerium/sdk/compare/v2.1.1...v2.1.2) (2023-04-24)
 
 
