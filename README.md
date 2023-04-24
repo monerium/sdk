@@ -40,9 +40,6 @@ networks: `mainnet`, `mainnet`, `mainnet`.
 
 If you are new here, we recommend starting in the [Developer Portal](https://monerium.dev/docs/welcome). There you will more about `client_id`'s and ways of authenticating.
 
-
-
-
 ### Import the SDK and initialize a client
 
 ```ts
