@@ -17,11 +17,10 @@
 
 ## [2.1.1](https://github.com/monerium/sdk/compare/v2.1.0...v2.1.1) (2023-04-24)
 
-
 ### Bug Fixes
 
-* add registry server ([46f5711](https://github.com/monerium/sdk/commit/46f5711560307acce80391b70cf945d35d58d11c))
-* npmAuthToken can be empty, static deploy github action doesnt need it ([e7e553b](https://github.com/monerium/sdk/commit/e7e553b03def857101b02fcb31b1d4f0f6ba0479))
+- add registry server ([46f5711](https://github.com/monerium/sdk/commit/46f5711560307acce80391b70cf945d35d58d11c))
+- npmAuthToken can be empty, static deploy github action doesnt need it ([e7e553b](https://github.com/monerium/sdk/commit/e7e553b03def857101b02fcb31b1d4f0f6ba0479))
 
 ## [2.1.0](https://github.com/monerium/sdk/compare/v2.0.19...v2.1.0) (2023-04-24)
 
