@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.1.4](https://github.com/monerium/sdk/compare/v2.1.3...v2.1.4) (2023-04-24)
+
+
+### Bug Fixes
+
+* yarn cache ([cacbdfb](https://github.com/monerium/sdk/commit/cacbdfbd637966290c2dbd313179cc128e5c0bb4))
+
 ## [2.1.3](https://github.com/monerium/sdk/compare/v2.1.2...v2.1.3) (2023-04-24)
 
 
