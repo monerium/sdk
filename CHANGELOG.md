@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.12](https://github.com/monerium/sdk/compare/v2.1.11...v2.1.12) (2023-04-24)
+
+
+### Bug Fixes
+
+* npm scope with at ([a0b645f](https://github.com/monerium/sdk/commit/a0b645f4f1cf9950b653c7ab40e71c72573a2a5b))
+
 ## [2.1.11](https://github.com/monerium/sdk/compare/v2.1.10...v2.1.11) (2023-04-24)
 
 
