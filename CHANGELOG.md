@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.13](https://github.com/monerium/sdk/compare/v2.1.12...v2.1.13) (2023-04-24)
+
+
+### Bug Fixes
+
+* login & whoami ([b22f8db](https://github.com/monerium/sdk/commit/b22f8db0c130dd12ad594e19541ba8988a5848c2))
+
 ## [2.1.12](https://github.com/monerium/sdk/compare/v2.1.11...v2.1.12) (2023-04-24)
 
 
