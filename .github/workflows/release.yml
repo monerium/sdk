@@ -31,7 +31,8 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
       - run: yarn build
         if: ${{ steps.release.outputs.release_created }}
-      - run: yarn npm login -s monerium
+      - run: yarn npm login -s @monerium
+      - run: yarn npm whoami
       - run: yarn npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
