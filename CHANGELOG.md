@@ -1,20 +1,6 @@
 # Changelog
 
 
-## [2.1.5](https://github.com/monerium/sdk/compare/v2.1.4...v2.1.5) (2023-04-24)
-
-
-### Bug Fixes
-
-* remove verbose ([c9a1097](https://github.com/monerium/sdk/commit/c9a10976c5dd2de7cc68c01af4e663a392de3224))
-
-## [2.1.4](https://github.com/monerium/sdk/compare/v2.1.3...v2.1.4) (2023-04-24)
-
-
-### Bug Fixes
-
-* yarn cache ([cacbdfb](https://github.com/monerium/sdk/commit/cacbdfbd637966290c2dbd313179cc128e5c0bb4))
-
 ## [2.1.3](https://github.com/monerium/sdk/compare/v2.1.2...v2.1.3) (2023-04-24)
 
 
@@ -24,10 +10,9 @@
 
 ## [2.1.2](https://github.com/monerium/sdk/compare/v2.1.1...v2.1.2) (2023-04-24)
 
-
 ### Bug Fixes
 
-* frozen lockfile deprecated ([143cb31](https://github.com/monerium/sdk/commit/143cb31c847cc88b1bbcf1a8ba8d2e653ad94001))
+- frozen lockfile deprecated ([143cb31](https://github.com/monerium/sdk/commit/143cb31c847cc88b1bbcf1a8ba8d2e653ad94001))
 
 ## [2.1.1](https://github.com/monerium/sdk/compare/v2.1.0...v2.1.1) (2023-04-24)
 
