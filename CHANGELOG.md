@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.16](https://github.com/monerium/sdk/compare/v2.1.15...v2.1.16) (2023-04-24)
+
+
+### Bug Fixes
+
+* npmAuthToken ([5a3416d](https://github.com/monerium/sdk/commit/5a3416dd2f44370a782d54359035ffd9f8ea2c1f))
+
 ## [2.1.15](https://github.com/monerium/sdk/compare/v2.1.14...v2.1.15) (2023-04-24)
 
 
