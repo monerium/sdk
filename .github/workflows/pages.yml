@@ -6,21 +6,19 @@
 
 name: Deploy to Github pages
 on:
+  push:
+    branches:
+      - test2
   # release:
   #   types: [created]
   # Allows you to run this workflow manually from the Actions tab
   #workflow_dispatch:
   # Allows other workflows to trigger this one
   #workflow_call:
-    inputs:
-      release_created:
-        description: "Has package been released to NPM"
-        type: string
-
-  push:
-    branches:
-      - test2
-
+  # inputs:
+  #   release_created:
+  #     description: "Has package been released to NPM"
+  #     type: string
 
 jobs:
   build:
