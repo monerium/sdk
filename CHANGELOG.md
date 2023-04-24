@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.19](https://github.com/monerium/sdk/compare/v2.1.18...v2.1.19) (2023-04-24)
+
+
+### Bug Fixes
+
+* npm server ([b6a1e11](https://github.com/monerium/sdk/commit/b6a1e11827b898263d058634c6f4d1b37b34d078))
+
 ## [2.1.18](https://github.com/monerium/sdk/compare/v2.1.17...v2.1.18) (2023-04-24)
 
 
