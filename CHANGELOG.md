@@ -1,5 +1,13 @@
 # Changelog
 
+
+## [2.1.21](https://github.com/monerium/sdk/compare/v2.1.20...v2.1.21) (2023-04-24)
+
+
+### Miscellaneous
+
+* cleanup changelog history ([1c4b12b](https://github.com/monerium/sdk/commit/1c4b12b77eaa61d07b0b39d056a35f505416039a))
+
 ## [2.1.20](https://github.com/monerium/sdk/compare/v2.0.19...v2.1.20) (2023-04-24)
 
 Issues with Github Actions and Yarn v3 resolved.
