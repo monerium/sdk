@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.22](https://github.com/monerium/sdk/compare/v2.0.21...v2.0.22) (2023-04-24)
+
+
+### Bug Fixes
+
+* include node auth in yarnrc ([9fd64aa](https://github.com/monerium/sdk/commit/9fd64aa0f2e401fe1dbf8979e85dc9ec7e302ba0))
+
 ## [2.0.21](https://github.com/monerium/sdk/compare/v2.0.20...v2.0.21) (2023-04-24)
 
 
