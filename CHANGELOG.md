@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.8](https://github.com/monerium/sdk/compare/v2.1.7...v2.1.8) (2023-04-24)
+
+
+### Bug Fixes
+
+* ja pierdole ([a657bf7](https://github.com/monerium/sdk/commit/a657bf77b5d3f819c780874050042312e4b7dcb1))
+
 ## [2.1.7](https://github.com/monerium/sdk/compare/v2.1.6...v2.1.7) (2023-04-24)
 
 
