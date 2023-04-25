@@ -13,17 +13,11 @@ jobs:
         # these if statements ensure that a publication only occurs when
         # a new release is created:
         # if: ${{ steps.release.outputs.release_created }}
-      # - run: yarn config get cacheFolder
-      # - run: yarn install --check-cache --inline-builds
-      - run: yarn install --immutable --immutable-cache
-        # if: ${{ steps.release.outputs.release_created }}
-      - run: yarn build
-        if: ${{ steps.release.outputs.release_created }}
-      - run: yarn npm whoami --scope @monerium
-      # - run: yarn npm publish
-      # env:
-      # NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      # if: ${{ steps.release.outputs.release_created }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: "https://registry.npmjs.org"
+      - run: yarn npm whoami
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
   echo:
