@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.1.23](https://github.com/monerium/sdk/compare/v2.1.22...v2.1.23) (2023-04-25)
+
+
+### Bug Fixes
+
+* now it should publish succesfully to npm registry ([#71](https://github.com/monerium/sdk/issues/71)) ([5b5e37b](https://github.com/monerium/sdk/commit/5b5e37b2cde1d1e0411e3e023cfcd5f7eca376d6))
+
+## [2.1.22](https://github.com/monerium/sdk/compare/v2.1.21...v2.1.22) (2023-04-24)
+
+
+### Bug Fixes
+
+* deploy static pipeline ([#69](https://github.com/monerium/sdk/issues/69)) ([38067e7](https://github.com/monerium/sdk/commit/38067e75e3334b6eb20dcc182f1d6aaca5af0caa))
+
+
 ## [2.1.21](https://github.com/monerium/sdk/compare/v2.1.20...v2.1.21) (2023-04-24)
 
 ### Miscellaneous

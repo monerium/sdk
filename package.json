@@ -1,6 +1,6 @@
 {
   "name": "@monerium/sdk",
-  "version": "2.1.21",
+  "version": "2.1.23",
   "description": "Everything you need to interact with the Monerium API - an electronic money issuer.",
   "license": "MIT",
   "repository": {
