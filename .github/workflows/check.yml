@@ -4,6 +4,8 @@ on:
   push:
     branches-ignore:
       - main
+      - release-please*
+
 jobs:
   build-test:
     name: "Build & test"
