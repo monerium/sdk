@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.2.0](https://github.com/monerium/sdk/compare/v2.1.23...v2.2.0) (2023-04-25)
+
+
+### Features
+
+* use Yarn PnP ([#73](https://github.com/monerium/sdk/issues/73)) ([4295154](https://github.com/monerium/sdk/commit/4295154487c3eb255b23816b5cf32aac52cae710))
 
 ## [2.1.23](https://github.com/monerium/sdk/compare/v2.1.22...v2.1.23) (2023-04-25)
 

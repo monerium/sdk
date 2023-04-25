@@ -1,14 +1,14 @@
-import type { Config } from "./types";
+import type { Config } from './types';
 
 const MONERIUM_CONFIG: Config = {
   environments: {
     production: {
-      api: "https://api.monerium.app",
-      web: "https://monerium.app",
+      api: 'https://api.monerium.app',
+      web: 'https://monerium.app',
     },
     sandbox: {
-      api: "https://api.monerium.dev",
-      web: "https://sandbox.monerium.dev",
+      api: 'https://api.monerium.dev',
+      web: 'https://sandbox.monerium.dev',
     },
   },
 };

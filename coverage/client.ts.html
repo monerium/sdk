@@ -505,10 +505,10 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import encodeBase64Url from "crypto-js/enc-base64url";
-import SHA256 from "crypto-js/sha256";
-import { generateRandomString } from "./utils";
-import { MONERIUM_CONFIG } from "./config";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import encodeBase64Url from 'crypto-js/enc-base64url';
+import SHA256 from 'crypto-js/sha256';
+import { generateRandomString } from './utils';
+import { MONERIUM_CONFIG } from './config';
 import type {
   AuthArgs,
   AuthCode,
@@ -527,7 +527,7 @@ import type {
   RefreshToken,
   SupportingDoc,
   Token,
-} from "./types";
+} from './types';
 // import pjson from "../package.json";
 &nbsp;
 export class MoneriumClient {
@@ -538,7 +538,7 @@ export class MoneriumClient {
   codeVerifier?: string;
   bearerProfile?: BearerProfile;
 &nbsp;
-  constructor(env: "production" | "sandbox" = "sandbox") {
+  constructor(env: 'production' | 'sandbox' = 'sandbox') {
     this.#env = MONERIUM_CONFIG.environments[env];
   }
 &nbsp;
@@ -548,20 +548,20 @@ export class MoneriumClient {
     let params: AuthCode | RefreshToken | ClientCredentials;
 &nbsp;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (this.#isAuthCode(args)) {
-<span class="cstat-no" title="statement not covered" >      params = { ...args, grant_type: "authorization_code" };</span>
+<span class="cstat-no" title="statement not covered" >      params = { ...args, grant_type: 'authorization_code' };</span>
     } else <span class="missing-if-branch" title="if path not taken" >I</span>if (this.#isRefreshToken(args)) {
-<span class="cstat-no" title="statement not covered" >      params = { ...args, grant_type: "refresh_token" };</span>
+<span class="cstat-no" title="statement not covered" >      params = { ...args, grant_type: 'refresh_token' };</span>
     } else if (this.#isClientCredentials(args)) {
-      params = { ...args, grant_type: "client_credentials" };
+      params = { ...args, grant_type: 'client_credentials' };
     } else <span class="missing-if-branch" title="else path not taken" >E</span>{
-<span class="cstat-no" title="statement not covered" >      throw new Error("Authentication method could not be detected.");</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error('Authentication method could not be detected.');</span>
     }
 &nbsp;
     this.bearerProfile = (await this.#api(
-      "post",
+      'post',
       `auth/token`,
       new URLSearchParams(params as unknown as Record&lt;string, string&gt;),
-      true
+      true,
     )) as BearerProfile;
 &nbsp;
     this.#authPayload = `Bearer ${this.bearerProfile.access_token}`;
@@ -579,15 +579,15 @@ export class MoneriumClient {
     // `Error: Native crypto module could not be used to get secure random number.`
     this.codeVerifier = generateRandomString();
     const challenge = encodeBase64Url.stringify(
-      SHA256(this.codeVerifier as string)
+      SHA256(this.codeVerifier as string),
     );
 &nbsp;
     const params: PKCERequest = {
       ...args,
       client_id: args?.client_id,
       code_challenge: challenge,
-      code_challenge_method: "S256",
-      response_type: "code",
+      code_challenge_method: 'S256',
+      response_type: 'code',
     };
 &nbsp;
     return `${this.#env.api}/auth?${new URLSearchParams(params)}`;
@@ -601,14 +601,14 @@ export class MoneriumClient {
   // -- Read Methods
 &nbsp;
   getAuthContext(): Promise&lt;AuthContext&gt; {
-    return this.#api("get", `auth/context`) as Promise&lt;AuthContext&gt;;
+    return this.#api('get', `auth/context`) as Promise&lt;AuthContext&gt;;
   }
 &nbsp;
   /**
    * @param {string} profileId - the id of the profile to fetch.
    */
   getProfile(profileId: string): Promise&lt;Profile&gt; {
-    return this.#api("get", `profiles/${profileId}`) as Promise&lt;Profile&gt;;
+    return this.#api('get', `profiles/${profileId}`) as Promise&lt;Profile&gt;;
   }
 &nbsp;
   /**
@@ -617,66 +617,66 @@ export class MoneriumClient {
   getBalances(profileId?: string): Promise&lt;Balances&gt; | Promise&lt;Balances[]&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (profileId) {
 <span class="cstat-no" title="statement not covered" >      return this.#api(</span>
-        "get",
-        `profiles/${profileId}/balances`
+        'get',
+        `profiles/${profileId}/balances`,
       ) as Promise&lt;Balances&gt;;
     } else {
-      return this.#api("get", `balances`) as Promise&lt;Balances[]&gt;;
+      return this.#api('get', `balances`) as Promise&lt;Balances[]&gt;;
     }
   }
 &nbsp;
   getOrders(filter?: OrderFilter): Promise&lt;Order[]&gt; {
     const searchParams = new URLSearchParams(
-      filter as unknown as Record&lt;string, string&gt;
+      filter as unknown as Record&lt;string, string&gt;,
     );
 &nbsp;
-    return this.#api("get", `orders?${searchParams}`) as Promise&lt;Order[]&gt;;
+    return this.#api('get', `orders?${searchParams}`) as Promise&lt;Order[]&gt;;
   }
 &nbsp;
   getOrder(orderId: string): Promise&lt;Order&gt; {
-    return this.#api("get", `orders/${orderId}`) as Promise&lt;Order&gt;;
+    return this.#api('get', `orders/${orderId}`) as Promise&lt;Order&gt;;
   }
 &nbsp;
   getTokens(): Promise&lt;Token[]&gt; {
-    return this.#api("get", "tokens") as Promise&lt;Token[]&gt;;
+    return this.#api('get', 'tokens') as Promise&lt;Token[]&gt;;
   }
 &nbsp;
   // -- Write Methods
 &nbsp;
   linkAddress(profileId: string, body: LinkAddress) {
     return this.#api(
-      "post",
+      'post',
       `profiles/${profileId}/addresses`,
-      JSON.stringify(body)
+      JSON.stringify(body),
     );
   }
 &nbsp;
   placeOrder(order: NewOrder, profileId?: string): Promise&lt;Order&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (profileId) {
 <span class="cstat-no" title="statement not covered" >      return this.#api(</span>
-        "post",
+        'post',
         `profiles/${profileId}/orders`,
-        JSON.stringify(order)
+        JSON.stringify(order),
       ) as Promise&lt;Order&gt;;
     } else {
       return this.#api(
-        "post",
+        'post',
         `orders`,
-        JSON.stringify(order)
+        JSON.stringify(order),
       ) as Promise&lt;Order&gt;;
     }
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  uploadSupportingDocument(</span>document: File): Promise&lt;SupportingDoc&gt; {
     const searchParams = <span class="cstat-no" title="statement not covered" >new URLSearchParams(</span>
-      document as unknown as Record&lt;string, string&gt;
+      document as unknown as Record&lt;string, string&gt;,
     );
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return this.#api(</span>
-      "post",
-      "files/supporting-document",
+      'post',
+      'files/supporting-document',
       searchParams,
-      true
+      true,
     ) as Promise&lt;SupportingDoc&gt;;
   }
 &nbsp;
@@ -686,15 +686,15 @@ export class MoneriumClient {
     method: string,
     resource: string,
     body?: BodyInit,
-    isFormEncoded?: boolean
+    isFormEncoded?: boolean,
   ) {
     const res = await fetch(`${this.#env.api}/${resource}`, {
       method,
       headers: {
-        "Content-Type": `application/${
-          isFormEncoded ? "x-www-form-urlencoded" : "json"
+        'Content-Type': `application/${
+          isFormEncoded ? 'x-www-form-urlencoded' : 'json'
         }`,
-        Authorization: this.#authPayload || "",
+        Authorization: this.#authPayload || '',
         // "User-Agent": "sdk/" + pjson.version,
       },
       body,
@@ -733,7 +733,7 @@ export class MoneriumClient {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-04-25T00:29:16.067Z
+                at 2023-04-25T16:16:36.050Z
             </div>
         <script src="prettify.js"></script>
         <script>
