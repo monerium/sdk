@@ -20,11 +20,13 @@ jobs:
           cache: "yarn"
 
         # if: ${{ steps.release.outputs.release_created }}
-      - run: yarn install --check-cache
+      - run: yarn config get cacheFolder
+      - run: yarn install --check-cache --inline-builds
+      - run: yarn install --immutable --immutable-cache --check-cache --inline-builds
         # if: ${{ steps.release.outputs.release_created }}
       - run: yarn build
         if: ${{ steps.release.outputs.release_created }}
-      - run: yarn npm whoami
+      - run: yarn npm whoami --scope monerium
       # - run: yarn npm publish
       # env:
       # NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
