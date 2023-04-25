@@ -17,10 +17,11 @@
     "dist"
   ],
   "engines": {
-    "node": "18.x"
+    "node": ">= 17.5"
   },
   "scripts": {
-    "build": "tsc && vite build && dts-bundle-generator --config ./configs/dts-bundle-generator.ts",
+    "build": "NODE_OPTIONS=--experimental-fetch yarn build:main",
+    "build:main": "tsc && vite build && dts-bundle-generator --config ./configs/dts-bundle-generator.ts",
     "clean": "rm -rf dist && rm -rf node_modules",
     "docs": "typedoc --options configs/typedoc.json",
     "docs:watch": "yarn docs --watch",
@@ -29,7 +30,8 @@
     "prepare": "husky install",
     "prepublish": "yarn build && yarn lint && yarn format && yarn test",
     "start": "vite --host --open",
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-fetch yarn test:main",
+    "test:main": "jest",
     "test:coverage": "jest --coverage",
     "watch": "tsc && vite build --watch"
   },
