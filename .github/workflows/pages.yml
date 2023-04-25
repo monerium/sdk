@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: "18"
           cache: "yarn"
-      - run: yarn
+      - run: yarn install --check-cache
       - run: yarn docs && yarn test:coverage
       - run: mkdir static
       - run: mv coverage/lcov-report static/coverage
