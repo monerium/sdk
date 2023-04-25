@@ -1,7 +1,7 @@
-import encodeBase64Url from "crypto-js/enc-base64url";
-import SHA256 from "crypto-js/sha256";
-import { generateRandomString } from "./utils";
-import { MONERIUM_CONFIG } from "./config";
+import encodeBase64Url from 'crypto-js/enc-base64url';
+import SHA256 from 'crypto-js/sha256';
+import { generateRandomString } from './utils';
+import { MONERIUM_CONFIG } from './config';
 import type {
   AuthArgs,
   AuthCode,
@@ -20,7 +20,7 @@ import type {
   RefreshToken,
   SupportingDoc,
   Token,
-} from "./types";
+} from './types';
 // import pjson from "../package.json";
 
 export class MoneriumClient {
@@ -31,7 +31,7 @@ export class MoneriumClient {
   codeVerifier?: string;
   bearerProfile?: BearerProfile;
 
-  constructor(env: "production" | "sandbox" = "sandbox") {
+  constructor(env: 'production' | 'sandbox' = 'sandbox') {
     this.#env = MONERIUM_CONFIG.environments[env];
   }
 
@@ -41,20 +41,20 @@ export class MoneriumClient {
     let params: AuthCode | RefreshToken | ClientCredentials;
 
     if (this.#isAuthCode(args)) {
-      params = { ...args, grant_type: "authorization_code" };
+      params = { ...args, grant_type: 'authorization_code' };
     } else if (this.#isRefreshToken(args)) {
-      params = { ...args, grant_type: "refresh_token" };
+      params = { ...args, grant_type: 'refresh_token' };
     } else if (this.#isClientCredentials(args)) {
-      params = { ...args, grant_type: "client_credentials" };
+      params = { ...args, grant_type: 'client_credentials' };
     } else {
-      throw new Error("Authentication method could not be detected.");
+      throw new Error('Authentication method could not be detected.');
     }
 
     this.bearerProfile = (await this.#api(
-      "post",
+      'post',
       `auth/token`,
       new URLSearchParams(params as unknown as Record<string, string>),
-      true
+      true,
     )) as BearerProfile;
 
     this.#authPayload = `Bearer ${this.bearerProfile.access_token}`;
@@ -72,15 +72,15 @@ export class MoneriumClient {
     // `Error: Native crypto module could not be used to get secure random number.`
     this.codeVerifier = generateRandomString();
     const challenge = encodeBase64Url.stringify(
-      SHA256(this.codeVerifier as string)
+      SHA256(this.codeVerifier as string),
     );
 
     const params: PKCERequest = {
       ...args,
       client_id: args?.client_id,
       code_challenge: challenge,
-      code_challenge_method: "S256",
-      response_type: "code",
+      code_challenge_method: 'S256',
+      response_type: 'code',
     };
 
     return `${this.#env.api}/auth?${new URLSearchParams(params)}`;
@@ -94,14 +94,14 @@ export class MoneriumClient {
   // -- Read Methods
 
   getAuthContext(): Promise<AuthContext> {
-    return this.#api("get", `auth/context`) as Promise<AuthContext>;
+    return this.#api('get', `auth/context`) as Promise<AuthContext>;
   }
 
   /**
    * @param {string} profileId - the id of the profile to fetch.
    */
   getProfile(profileId: string): Promise<Profile> {
-    return this.#api("get", `profiles/${profileId}`) as Promise<Profile>;
+    return this.#api('get', `profiles/${profileId}`) as Promise<Profile>;
   }
 
   /**
@@ -110,66 +110,66 @@ export class MoneriumClient {
   getBalances(profileId?: string): Promise<Balances> | Promise<Balances[]> {
     if (profileId) {
       return this.#api(
-        "get",
-        `profiles/${profileId}/balances`
+        'get',
+        `profiles/${profileId}/balances`,
       ) as Promise<Balances>;
     } else {
-      return this.#api("get", `balances`) as Promise<Balances[]>;
+      return this.#api('get', `balances`) as Promise<Balances[]>;
     }
   }
 
   getOrders(filter?: OrderFilter): Promise<Order[]> {
     const searchParams = new URLSearchParams(
-      filter as unknown as Record<string, string>
+      filter as unknown as Record<string, string>,
     );
 
-    return this.#api("get", `orders?${searchParams}`) as Promise<Order[]>;
+    return this.#api('get', `orders?${searchParams}`) as Promise<Order[]>;
   }
 
   getOrder(orderId: string): Promise<Order> {
-    return this.#api("get", `orders/${orderId}`) as Promise<Order>;
+    return this.#api('get', `orders/${orderId}`) as Promise<Order>;
   }
 
   getTokens(): Promise<Token[]> {
-    return this.#api("get", "tokens") as Promise<Token[]>;
+    return this.#api('get', 'tokens') as Promise<Token[]>;
   }
 
   // -- Write Methods
 
   linkAddress(profileId: string, body: LinkAddress) {
     return this.#api(
-      "post",
+      'post',
       `profiles/${profileId}/addresses`,
-      JSON.stringify(body)
+      JSON.stringify(body),
     );
   }
 
   placeOrder(order: NewOrder, profileId?: string): Promise<Order> {
     if (profileId) {
       return this.#api(
-        "post",
+        'post',
         `profiles/${profileId}/orders`,
-        JSON.stringify(order)
+        JSON.stringify(order),
       ) as Promise<Order>;
     } else {
       return this.#api(
-        "post",
+        'post',
         `orders`,
-        JSON.stringify(order)
+        JSON.stringify(order),
       ) as Promise<Order>;
     }
   }
 
   uploadSupportingDocument(document: File): Promise<SupportingDoc> {
     const searchParams = new URLSearchParams(
-      document as unknown as Record<string, string>
+      document as unknown as Record<string, string>,
     );
 
     return this.#api(
-      "post",
-      "files/supporting-document",
+      'post',
+      'files/supporting-document',
       searchParams,
-      true
+      true,
     ) as Promise<SupportingDoc>;
   }
 
@@ -179,15 +179,15 @@ export class MoneriumClient {
     method: string,
     resource: string,
     body?: BodyInit,
-    isFormEncoded?: boolean
+    isFormEncoded?: boolean,
   ) {
     const res = await fetch(`${this.#env.api}/${resource}`, {
       method,
       headers: {
-        "Content-Type": `application/${
-          isFormEncoded ? "x-www-form-urlencoded" : "json"
+        'Content-Type': `application/${
+          isFormEncoded ? 'x-www-form-urlencoded' : 'json'
         }`,
-        Authorization: this.#authPayload || "",
+        Authorization: this.#authPayload || '',
         // "User-Agent": "sdk/" + pjson.version,
       },
       body,
