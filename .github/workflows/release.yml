@@ -17,11 +17,11 @@ jobs:
         with:
           node-version: 18
           registry-url: "https://registry.npmjs.org"
-          cache: "yarn"
+          # cache: "yarn"
 
         # if: ${{ steps.release.outputs.release_created }}
-      - run: yarn config get cacheFolder
-      - run: yarn install --check-cache --inline-builds
+      # - run: yarn config get cacheFolder
+      # - run: yarn install --check-cache --inline-builds
       - run: yarn install --immutable --immutable-cache --check-cache --inline-builds
         # if: ${{ steps.release.outputs.release_created }}
       - run: yarn build
