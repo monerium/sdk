@@ -17,7 +17,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">= 17.5"
+    "node": ">= 16.15"
   },
   "scripts": {
     "build": "NODE_OPTIONS=--experimental-fetch yarn build:main",
