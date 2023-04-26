@@ -9,6 +9,6 @@ const config: Config = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   roots: ['../.'],
-  coverageDirectory: '../coverage',
+  coverageDirectory: '../static/coverage',
 };
 export default config;

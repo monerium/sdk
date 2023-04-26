@@ -20,15 +20,14 @@ jobs:
       - name: "Download Artifact"
         uses: actions/download-artifact@v3
         with:
-          name: sdk-build
+          name: static-artifacts
       - name: Extract artifacts
-        run: tar -xvf artifacts.tar
+        run: |
+          tar -xvf coverage.tar --one-top-level
+          tar -xvf docs.tar --one-top-level
         shell: bash
-
-        # - uses: actions/checkout@v3
-        # these if statements ensure that a publication only occurs when
-        # a new release is created:
       - run: ls -al
+      - run: cd docs && ls
       - run: yarn install --immutable --immutable-cache
       - run:
           yarn test
