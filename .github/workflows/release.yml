@@ -26,7 +26,7 @@ jobs:
         run: yarn install --immutable --immutable-cache
         # for security reasons, use --check-cache if accepting PRs from third-parties.
         if: ${{ steps.release.outputs.release_created }}
-      - name: Publish NPM package
+      - name: Publish NPM package ${{ steps.release.outputs.tag_name }}
         run: yarn npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
@@ -46,6 +46,7 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
   echo:
     needs: [release-please]
     runs-on: ubuntu-latest
@@ -53,8 +54,7 @@ jobs:
       - name: Debug
         run: |
           echo '${{ needs.release-please.outputs.release_created || false }}'
-          echo '${{needs.release.outputs.tag_name}}'
-          echo '${{needs.release.outputs.major}}.${{needs.release.outputs.minor}}'
+          echo '${{ needs.release-please.outputs.tag_name }}'
 
   deploy-static:
     name: Trigger static pages deploy
