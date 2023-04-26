@@ -21,6 +21,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: static-folder
+          path: static
       - run: ls -al
       - run:
           cd static && ls

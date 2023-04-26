@@ -1,6 +1,7 @@
 {
   "name": "Monerium SDK",
   "out": "../static",
+  "cleanOutputDir": false,
   "githubPages": true,
   "titleLink": "https://www.npmjs.com/package/@monerium/sdk",
   "tsconfig": "../tsconfig.json",
