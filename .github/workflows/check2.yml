@@ -7,8 +7,8 @@ on:
       - release-please*
 
 jobs:
-  build-test:
-    name: "Build & test"
+  build-test-two:
+    name: "Build & test 2"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -28,8 +28,8 @@ jobs:
       prep_good: ${{ steps.prep.outputs.prep_good }}
   do-after:
     name: Do more stuff
-    needs: [build-test]
-    uses: "./.github/workflows/checkafter.yml"
+    needs: [build-test-two]
+    uses: "./.github/workflows/checkafter2.yml"
     with:
       prep_good: ${{ needs.prep.outputs.prep_good || 'false' }}
     secrets: inherit

@@ -13,8 +13,8 @@ on:
         type: string
 
 jobs:
-  build-test:
-    name: "Do other stuff"
+  do-stuff:
+    name: "Do other stuff 2"
     runs-on: ubuntu-latest
     steps:
       - name: "Download Artifact"
