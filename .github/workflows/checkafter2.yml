@@ -20,10 +20,7 @@ jobs:
       - name: "Download Artifact"
         uses: actions/download-artifact@v3
         with:
-          name: static-artifacts
-      - name: Extract artifacts
-        run: tar -xvf static.tar
-        shell: bash
+          name: static-folder
       - run: ls -al
       - run:
           cd static && ls

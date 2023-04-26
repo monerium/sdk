@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - release-please*
+
+jobs:
+  build-test:
+    name: "Build & test"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        # these if statements ensure that a publication only occurs when
+        # a new release is created:
+      - run: yarn install --immutable --immutable-cache
+        # for security reasons, use --check-cache if accepting PRs from third-parties.
+      - run: yarn prepublish
+        id: prep
+      - run: yarn docs
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: static-folder
+          path: static
+    outputs:
+      prep_good: ${{ steps.prep.outputs.prep_good }}
+  do-after:
+    name: Do more stuff
+    needs: [build-test]
+    uses: "./.github/workflows/checkafter.yml"
+    with:
+      prep_good: ${{ needs.prep.outputs.prep_good || 'false' }}
+    secrets: inherit
