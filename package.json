@@ -25,7 +25,7 @@
     "clean": "rm -rf dist && rm -rf node_modules",
     "docs": "typedoc --options configs/typedoc.json",
     "docs:watch": "yarn docs --watch",
-    "format": "prettier . --write",
+    "format": "prettier . --write --ignore-path ./configs/.prettierignore",
     "lint": "eslint . -c ./configs/.eslintrc --ext .ts",
     "prepare": "husky install",
     "prepublish": "yarn build && yarn lint && yarn format && yarn test",
