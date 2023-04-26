@@ -20,3 +20,10 @@ jobs:
         id: prep
     outputs:
       prep_good: ${{ steps.prep.outputs.prep_good }}
+  do-after:
+    name: Do more stuff
+    needs: [build-test]
+    uses: "./.github/workflows/checkafter.yml"
+    with:
+      prep_good: ${{ needs.prep.outputs.prep_good || 'false' }}
+    secrets: inherit

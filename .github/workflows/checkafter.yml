@@ -15,7 +15,8 @@ on:
 
 jobs:
   build-test:
-    name: "Build & test"
+    name: "Do other stuff"
+    if: ${{ inputs.prep_good == 'true' }}
     runs-on: ubuntu-latest
     steps:
       # - uses: actions/checkout@v3
