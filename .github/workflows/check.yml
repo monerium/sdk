@@ -28,6 +28,7 @@ jobs:
             .yarn/cache
             .yarnrc.yml
             yarn.lock
+            .yarn/releases/yarn-3.5.0.cjs
     outputs:
       prep_good: ${{ steps.prep.outputs.prep_good }}
   do-after:
