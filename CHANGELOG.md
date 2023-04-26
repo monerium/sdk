@@ -1,26 +1,30 @@
 # Changelog
 
-## [2.2.0](https://github.com/monerium/sdk/compare/v2.1.23...v2.2.0) (2023-04-25)
+## [2.2.1](https://github.com/monerium/sdk/compare/v2.2.0...v2.2.1) (2023-04-26)
 
+### Miscellaneous
+
+- backward support for node 16.15 ([a80379b](https://github.com/monerium/sdk/commit/a80379b8849f78e541d9f4455cd12cd676e7751f))
+- ignore release please branches for build ([4b68cfa](https://github.com/monerium/sdk/commit/4b68cfa17380432136620acb67e856619333e3aa))
+- move configs to reduce clutter in root folder ([#78](https://github.com/monerium/sdk/issues/78)) ([f2dcb21](https://github.com/monerium/sdk/commit/f2dcb2190811c9521e029eb15caef3b4ee557c4a))
+
+## [2.2.0](https://github.com/monerium/sdk/compare/v2.1.23...v2.2.0) (2023-04-25)
 
 ### Features
 
-* use Yarn PnP ([#73](https://github.com/monerium/sdk/issues/73)) ([4295154](https://github.com/monerium/sdk/commit/4295154487c3eb255b23816b5cf32aac52cae710))
+- use Yarn PnP ([#73](https://github.com/monerium/sdk/issues/73)) ([4295154](https://github.com/monerium/sdk/commit/4295154487c3eb255b23816b5cf32aac52cae710))
 
 ## [2.1.23](https://github.com/monerium/sdk/compare/v2.1.22...v2.1.23) (2023-04-25)
 
-
 ### Bug Fixes
 
-* now it should publish succesfully to npm registry ([#71](https://github.com/monerium/sdk/issues/71)) ([5b5e37b](https://github.com/monerium/sdk/commit/5b5e37b2cde1d1e0411e3e023cfcd5f7eca376d6))
+- now it should publish succesfully to npm registry ([#71](https://github.com/monerium/sdk/issues/71)) ([5b5e37b](https://github.com/monerium/sdk/commit/5b5e37b2cde1d1e0411e3e023cfcd5f7eca376d6))
 
 ## [2.1.22](https://github.com/monerium/sdk/compare/v2.1.21...v2.1.22) (2023-04-24)
 
-
 ### Bug Fixes
 
-* deploy static pipeline ([#69](https://github.com/monerium/sdk/issues/69)) ([38067e7](https://github.com/monerium/sdk/commit/38067e75e3334b6eb20dcc182f1d6aaca5af0caa))
-
+- deploy static pipeline ([#69](https://github.com/monerium/sdk/issues/69)) ([38067e7](https://github.com/monerium/sdk/commit/38067e75e3334b6eb20dcc182f1d6aaca5af0caa))
 
 ## [2.1.21](https://github.com/monerium/sdk/compare/v2.1.20...v2.1.21) (2023-04-24)
 

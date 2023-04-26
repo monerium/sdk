@@ -8,5 +8,7 @@ const config: Config = {
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   preset: 'ts-jest',
   testEnvironment: 'node',
+  roots: ['../.'],
+  coverageDirectory: '../static/coverage',
 };
 export default config;

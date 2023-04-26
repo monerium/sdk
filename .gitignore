@@ -11,8 +11,7 @@ package-lock.json
 *.swo
 node_modules
 dist
-coverage
-docs
+static
 
 # yarn zero install
 # https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored

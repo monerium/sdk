@@ -1,6 +1,6 @@
 {
   "name": "@monerium/sdk",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Everything you need to interact with the Monerium API - an electronic money issuer.",
   "license": "MIT",
   "repository": {
@@ -17,23 +17,22 @@
     "dist"
   ],
   "engines": {
-    "node": ">= 17.5"
+    "node": ">= 16.15"
   },
   "scripts": {
     "build": "NODE_OPTIONS=--experimental-fetch yarn build:main",
-    "build:main": "tsc && vite build && dts-bundle-generator --config ./configs/dts-bundle-generator.ts",
-    "clean": "rm -rf dist && rm -rf node_modules",
+    "build:main": "tsc && vite --config ./configs/vite.config.ts build && dts-bundle-generator --config ./configs/dts-bundle-generator.ts",
+    "clean": "rm -rf dist && rm -rf node_modules && rm -rf static",
     "docs": "typedoc --options configs/typedoc.json",
     "docs:watch": "yarn docs --watch",
-    "format": "prettier . --write",
-    "lint": "eslint . --ext .ts",
+    "format": "prettier . --write --ignore-path ./configs/.prettierignore",
+    "lint": "eslint . -c ./configs/.eslintrc --ext .ts",
     "prepare": "husky install",
-    "prepublish": "yarn build && yarn lint && yarn format && yarn test",
-    "start": "vite --host --open",
+    "prepublish": "yarn build && yarn lint && yarn format && yarn test:coverage",
     "test": "NODE_OPTIONS=--experimental-fetch yarn test:main",
-    "test:main": "jest",
-    "test:coverage": "jest --coverage",
-    "watch": "tsc && vite build --watch"
+    "test:main": "jest --config ./configs/jest.config.ts",
+    "test:coverage": "yarn test --coverage",
+    "watch": "tsc && vite build --config ./configs/vite.config.ts --watch"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.1",
@@ -60,5 +59,6 @@
     "typescript": "^5.0.4",
     "vite": "^4.0.0"
   },
-  "packageManager": "yarn@3.5.0"
+  "packageManager": "yarn@3.5.0",
+  "prettier": "./configs/.prettierrc.js"
 }
