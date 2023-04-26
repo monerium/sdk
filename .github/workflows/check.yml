@@ -17,3 +17,6 @@ jobs:
       - run: yarn install --immutable --immutable-cache
         # for security reasons, use --check-cache if accepting PRs from third-parties.
       - run: yarn prepublish
+        id: prep
+    outputs:
+      prep_good: ${{ steps.prep.outputs.prep_good }}
