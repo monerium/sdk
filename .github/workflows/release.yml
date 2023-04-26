@@ -22,12 +22,27 @@ jobs:
         # these if statements ensure that a publication only occurs when
         # a new release is created:
         if: ${{ steps.release.outputs.release_created }}
-      - run: yarn install --immutable --immutable-cache
+      - name: Yarn install
+        run: yarn install --immutable --immutable-cache
         # for security reasons, use --check-cache if accepting PRs from third-parties.
         if: ${{ steps.release.outputs.release_created }}
-      - run: yarn npm publish
+      - name: Publish NPM package
+        run: yarn npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Build documentation
+        run: yarn docs
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Archive static artifacts
+        run: tar -cvf static.tar static
+        shell: bash
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Upload static artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: static-artifacts
+          path: static.tar
         if: ${{ steps.release.outputs.release_created }}
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
@@ -35,7 +50,12 @@ jobs:
     needs: [release-please]
     runs-on: ubuntu-latest
     steps:
-      - run: echo '${{ needs.release-please.outputs.release_created || false }}'
+      - name: Debug
+        run: |
+          echo '${{ needs.release-please.outputs.release_created || false }}'
+          echo '${{steps.release.outputs.tag_name}}'
+          echo '${{steps.release.outputs.major}}.${{steps.release.outputs.minor}}'
+
   deploy-static:
     name: Trigger static pages deploy
     needs: [release-please]
