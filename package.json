@@ -31,8 +31,8 @@
     "prepublish": "yarn build && yarn lint && yarn format && yarn test",
     "start": "vite --host --open",
     "test": "NODE_OPTIONS=--experimental-fetch yarn test:main",
-    "test:main": "jest",
-    "test:coverage": "jest --coverage",
+    "test:main": "jest --config ./configs/jest.config.ts",
+    "test:coverage": "yarn test --coverage",
     "watch": "tsc && vite build --watch"
   },
   "devDependencies": {

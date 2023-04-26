@@ -8,5 +8,6 @@ const config: Config = {
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   preset: 'ts-jest',
   testEnvironment: 'node',
+  roots: ['../.'],
 };
 export default config;
