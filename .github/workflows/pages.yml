@@ -18,30 +18,18 @@ on:
         type: string
 
 jobs:
-  build:
-    name: Build static pages.
+  docs:
+    name: Deploy to Github pages
     if: ${{ inputs.release_created == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: yarn install --immutable --immutable-cache
-      - run: yarn docs && yarn test:coverage
-      - run: mkdir static
-      - run: mv coverage/lcov-report static/coverage
-      - run: mv docs/* static/
-      - uses: actions/upload-artifact@v3
-        with:
-          name: static
-          path: static/
-  docs:
-    name: Deploy to Github pages
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
       - uses: actions/download-artifact@v3
         with:
-          name: static
+          name: static-artifacts
+      - name: Extract artifacts
+        run: tar -xvf static.tar && mv static/* .
+        shell: bash
       - name: Deploy docs 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
