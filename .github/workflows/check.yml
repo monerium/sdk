@@ -18,17 +18,14 @@ jobs:
         # for security reasons, use --check-cache if accepting PRs from third-parties.
       - run: yarn prepublish
         id: prep
+      - name: Archive artifacts
+        run: tar -cvf artifacts.tar .
+        shell: bash
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
           name: sdk-build
-          path: |
-            dist
-            package.json
-            .yarn/cache
-            .yarnrc.yml
-            yarn.lock
-            .yarn/releases/yarn-3.5.0.cjs
+          path: artifacts.tar
     outputs:
       prep_good: ${{ steps.prep.outputs.prep_good }}
   do-after:
