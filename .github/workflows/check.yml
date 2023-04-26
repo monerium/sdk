@@ -25,6 +25,9 @@ jobs:
           path: |
             dist
             package.json
+            .yarn/cache
+            .yarnrc.yml
+            yarn.lock
     outputs:
       prep_good: ${{ steps.prep.outputs.prep_good }}
   do-after:
