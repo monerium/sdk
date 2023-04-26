@@ -60,5 +60,6 @@
     "typescript": "^5.0.4",
     "vite": "^4.0.0"
   },
-  "packageManager": "yarn@3.5.0"
+  "packageManager": "yarn@3.5.0",
+  "prettier": "./configs/.prettierrc.js"
 }
