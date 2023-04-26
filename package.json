@@ -26,7 +26,7 @@
     "docs": "typedoc --options configs/typedoc.json",
     "docs:watch": "yarn docs --watch",
     "format": "prettier . --write",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint . -c ./configs/.eslintrc --ext .ts",
     "prepare": "husky install",
     "prepublish": "yarn build && yarn lint && yarn format && yarn test",
     "test": "NODE_OPTIONS=--experimental-fetch yarn test:main",
