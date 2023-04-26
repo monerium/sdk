@@ -53,8 +53,8 @@ jobs:
       - name: Debug
         run: |
           echo '${{ needs.release-please.outputs.release_created || false }}'
-          echo '${{steps.release.outputs.tag_name}}'
-          echo '${{steps.release.outputs.major}}.${{steps.release.outputs.minor}}'
+          echo '${{needs.release.outputs.tag_name}}'
+          echo '${{needs.release.outputs.major}}.${{needs.release.outputs.minor}}'
 
   deploy-static:
     name: Trigger static pages deploy
