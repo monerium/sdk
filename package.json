@@ -21,7 +21,7 @@
   },
   "scripts": {
     "build": "NODE_OPTIONS=--experimental-fetch yarn build:main",
-    "build:main": "tsc && vite build && dts-bundle-generator --config ./configs/dts-bundle-generator.ts",
+    "build:main": "tsc && vite --config ./configs/vite.config.ts build && dts-bundle-generator --config ./configs/dts-bundle-generator.ts",
     "clean": "rm -rf dist && rm -rf node_modules",
     "docs": "typedoc --options configs/typedoc.json",
     "docs:watch": "yarn docs --watch",
@@ -29,11 +29,10 @@
     "lint": "eslint . --ext .ts",
     "prepare": "husky install",
     "prepublish": "yarn build && yarn lint && yarn format && yarn test",
-    "start": "vite --host --open",
     "test": "NODE_OPTIONS=--experimental-fetch yarn test:main",
     "test:main": "jest --config ./configs/jest.config.ts",
     "test:coverage": "yarn test --coverage",
-    "watch": "tsc && vite build --watch"
+    "watch": "tsc && vite build --config ./configs/vite.config.ts --watch"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.1",
