@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.2.2](https://github.com/monerium/sdk/compare/v2.2.1...v2.2.2) (2023-04-26)
+
+
+### Bug Fixes
+
+* coverage output path ([675b7cd](https://github.com/monerium/sdk/commit/675b7cd3536a320dcbe915bfeb077609bfa834b1))
+
+
+### Miscellaneous
+
+* archive build and reuse for deploying static files. ([#80](https://github.com/monerium/sdk/issues/80)) ([cfc34d8](https://github.com/monerium/sdk/commit/cfc34d80f2db547505c34b55ab3b2a7d0a37aae5))
+* move .prettierignore into configs folder and add some rules ([171b0b3](https://github.com/monerium/sdk/commit/171b0b3c5dc807f0bec0cc9220b390302fdd98e9))
+
 ## [2.2.1](https://github.com/monerium/sdk/compare/v2.2.0...v2.2.1) (2023-04-26)
 
 ### Miscellaneous
