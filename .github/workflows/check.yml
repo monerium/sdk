@@ -18,6 +18,12 @@ jobs:
         # for security reasons, use --check-cache if accepting PRs from third-parties.
       - run: yarn prepublish
         id: prep
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: persist dist folder
+          path: |
+            dist
     outputs:
       prep_good: ${{ steps.prep.outputs.prep_good }}
   do-after:

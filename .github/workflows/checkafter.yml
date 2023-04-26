@@ -1,6 +1,5 @@
 name: Build
 
-
 on:
   # release:
   #   types: [created]
@@ -18,9 +17,14 @@ jobs:
     name: "Do other stuff"
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@v3
+      - name: "Upload Artifact"
+        uses: actions/download-artifact@v3
+        with:
+          name: sdk-build
+        # - uses: actions/checkout@v3
         # these if statements ensure that a publication only occurs when
         # a new release is created:
-      - run: ls -al
-        # for security reasons, use --check-cache if accepting PRs from third-parties.
-      # - run: yarn prepublish
+      - run:
+          ls -al
+          # for security reasons, use --check-cache if accepting PRs from third-parties.
+        # - run: yarn prepublish
