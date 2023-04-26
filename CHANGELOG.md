@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.2.1](https://github.com/monerium/sdk/compare/v2.2.0...v2.2.1) (2023-04-26)
+
+
+### Miscellaneous
+
+* backward support for node 16.15 ([a80379b](https://github.com/monerium/sdk/commit/a80379b8849f78e541d9f4455cd12cd676e7751f))
+* ignore release please branches for build ([4b68cfa](https://github.com/monerium/sdk/commit/4b68cfa17380432136620acb67e856619333e3aa))
+* move configs to reduce clutter in root folder ([#78](https://github.com/monerium/sdk/issues/78)) ([f2dcb21](https://github.com/monerium/sdk/commit/f2dcb2190811c9521e029eb15caef3b4ee557c4a))
+
 ## [2.2.0](https://github.com/monerium/sdk/compare/v2.1.23...v2.2.0) (2023-04-25)
 
 
