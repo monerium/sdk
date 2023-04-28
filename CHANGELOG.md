@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.2.3](https://github.com/monerium/sdk/compare/v2.2.2...v2.2.3) (2023-04-28)
+
+
+### Bug Fixes
+
+* commonjs bundle not properly referenced in package.json ([85d4b19](https://github.com/monerium/sdk/commit/85d4b19c054102b48b9cd55c55b498965e9db7b6))
+
+
+### Miscellaneous
+
+* add version to action step ([804d0d8](https://github.com/monerium/sdk/commit/804d0d843b809aad960f224a0602edd3359454fc))
+
 ## [2.2.2](https://github.com/monerium/sdk/compare/v2.2.1...v2.2.2) (2023-04-26)
 
 
