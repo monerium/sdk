@@ -1,20 +1,16 @@
 import encodeBase64Url from 'crypto-js/enc-base64url';
 import { MoneriumClient } from '../src/index';
-import {
-  Chain,
-  Currency,
-  Network,
-  Order,
-  OrderKind,
-  PaymentStandard,
-} from '../src/types';
+import { LINK_MESSAGE, Network, Chain } from '../src/constants';
+import { Currency, Order, OrderKind, PaymentStandard } from '../src/types';
 import SHA256 from 'crypto-js/sha256';
+
+import {
+  APP_ONE_CREDENTIALS_CLIENT_ID,
+  APP_ONE_CREDENTIALS_SECRET,
+} from './constants';
 
 const clientAuthId = '654c9c30-44d3-11ed-adac-b2efc0e6677d';
 const redirectUri = 'http://localhost:5173/integration';
-const clientId = '654e15da-44d3-11ed-adac-b2efc0e6677d';
-const clientSecret =
-  '7bb679cd597b62d77836cb877c432c80dcb1fcb6d8a2b8b703967bc9d12cd991';
 
 // punkWallet: https://punkwallet.io/pk#0x3e4936f901535680c505b073a5f70094da38e2085ecf137b153d1866a7aa826b
 // const privateKey = "0x3e4936f901535680c505b073a5f70094da38e2085ecf137b153d1866a7aa826b";
@@ -31,12 +27,38 @@ test('client initialization', () => {
   expect(client).toBeInstanceOf(MoneriumClient);
 });
 
+test(`verify link message`, () => {
+  expect(LINK_MESSAGE).toBe(message);
+});
+
+test('sandbox environment', () => {
+  const client = new MoneriumClient('sandbox');
+  const defaultClient = new MoneriumClient();
+  const url = client.getAuthFlowURI({
+    client_id: '',
+  });
+  const defaultUrl = defaultClient.getAuthFlowURI({
+    client_id: '',
+  });
+  expect(defaultUrl).toContain('https://api.monerium.dev');
+  expect(url).toContain('https://api.monerium.dev');
+});
+
+test('production environment', () => {
+  const client = new MoneriumClient('production');
+
+  const url = client.getAuthFlowURI({
+    client_id: '',
+  });
+  expect(url).toContain('https://api.monerium.app');
+});
+
 test('authenticate with client credentials', async () => {
   const client = new MoneriumClient();
 
   await client.auth({
-    client_id: clientId,
-    client_secret: clientSecret,
+    client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
+    client_secret: APP_ONE_CREDENTIALS_SECRET,
   });
 
   const authContext = await client.getAuthContext();
@@ -63,8 +85,8 @@ test('link address', async () => {
   const client = new MoneriumClient();
 
   await client.auth({
-    client_id: clientId,
-    client_secret: clientSecret,
+    client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
+    client_secret: APP_ONE_CREDENTIALS_SECRET,
   });
 
   const authContext = await client.getAuthContext();
@@ -77,18 +99,18 @@ test('link address', async () => {
       signature: ownerSignatureHash,
       accounts: [
         {
-          network: Network.goerli,
-          chain: Chain.ethereum,
+          network: Network.Goerli,
+          chain: Chain.Ethereum,
           currency: Currency.eur,
         },
         {
-          network: Network.chiado,
-          chain: Chain.gnosis,
+          network: Network.Chiado,
+          chain: Chain.Gnosis,
           currency: Currency.eur,
         },
         {
-          network: Network.mumbai,
-          chain: Chain.polygon,
+          network: Network.Mumbai,
+          chain: Chain.Polygon,
           currency: Currency.eur,
         },
       ],
@@ -103,8 +125,8 @@ test('get profile', async () => {
   const client = new MoneriumClient();
 
   await client.auth({
-    client_id: clientId,
-    client_secret: clientSecret,
+    client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
+    client_secret: APP_ONE_CREDENTIALS_SECRET,
   });
 
   const authContext = await client.getAuthContext();
@@ -117,8 +139,8 @@ test('get balances', async () => {
   const client = new MoneriumClient();
 
   await client.auth({
-    client_id: clientId,
-    client_secret: clientSecret,
+    client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
+    client_secret: APP_ONE_CREDENTIALS_SECRET,
   });
 
   const balances = await client.getBalances();
@@ -139,8 +161,8 @@ test('get orders', async () => {
   const client = new MoneriumClient();
 
   await client.auth({
-    client_id: clientId,
-    client_secret: clientSecret,
+    client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
+    client_secret: APP_ONE_CREDENTIALS_SECRET,
   });
 
   const orders = await client.getOrders();
@@ -159,8 +181,8 @@ test('get orders by profileId', async () => {
   const client = new MoneriumClient();
 
   await client.auth({
-    client_id: clientId,
-    client_secret: clientSecret,
+    client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
+    client_secret: APP_ONE_CREDENTIALS_SECRET,
   });
 
   const orders = await client.getOrders({
@@ -176,8 +198,8 @@ test('get order', async () => {
   const client = new MoneriumClient();
 
   await client.auth({
-    client_id: clientId,
-    client_secret: clientSecret,
+    client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
+    client_secret: APP_ONE_CREDENTIALS_SECRET,
   });
 
   const order = await client.getOrder('96cb9a3c-878d-11ed-ac14-4a76678fa2b6');
@@ -191,8 +213,8 @@ test('get tokens', async () => {
   const client = new MoneriumClient();
 
   await client.auth({
-    client_id: clientId,
-    client_secret: clientSecret,
+    client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
+    client_secret: APP_ONE_CREDENTIALS_SECRET,
   });
 
   const tokens = await client.getTokens();
@@ -215,8 +237,8 @@ test('place order', async () => {
   const client = new MoneriumClient();
 
   await client.auth({
-    client_id: clientId,
-    client_secret: clientSecret,
+    client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
+    client_secret: APP_ONE_CREDENTIALS_SECRET,
   });
   const authContext = await client.getAuthContext();
   const profile = await client.getProfile(authContext.profiles[0].id);
@@ -224,7 +246,7 @@ test('place order', async () => {
     (a) =>
       a.address === publicKey &&
       a.currency === Currency.eur &&
-      a.network === Network.goerli,
+      a.network === Network.Goerli,
   );
 
   const date = 'Thu, 29 Dec 2022 14:58 +00:00';
@@ -251,8 +273,8 @@ test('place order', async () => {
     },
     message: placeOrderMessage,
     memo: 'Powered by Monerium SDK',
-    chain: Chain.ethereum,
-    network: Network.goerli,
+    chain: Chain.Ethereum,
+    network: Network.Goerli,
   });
 
   const expected = {
@@ -287,8 +309,8 @@ test('place order', async () => {
 //   const client = new MoneriumClient();
 
 //   await client.auth({
-//     client_id: clientId,
-//     client_secret: clientSecret,
+//     client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
+//     client_secret: APP_ONE_CREDENTIALS_SECRET,
 //   });
 
 //   // const document = client.uploadSupportingDocument();
