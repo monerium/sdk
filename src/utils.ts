@@ -1,5 +1,3 @@
-import { Environment } from 'types';
-
 export const generateRandomString = () => {
   let result = '';
   const characters =
