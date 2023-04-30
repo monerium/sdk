@@ -1,6 +1,11 @@
 import type { Config } from 'jest';
 
 const config: Config = {
+  transformIgnorePatterns: [
+    '/configs/jest.setup.js',
+    '/.yarn/',
+    'node_modules/',
+  ],
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest',
   },
@@ -10,5 +15,6 @@ const config: Config = {
   testEnvironment: 'node',
   roots: ['../.'],
   coverageDirectory: '../static/coverage',
+  setupFiles: ['./jest.setup.js'],
 };
 export default config;
