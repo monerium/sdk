@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Network, NetworkStrict } from '../src/types';
 
 describe('Network type', () => {
