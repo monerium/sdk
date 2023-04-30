@@ -35,7 +35,7 @@
     "lint": "eslint . -c ./configs/.eslintrc --ext .ts",
     "prepare": "husky install",
     "prepublish": "yarn build && yarn lint && yarn format && yarn test:coverage",
-    "test": "NODE_OPTIONS=--experimental-fetch yarn test:main",
+    "test": "NODE_OPTIONS=\"--experimental-fetch --experimental-vm-modules\" yarn test:main",
     "test:main": "jest --config ./configs/jest.config.ts",
     "test:coverage": "yarn test --coverage",
     "watch": "tsc && vite build --config ./configs/vite.config.ts --watch"

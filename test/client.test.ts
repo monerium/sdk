@@ -93,8 +93,8 @@ test('link address', async () => {
         },
       ],
     });
-  } catch (e: any) {
-    error = e.errors.address;
+  } catch (e: unknown) {
+    error = (e as { errors: { address: string } }).errors.address;
   }
   expect(error).toBe('Account already linked to your profile');
 });
