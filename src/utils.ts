@@ -1,3 +1,5 @@
+import { Environment } from 'types';
+
 export const generateRandomString = () => {
   let result = '';
   const characters =
@@ -9,4 +11,32 @@ export const generateRandomString = () => {
     counter += 1;
   }
   return result;
+};
+
+export const rest = async <T>(
+  url: string,
+  method: string,
+  body?: BodyInit,
+  headers?: Record<string, string>,
+): Promise<T> => {
+  const res = await fetch(`${url}`, {
+    method,
+    headers,
+    body,
+  });
+
+  let response;
+  const text = await res.text();
+
+  try {
+    response = JSON.parse(text);
+  } catch (err) {
+    throw text;
+  }
+
+  if (!res.ok) {
+    throw response;
+  }
+
+  return response as T;
 };
