@@ -6,18 +6,51 @@ export type Config = {
   environments: { production: Environment; sandbox: Environment };
 };
 
-// --- Client Variables --- //
+export type ENV = 'sandbox' | 'production';
 
-export interface BearerProfile {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-  refresh_token: string;
-  profile: string;
-  userId: string;
-}
+export type EthereumTestnet = 'goerli';
+export type GnosisTestnet = 'chiado';
+export type PolygonTestnet = 'mumbai';
 
-// --- Client Methods  --- //
+export type Chain = 'ethereum' | 'gnosis' | 'polygon';
+export type Networks =
+  | EthereumTestnet
+  | GnosisTestnet
+  | PolygonTestnet
+  | 'mainnet';
+
+// -- Commons
+export type NetworkSemiStrict<C extends Chain> = C extends 'ethereum'
+  ? EthereumTestnet | 'mainnet'
+  : C extends 'gnosis'
+  ? GnosisTestnet | 'mainnet'
+  : C extends 'polygon'
+  ? PolygonTestnet | 'mainnet'
+  : never;
+
+export type NetworkStrict<
+  C extends Chain,
+  E extends ENV,
+> = E extends 'production'
+  ? 'mainnet'
+  : E extends 'sandbox'
+  ? C extends 'ethereum'
+    ? EthereumTestnet
+    : C extends 'gnosis'
+    ? GnosisTestnet
+    : C extends 'polygon'
+    ? PolygonTestnet
+    : never
+  : never;
+
+export type Network<
+  C extends Chain = Chain,
+  E extends ENV = ENV,
+> = C extends Chain
+  ? E extends ENV
+    ? NetworkStrict<C, E> & NetworkSemiStrict<C>
+    : never
+  : never;
 
 export enum Currency {
   eur = 'eur',
@@ -40,6 +73,15 @@ export interface AuthCode {
   code_verifier: string;
   redirect_uri: string;
   scope?: string;
+}
+
+export interface BearerProfile {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  refresh_token: string;
+  profile: string;
+  userId: string;
 }
 
 export interface RefreshToken {
@@ -172,20 +214,6 @@ export interface Profile {
 }
 
 // -- getBalances
-
-export enum Chain {
-  polygon = 'polygon',
-  ethereum = 'ethereum',
-  gnosis = 'gnosis',
-}
-
-export enum Network {
-  mainnet = 'mainnet',
-  chiado = 'chiado',
-  goerli = 'goerli',
-  mumbai = 'mumbai',
-}
-
 export interface Balance {
   currency: Currency;
   amount: string;

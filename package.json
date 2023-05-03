@@ -1,6 +1,6 @@
 {
   "name": "@monerium/sdk",
-  "version": "2.2.3",
+  "version": "2.3.0",
   "description": "Everything you need to interact with the Monerium API - an electronic money issuer.",
   "license": "MIT",
   "repository": {
@@ -35,7 +35,7 @@
     "lint": "eslint . -c ./configs/.eslintrc --ext .ts",
     "prepare": "husky install",
     "prepublish": "yarn build && yarn lint && yarn format && yarn test:coverage",
-    "test": "NODE_OPTIONS=--experimental-fetch yarn test:main",
+    "test": "NODE_OPTIONS=\"--experimental-fetch --experimental-vm-modules\" yarn test:main",
     "test:main": "jest --config ./configs/jest.config.ts",
     "test:coverage": "yarn test --coverage",
     "watch": "tsc && vite build --config ./configs/vite.config.ts --watch"
@@ -44,7 +44,7 @@
     "@commitlint/cli": "^17.4.1",
     "@commitlint/config-conventional": "^17.4.0",
     "@types/crypto-js": "^4.1.1",
-    "@types/jest": "^29.2.4",
+    "@types/jest": "^29.5.1",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.46.0",
     "@typescript-eslint/parser": "^5.46.0",
@@ -55,7 +55,8 @@
     "eslint-plugin-jest": "^27.1.7",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.2",
-    "jest": "^29.3.1",
+    "jest": "^29.5.0",
+    "jest-fetch-mock": "^3.0.3",
     "prettier": "^2.8.8",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",

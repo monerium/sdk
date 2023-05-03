@@ -1,6 +1,6 @@
 import encodeBase64Url from 'crypto-js/enc-base64url';
 import SHA256 from 'crypto-js/sha256';
-import { generateRandomString } from './utils';
+import { generateRandomString, rest } from './utils';
 import { MONERIUM_CONFIG } from './config';
 import type {
   AuthArgs,
@@ -94,14 +94,14 @@ export class MoneriumClient {
   // -- Read Methods
 
   getAuthContext(): Promise<AuthContext> {
-    return this.#api('get', `auth/context`) as Promise<AuthContext>;
+    return this.#api<AuthContext>('get', `auth/context`);
   }
 
   /**
    * @param {string} profileId - the id of the profile to fetch.
    */
   getProfile(profileId: string): Promise<Profile> {
-    return this.#api('get', `profiles/${profileId}`) as Promise<Profile>;
+    return this.#api<Profile>('get', `profiles/${profileId}`);
   }
 
   /**
@@ -109,12 +109,9 @@ export class MoneriumClient {
    */
   getBalances(profileId?: string): Promise<Balances> | Promise<Balances[]> {
     if (profileId) {
-      return this.#api(
-        'get',
-        `profiles/${profileId}/balances`,
-      ) as Promise<Balances>;
+      return this.#api<Balances>('get', `profiles/${profileId}/balances`);
     } else {
-      return this.#api('get', `balances`) as Promise<Balances[]>;
+      return this.#api<Balances[]>('get', `balances`);
     }
   }
 
@@ -123,15 +120,15 @@ export class MoneriumClient {
       filter as unknown as Record<string, string>,
     );
 
-    return this.#api('get', `orders?${searchParams}`) as Promise<Order[]>;
+    return this.#api<Order[]>('get', `orders?${searchParams}`);
   }
 
   getOrder(orderId: string): Promise<Order> {
-    return this.#api('get', `orders/${orderId}`) as Promise<Order>;
+    return this.#api<Order>('get', `orders/${orderId}`);
   }
 
   getTokens(): Promise<Token[]> {
-    return this.#api('get', 'tokens') as Promise<Token[]>;
+    return this.#api<Token[]>('get', 'tokens');
   }
 
   // -- Write Methods
@@ -146,17 +143,13 @@ export class MoneriumClient {
 
   placeOrder(order: NewOrder, profileId?: string): Promise<Order> {
     if (profileId) {
-      return this.#api(
+      return this.#api<Order>(
         'post',
         `profiles/${profileId}/orders`,
         JSON.stringify(order),
-      ) as Promise<Order>;
+      );
     } else {
-      return this.#api(
-        'post',
-        `orders`,
-        JSON.stringify(order),
-      ) as Promise<Order>;
+      return this.#api<Order>('post', `orders`, JSON.stringify(order));
     }
   }
 
@@ -165,46 +158,28 @@ export class MoneriumClient {
       document as unknown as Record<string, string>,
     );
 
-    return this.#api(
+    return this.#api<SupportingDoc>(
       'post',
       'files/supporting-document',
       searchParams,
       true,
-    ) as Promise<SupportingDoc>;
+    );
   }
 
   // -- Helper Methods
 
-  async #api(
+  async #api<T>(
     method: string,
     resource: string,
     body?: BodyInit,
     isFormEncoded?: boolean,
-  ) {
-    const res = await fetch(`${this.#env.api}/${resource}`, {
-      method,
-      headers: {
-        'Content-Type': `application/${
-          isFormEncoded ? 'x-www-form-urlencoded' : 'json'
-        }`,
-        Authorization: this.#authPayload || '',
-        // "User-Agent": "sdk/" + pjson.version,
-      },
-      body,
+  ): Promise<T> {
+    return rest<T>(`${this.#env.api}/${resource}`, method, body, {
+      Authorization: this.#authPayload || '',
+      'Content-Type': `application/${
+        isFormEncoded ? 'x-www-form-urlencoded' : 'json'
+      }`,
     });
-
-    let response;
-    try {
-      response = await res.json();
-    } catch (err) {
-      throw await res.text();
-    }
-
-    if (res.ok) {
-      return response;
-    } else {
-      throw response;
-    }
   }
 
   #isAuthCode(args: AuthArgs): args is AuthCode {

@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.3.0](https://github.com/monerium/sdk/compare/v2.2.3...v2.3.0) (2023-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* '@monerium/sdk' now exports Network and Chain as types, previously enums </br> Enums are now exported under 'constants' </br> import { constants } from '@monerium/sdk'; </br> const { Network } = constants; </br></br> new Network type takes two optional params for Chain and Environmant</br> import { Network } from '@monerium/sdk'</br></br> // is valid </br> const network: Network<'gnosis','production> = 'mainnet';</br> const network: Network<'gnosis','sandbox> = 'chiado';</br> const network: Network<'gnosis',> = 'chiado';</br> const network: Network = 'chiado';</br></br> // is invalid </br> const network: Network<'gnosis','sandbox> = 'mainnet';</br> const network: Network<'gnosis'> = 'goerli';</br>
+
+### Features
+
+* expose helper to create place order message ([#85](https://github.com/monerium/sdk/issues/85)) ([b124370](https://github.com/monerium/sdk/commit/b1243702c534a6d40e0ce657ff8db9a6f55546a5))
+* network types with optional chain and env type params ([#82](https://github.com/monerium/sdk/issues/82)) ([154d626](https://github.com/monerium/sdk/commit/154d626798150640ac2ed331b98029a18984555c))
+* refactor, improve and test fetch ([#86](https://github.com/monerium/sdk/issues/86)) ([26a8ceb](https://github.com/monerium/sdk/commit/26a8ceb78ec38553709afa2add0108ee3e10e125))
+
+
+### Miscellaneous
+
+* release 2.3.0 ([bff6ece](https://github.com/monerium/sdk/commit/bff6ece14c0b7b7a362b21df0b024b0a6a8f6678))
+
 ## [2.2.3](https://github.com/monerium/sdk/compare/v2.2.2...v2.2.3) (2023-04-28)
 
 
