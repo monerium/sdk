@@ -255,7 +255,6 @@ test('place order', async () => {
     '0xe2baa7df880f140e37d4a0d9cb1aaa8969b40650f69dc826373efdcc0945050d45f64cf5a2c96fe6bba959abe1bee115cfa31cedc378233e051036cdebd992181c';
 
   const order = await client.placeOrder({
-    kind: OrderKind.redeem,
     amount: '1',
     signature: placeOrderSignatureHash,
     accountId: account?.id,
