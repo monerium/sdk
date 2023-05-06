@@ -142,14 +142,15 @@ export class MoneriumClient {
   }
 
   placeOrder(order: NewOrder, profileId?: string): Promise<Order> {
+    const req = { ...order, kind: 'redeem' };
     if (profileId) {
       return this.#api<Order>(
         'post',
         `profiles/${profileId}/orders`,
-        JSON.stringify(order),
+        JSON.stringify(req),
       );
     } else {
-      return this.#api<Order>('post', `orders`, JSON.stringify(order));
+      return this.#api<Order>('post', `orders`, JSON.stringify(req));
     }
   }
 

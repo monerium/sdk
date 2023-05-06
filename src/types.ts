@@ -326,7 +326,6 @@ export interface Token {
 // --placeOrder
 
 export interface NewOrder {
-  kind: OrderKind;
   amount: string;
   signature: string;
   accountId?: string;
