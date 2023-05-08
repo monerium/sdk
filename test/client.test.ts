@@ -1,7 +1,7 @@
 import encodeBase64Url from 'crypto-js/enc-base64url';
 import { MoneriumClient } from '../src/index';
 import { LINK_MESSAGE, Network, Chain } from '../src/constants';
-import { Currency, Order, OrderKind, PaymentStandard } from '../src/types';
+import { Currency, Order, PaymentStandard } from '../src/types';
 import SHA256 from 'crypto-js/sha256';
 
 import {

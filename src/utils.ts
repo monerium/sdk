@@ -22,7 +22,7 @@ export const rest = async <T>(
   const res = await fetch(`${url}`, {
     method,
     headers,
-    body: body as any,
+    body: body as unknown as BodyInit,
   });
 
   let response;
