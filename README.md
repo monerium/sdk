@@ -16,9 +16,14 @@ that may change the behavior of your application before you upgrade._
 yarn add @monerium/sdk
 ```
 
+Smart IDEs (such as VSCode) require [special configuration](https://yarnpkg.com/getting-started/editor-sdks) for TypeScript to work when using Plug'n'Play installs.
+
+```sh
+yarn dlx @yarnpkg/sdks vscode
+```
+
 ## Usage
 
-- `start`: Run Vite in host mode for a local development environment (not included in production build)
 - `watch`: Run Vite in watch mode to detect changes to files during development
 - `build`: Run Vite to build a production release distributable
 
@@ -43,7 +48,7 @@ If you are new here, we recommend starting in the [Developer Portal](https://mon
 ### Import the SDK and initialize a client
 
 ```ts
-import { MoneriumClient } from "@monerium/sdk";
+import { MoneriumClient } from '@monerium/sdk';
 
 const client = new MoneriumClient();
 ```
@@ -84,10 +89,10 @@ window.location.replace(authFlowUrl)
 // i.e. http://your-webpage.com/monerium-integration?code=1234abcd
 
 await client.auth({
-  client_id: "your_client_authflow_uuid",
-  code: new URLSearchParams(window.location.search).get("code"),
-  code_verifier: window.localStorage.getItem("myCodeVerifier"),
-  redirect_url: "http://your-webpage.com/monerium-integration",
+  client_id: 'your_client_authflow_uuid',
+  code: new URLSearchParams(window.location.search).get('code'),
+  code_verifier: window.localStorage.getItem('myCodeVerifier'),
+  redirect_url: 'http://your-webpage.com/monerium-integration',
 });
 
 // User is now authenticated, get authentication data
