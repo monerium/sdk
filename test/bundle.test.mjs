@@ -3,7 +3,7 @@ import {
   APP_ONE_CREDENTIALS_SECRET,
   APP_ONE_CREDENTIALS_CLIENT_ID,
   APP_ONE_OWNER_USER_ID,
-} from './constants';
+} from './constants.js';
 
 test('ES Module bundle smoke test', async () => {
   const client = new MoneriumClient();
