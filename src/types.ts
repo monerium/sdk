@@ -43,6 +43,17 @@ export type NetworkStrict<
     : never
   : never;
 
+/*
+ * -- isValid:
+ * const network: Network<'ethereum', 'sandbox'> = 'goerli';
+ * const network: Network<'ethereum'> = 'mainnet';
+ * const network: Network<'ethereum'> = 'goerli'
+ * const network: Network = 'chiado'
+ *
+ * -- isInValid:
+ * const network: Network<'ethereum', 'sandbox'> = 'chiado';
+ * const network: Network<'ethereum'> = 'chiado';
+ */
 export type Network<
   C extends Chain = Chain,
   E extends ENV = ENV,
