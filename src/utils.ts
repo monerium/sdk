@@ -16,13 +16,13 @@ export const generateRandomString = () => {
 export const rest = async <T>(
   url: string,
   method: string,
-  body?: BodyInit,
+  body?: BodyInit | Record<string, string>,
   headers?: Record<string, string>,
 ): Promise<T> => {
   const res = await fetch(`${url}`, {
     method,
     headers,
-    body,
+    body: body as any,
   });
 
   let response;
@@ -90,3 +90,22 @@ export const placeOrderMessage = ({
   `Send ${currency.toUpperCase()} ${amount} to ${iban} at ${rfc3339(
     new Date(),
   )}`;
+
+/**
+ * Replacement for URLSearchParams, Metamask snaps do not include node globals.
+ * It will not handle all special characters the same way as URLSearchParams, but it will be good enough for our use case.
+ * @param body a json format of the body to be encoded
+ * @returns 'application/x-www-form-urlencoded' compatible string
+ */
+export const urlEncoded = (
+  body: Record<string, string>,
+): string | undefined => {
+  return body && Object.entries(body)?.length > 0
+    ? Object.entries(body)
+        .map(
+          ([key, value]) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
+        )
+        .join('&')
+    : '';
+};

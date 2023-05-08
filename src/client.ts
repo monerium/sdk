@@ -1,6 +1,6 @@
 import encodeBase64Url from 'crypto-js/enc-base64url';
 import SHA256 from 'crypto-js/sha256';
-import { generateRandomString, rest } from './utils';
+import { generateRandomString, rest, urlEncoded } from './utils';
 import { MONERIUM_CONFIG } from './config';
 import type {
   AuthArgs,
@@ -53,7 +53,7 @@ export class MoneriumClient {
     this.bearerProfile = (await this.#api(
       'post',
       `auth/token`,
-      new URLSearchParams(params as unknown as Record<string, string>),
+      params as unknown as Record<string, string>,
       true,
     )) as BearerProfile;
 
@@ -83,7 +83,7 @@ export class MoneriumClient {
       response_type: 'code',
     };
 
-    return `${this.#env.api}/auth?${new URLSearchParams(params)}`;
+    return `${this.#env.api}/auth?${urlEncoded(params)}`;
   }
 
   /**
@@ -116,10 +116,7 @@ export class MoneriumClient {
   }
 
   getOrders(filter?: OrderFilter): Promise<Order[]> {
-    const searchParams = new URLSearchParams(
-      filter as unknown as Record<string, string>,
-    );
-
+    const searchParams = urlEncoded(filter as Record<string, string>);
     return this.#api<Order[]>('get', `orders?${searchParams}`);
   }
 
@@ -154,7 +151,7 @@ export class MoneriumClient {
   }
 
   uploadSupportingDocument(document: File): Promise<SupportingDoc> {
-    const searchParams = new URLSearchParams(
+    const searchParams = urlEncoded(
       document as unknown as Record<string, string>,
     );
 
@@ -171,15 +168,20 @@ export class MoneriumClient {
   async #api<T>(
     method: string,
     resource: string,
-    body?: BodyInit,
+    body?: BodyInit | Record<string, string>,
     isFormEncoded?: boolean,
   ): Promise<T> {
-    return rest<T>(`${this.#env.api}/${resource}`, method, body, {
-      Authorization: this.#authPayload || '',
-      'Content-Type': `application/${
-        isFormEncoded ? 'x-www-form-urlencoded' : 'json'
-      }`,
-    });
+    return rest<T>(
+      `${this.#env.api}/${resource}`,
+      method,
+      isFormEncoded ? urlEncoded(body as Record<string, string>) : body,
+      {
+        Authorization: this.#authPayload || '',
+        'Content-Type': `application/${
+          isFormEncoded ? 'x-www-form-urlencoded' : 'json'
+        }`,
+      },
+    );
   }
 
   #isAuthCode(args: AuthArgs): args is AuthCode {
