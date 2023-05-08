@@ -3,7 +3,7 @@ import type { Config } from 'jest';
 const config: Config = {
   transformIgnorePatterns: [
     '/configs/jest.setup.js',
-    '/.yarn/',
+    '.yarn/',
     'node_modules/',
   ],
   transform: {
@@ -13,8 +13,9 @@ const config: Config = {
   moduleFileExtensions: ['ts', 'js', 'mjs', 'json', 'node'],
   preset: 'ts-jest',
   testEnvironment: 'node',
-  roots: ['../.'],
+  // Get a 502 Gateway error when bundle and client tests are run together
+  maxWorkers: 1,
   coverageDirectory: '../static/coverage',
-  setupFiles: ['./jest.setup.js'],
+  setupFiles: ['./configs/jest.setup.js'],
 };
 export default config;

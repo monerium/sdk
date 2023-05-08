@@ -32,11 +32,11 @@
     "docs": "typedoc --options configs/typedoc.json",
     "docs:watch": "yarn docs --watch",
     "format": "prettier . --write --ignore-path ./configs/.prettierignore",
-    "lint": "eslint . -c ./configs/.eslintrc --ext .ts",
+    "lint": "eslint . -c ./.eslintrc --ext .ts",
     "prepare": "husky install",
     "prepublish": "yarn build && yarn lint && yarn format && yarn test:coverage",
     "test": "NODE_OPTIONS=\"--experimental-fetch --experimental-vm-modules\" yarn test:main",
-    "test:main": "jest --config ./configs/jest.config.ts",
+    "test:main": "jest --config ./jest.config.ts",
     "test:coverage": "yarn test --coverage",
     "watch": "tsc && vite build --config ./configs/vite.config.ts --watch"
   },
