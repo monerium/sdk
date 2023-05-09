@@ -43,6 +43,17 @@ export type NetworkStrict<
     : never
   : never;
 
+/*
+ * -- isValid:
+ * const network: Network<'ethereum', 'sandbox'> = 'goerli';
+ * const network: Network<'ethereum'> = 'mainnet';
+ * const network: Network<'ethereum'> = 'goerli'
+ * const network: Network = 'chiado'
+ *
+ * -- isInValid:
+ * const network: Network<'ethereum', 'sandbox'> = 'chiado';
+ * const network: Network<'ethereum'> = 'chiado';
+ */
 export type Network<
   C extends Chain = Chain,
   E extends ENV = ENV,
@@ -54,9 +65,9 @@ export type Network<
 
 export enum Currency {
   eur = 'eur',
-  usd = 'usd',
-  gbp = 'gbp',
-  isk = 'isk',
+  // usd = 'usd',
+  // gbp = 'gbp',
+  // isk = 'isk',
 }
 
 // -- auth
@@ -199,8 +210,8 @@ export interface Account {
   currency: Currency;
   standard: PaymentStandard;
   iban?: string;
-  sortCode?: string;
-  accountNumber?: string;
+  // sortCode?: string;
+  // accountNumber?: string;
   network: Network;
   chain: Chain;
   id?: string;
@@ -325,19 +336,24 @@ export interface Token {
 
 // --placeOrder
 
-export interface NewOrder {
-  kind: OrderKind;
+export type NewOrder = NewOrderByAddress | NewOrderByAccountId;
+
+export interface NewOrderCommon {
   amount: string;
   signature: string;
-  accountId?: string;
-  address: string;
-  currency: Currency;
+  // currency: Currency;
   counterpart: Counterpart;
   message: string;
-  memo: string;
+  memo?: string;
   supportingDocumentId?: string;
+}
+export interface NewOrderByAddress extends NewOrderCommon {
+  address: string;
   chain: Chain;
   network: Network;
+}
+export interface NewOrderByAccountId extends NewOrderCommon {
+  accountId: string;
 }
 
 // -- uploadSupportingDocument

@@ -1,7 +1,7 @@
 import encodeBase64Url from 'crypto-js/enc-base64url';
 import { MoneriumClient } from '../src/index';
 import { LINK_MESSAGE, Network, Chain } from '../src/constants';
-import { Currency, Order, OrderKind, PaymentStandard } from '../src/types';
+import { Currency, Order, PaymentStandard } from '../src/types';
 import SHA256 from 'crypto-js/sha256';
 
 import {
@@ -240,14 +240,6 @@ test('place order', async () => {
     client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
     client_secret: APP_ONE_CREDENTIALS_SECRET,
   });
-  const authContext = await client.getAuthContext();
-  const profile = await client.getProfile(authContext.profiles[0].id);
-  const account = profile.accounts.find(
-    (a) =>
-      a.address === publicKey &&
-      a.currency === Currency.eur &&
-      a.network === Network.Goerli,
-  );
 
   const date = 'Thu, 29 Dec 2022 14:58 +00:00';
   const placeOrderMessage = `Send EUR 10 to GR1601101250000000012300695 at ${date}`;
@@ -255,12 +247,9 @@ test('place order', async () => {
     '0xe2baa7df880f140e37d4a0d9cb1aaa8969b40650f69dc826373efdcc0945050d45f64cf5a2c96fe6bba959abe1bee115cfa31cedc378233e051036cdebd992181c';
 
   const order = await client.placeOrder({
-    kind: OrderKind.redeem,
     amount: '1',
     signature: placeOrderSignatureHash,
-    accountId: account?.id,
     address: publicKey,
-    currency: Currency.eur,
     counterpart: {
       identifier: {
         standard: PaymentStandard.iban,
@@ -303,6 +292,74 @@ test('place order', async () => {
   };
 
   expect(order).toEqual(expect.objectContaining(expected));
+});
+test('place order by account id', async () => {
+  const client = new MoneriumClient();
+
+  await client.auth({
+    client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
+    client_secret: APP_ONE_CREDENTIALS_SECRET,
+  });
+  const authContext = await client.getAuthContext();
+  const profile = await client.getProfile(authContext.profiles[0].id);
+  const account = profile.accounts.find(
+    (a) =>
+      a.address === publicKey &&
+      a.currency === Currency.eur &&
+      a.network === Network.Goerli,
+  );
+
+  const date = 'Thu, 29 Dec 2022 14:58 +00:00';
+  const placeOrderMessage = `Send EUR 10 to GR1601101250000000012300695 at ${date}`;
+  const placeOrderSignatureHash =
+    '0xe2baa7df880f140e37d4a0d9cb1aaa8969b40650f69dc826373efdcc0945050d45f64cf5a2c96fe6bba959abe1bee115cfa31cedc378233e051036cdebd992181c';
+
+  const orderByAccountId = await client.placeOrder({
+    amount: '1',
+    signature: placeOrderSignatureHash,
+    accountId: account?.id as string,
+    counterpart: {
+      identifier: {
+        standard: PaymentStandard.iban,
+        iban: 'GR1601101250000000012300695',
+      },
+      details: {
+        firstName: 'Mockbank',
+        lastName: 'Testerson',
+      },
+    },
+    message: placeOrderMessage,
+    memo: 'Powered by Monerium SDK',
+  });
+
+  const expectedByAccountId = {
+    profile: '04f5b0d5-17d0-11ed-81e7-a6f0ef57aabb',
+    accountId: '3cef7bfc-8779-11ed-ac14-4a76678fa2b6',
+    address: '0x2d312198e570912844b5a230AE6f7A2E3321371C',
+    kind: 'redeem',
+    amount: '1',
+    currency: 'eur',
+    memo: 'Powered by Monerium SDK',
+    supportingDocumentId: '',
+    chain: 'ethereum',
+    network: 'goerli',
+    counterpart: {
+      details: {
+        name: 'Mockbank Testerson',
+        country: 'GR',
+        lastName: 'Testerson',
+        firstName: 'Mockbank',
+      },
+      identifier: {
+        iban: 'GR16 0110 1250 0000 0001 2300 695',
+        standard: 'iban',
+      },
+    },
+  };
+
+  expect(orderByAccountId).toEqual(
+    expect.objectContaining(expectedByAccountId),
+  );
 });
 
 // test("upload supporting document", async () => {
