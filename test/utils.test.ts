@@ -30,12 +30,11 @@ describe('rfc3339', () => {
 describe('getMessage', () => {
   test('should format message with valid inputs', () => {
     const message = placeOrderMessage({
-      currency: 'usd',
       amount: 100,
       iban: 'DE89370400440532013000',
     });
     expect(message).toMatch(
-      /^Send USD 100 to DE89370400440532013000 at \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/,
+      /^Send EUR 100 to DE89370400440532013000 at \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/,
     );
   });
 });

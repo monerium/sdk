@@ -139,7 +139,7 @@ export class MoneriumClient {
   }
 
   placeOrder(order: NewOrder, profileId?: string): Promise<Order> {
-    const req = { ...order, kind: 'redeem' };
+    const req = { ...order, kind: 'redeem', currency: 'eur' };
     if (profileId) {
       return this.#api<Order>(
         'post',

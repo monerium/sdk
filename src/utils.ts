@@ -79,17 +79,12 @@ export const rfc3339 = (d: Date) => {
  * @returns string
  */
 export const placeOrderMessage = ({
-  currency,
   amount,
   iban,
 }: {
-  currency: Currency | Uppercase<Currency> | string;
   amount: string | number;
   iban: string;
-}) =>
-  `Send ${currency.toUpperCase()} ${amount} to ${iban} at ${rfc3339(
-    new Date(),
-  )}`;
+}) => `Send EUR ${amount} to ${iban} at ${rfc3339(new Date())}`;
 
 /**
  * Replacement for URLSearchParams, Metamask snaps do not include node globals.
