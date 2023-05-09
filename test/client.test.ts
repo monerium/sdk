@@ -240,14 +240,6 @@ test('place order', async () => {
     client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
     client_secret: APP_ONE_CREDENTIALS_SECRET,
   });
-  const authContext = await client.getAuthContext();
-  const profile = await client.getProfile(authContext.profiles[0].id);
-  const account = profile.accounts.find(
-    (a) =>
-      a.address === publicKey &&
-      a.currency === Currency.eur &&
-      a.network === Network.Goerli,
-  );
 
   const date = 'Thu, 29 Dec 2022 14:58 +00:00';
   const placeOrderMessage = `Send EUR 10 to GR1601101250000000012300695 at ${date}`;
