@@ -1,5 +1,27 @@
 # Changelog
 
+## [2.4.0](https://github.com/monerium/sdk/compare/v2.3.0...v2.4.0) (2023-05-09)
+
+
+### Features
+
+* kind always redeem from place order [#87](https://github.com/monerium/sdk/issues/87) ([#88](https://github.com/monerium/sdk/issues/88)) ([850921e](https://github.com/monerium/sdk/commit/850921ed0aa8d36e180ee7c1df439e04f5d7085b))
+
+
+### Bug Fixes
+
+* custom urlEncoder for x-www-forms so the package works for Metamask snapa ([#91](https://github.com/monerium/sdk/issues/91)) ([8375164](https://github.com/monerium/sdk/commit/83751645565c4b7054f8aabffaa8f91eea8d5caf))
+* lint ([82f8f7c](https://github.com/monerium/sdk/commit/82f8f7c0192b235c4e0e584a25d52490e1575aa3))
+* vscode cant detect the configs in nested folder ([#89](https://github.com/monerium/sdk/issues/89)) ([398dcf1](https://github.com/monerium/sdk/commit/398dcf1513de86a7c3949493e3728aac746349fa))
+* we only support EUR for now + adjust placeOrder request type ([1c54932](https://github.com/monerium/sdk/commit/1c549321192c115947f1ce574c97cf618353a6ef))
+* we only support EUR for now + adjust placeOrder request type ([07f801a](https://github.com/monerium/sdk/commit/07f801a1088bf2df014af549214199bb17ee8f51))
+
+
+### Miscellaneous
+
+* add a comment to explain how to use the Network type ([c913224](https://github.com/monerium/sdk/commit/c9132242d2f977524ba6467210344b1c8dc51e85))
+* add info about sdks to Readme ([ad10488](https://github.com/monerium/sdk/commit/ad10488ce634787bee3b1eab8be6b8d78f56f834))
+
 ## [2.3.0](https://github.com/monerium/sdk/compare/v2.2.3...v2.3.0) (2023-04-30)
 
 
