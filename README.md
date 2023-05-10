@@ -79,7 +79,7 @@ let authFlowUrl = client.getAuthFlowURI({
 
 })
 // Store the code verifier in localStorage
-window.localStorage.setItem("myCodeVerifier", client.code_verifier);
+window.localStorage.setItem("myCodeVerifier", client.codeVerifier);
 // Redirecting to the Monerium onboarding / Authentication flow.
 window.location.replace(authFlowUrl)
 ```
