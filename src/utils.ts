@@ -78,13 +78,8 @@ export const rfc3339 = (d: Date) => {
  *
  * @returns string
  */
-export const placeOrderMessage = ({
-  amount,
-  iban,
-}: {
-  amount: string | number;
-  iban: string;
-}) => `Send EUR ${amount} to ${iban} at ${rfc3339(new Date())}`;
+export const placeOrderMessage = (amount: string | number, iban: string) =>
+  `Send EUR ${amount} to ${iban} at ${rfc3339(new Date())}`;
 
 /**
  * Replacement for URLSearchParams, Metamask snaps do not include node globals.
