@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.1](https://github.com/monerium/sdk/compare/v2.4.0...v2.4.1) (2023-05-10)
+
+
+### Bug Fixes
+
+* placeOrderMessage parameters, should take two arguments instead of one nested ([5c32da0](https://github.com/monerium/sdk/commit/5c32da01f3a0018aa69f00511f63fba8c3d7ec8b))
+
 ## [2.4.0](https://github.com/monerium/sdk/compare/v2.3.0...v2.4.0) (2023-05-09)
 
 
