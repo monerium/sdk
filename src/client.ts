@@ -65,7 +65,35 @@ export class MoneriumClient {
    * Construct the url to the authorization code flow,
    * the code verifier is needed afterwards to obtain an access token and is therefore stored in `this.codeVerifier`
    * For automatic wallet link, add the following properties: `address`, `signature`, `chain` & `network`
-   * @returns string
+   *
+   * @param {Object} args - Arguments for the authentication flow
+   * @param {string} args.client_id - The authentication flow client id of the application
+   * @param {string=} args.state - The state of the application (optional)
+   * @param {string=} args.redirect_uri - The redirect uri of the application (optional)
+   * @param {string=} args.scope - The scope of the application (optional)
+   * @param {string=} args.address - The address of the wallet to automatically link (optional)
+   * @param {string=} args.signature - The signature of the wallet to automatically link (optional)
+   * @param {Network=} args.network - The network of the wallet to automatically link (optional)
+   * @param {Chain=} args.chain - The chain of the wallet to automatically link (optional)
+   *
+   * @returns {Object} - The URL that the user should be redirected to start authorization code flow and the verifier that must be passed with the code to get the access and refresh tokens
+   * @returns {string} .url - The URL that the user should be redirected to start authorization code flow
+   * @returns {string} .verifier - The verifier that must be passed with the code to get the access and refresh tokens
+   */
+  getAuthFlow(args: PKCERequestArgs): {
+    /* The URL that the user should be redirected to start authorization code flow  */
+    url: string;
+    /* The verifier that must be passed with the code to get the access and refresh tokens */
+    verifier: string;
+  } {
+    // Using crypto-js to generate a random string was causing the following error:
+    // `Error: Native crypto module could not be used to get secure random number.`
+    const url = this.getAuthFlowURI(args);
+    return { url, verifier: this.codeVerifier as string };
+  }
+
+  /**
+   *  @deprecated since v2.0.7, use {@link getAuthFlowURI} instead.
    */
   getAuthFlowURI(args: PKCERequestArgs): string {
     // Using crypto-js to generate a random string was causing the following error:
