@@ -1,6 +1,11 @@
 import encodeBase64Url from 'crypto-js/enc-base64url';
 import SHA256 from 'crypto-js/sha256';
-import { generateRandomString, rest, urlEncoded } from './utils';
+import {
+  generateRandomString,
+  placeOrderMessage,
+  rest,
+  urlEncoded,
+} from './utils';
 import { MONERIUM_CONFIG } from './config';
 import type {
   AuthArgs,
@@ -10,6 +15,7 @@ import type {
   BearerProfile,
   ClientCredentials,
   Environment,
+  IBAN,
   LinkAddress,
   NewOrder,
   Order,
@@ -21,6 +27,7 @@ import type {
   SupportingDoc,
   Token,
 } from './types';
+import { LINK_MESSAGE } from './constants';
 // import pjson from "../package.json";
 
 export class MoneriumClient {
@@ -131,15 +138,23 @@ export class MoneriumClient {
   // -- Write Methods
 
   linkAddress(profileId: string, body: LinkAddress) {
+    const msg = body?.message || LINK_MESSAGE;
+    const req = { ...body, message: msg };
     return this.#api(
       'post',
       `profiles/${profileId}/addresses`,
-      JSON.stringify(body),
+      JSON.stringify(req),
     );
   }
 
   placeOrder(order: NewOrder, profileId?: string): Promise<Order> {
-    const req = { ...order, kind: 'redeem', currency: 'eur' };
+    const msg =
+      order?.message ||
+      placeOrderMessage(
+        order?.amount,
+        (order?.counterpart?.identifier as IBAN)?.iban,
+      );
+    const req = { ...order, kind: 'redeem', currency: 'eur', message: msg };
     if (profileId) {
       return this.#api<Order>(
         'post',

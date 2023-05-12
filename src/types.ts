@@ -343,7 +343,7 @@ export interface NewOrderCommon {
   signature: string;
   // currency: Currency;
   counterpart: Counterpart;
-  message: string;
+  message?: string;
   memo?: string;
   supportingDocumentId?: string;
 }
@@ -383,7 +383,7 @@ export interface CurrencyAccounts {
 
 export interface LinkAddress {
   address: string;
-  message: string;
+  message?: string;
   signature: string;
   accounts: CurrencyAccounts[];
   network?: Network;
