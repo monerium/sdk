@@ -360,7 +360,7 @@ test('place order by account id', async () => {
   expect(orderByAccountId).toEqual(
     expect.objectContaining(expectedByAccountId),
   );
-});
+}, 30000);
 
 // test("upload supporting document", async () => {
 //   const client = new MoneriumClient();

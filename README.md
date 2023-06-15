@@ -16,12 +16,6 @@ that may change the behavior of your application before you upgrade._
 yarn add @monerium/sdk
 ```
 
-Smart IDEs (such as VSCode) require [special configuration](https://yarnpkg.com/getting-started/editor-sdks) for TypeScript to work when using Plug'n'Play installs.
-
-```sh
-yarn dlx @yarnpkg/sdks vscode
-```
-
 ## Usage
 
 - `watch`: Run Vite in watch mode to detect changes to files during development
@@ -79,7 +73,7 @@ let authFlowUrl = client.getAuthFlowURI({
 
 })
 // Store the code verifier in localStorage
-window.localStorage.setItem("myCodeVerifier", client.code_verifier);
+window.localStorage.setItem("myCodeVerifier", client.codeVerifier);
 // Redirecting to the Monerium onboarding / Authentication flow.
 window.location.replace(authFlowUrl)
 ```
@@ -99,9 +93,36 @@ await client.auth({
 await client.getAuthContext();
 ```
 
-## Developing
+## Contributing
 
 We are using [commitlint](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional) to enforce that developers format the commit messages according to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines.
+
+We are using Yarn as a package manager.
+
+```
+yarn
+yarn build
+```
+
+Smart IDEs (such as VSCode) require [special configuration](https://yarnpkg.com/getting-started/editor-sdks) for TypeScript to work when using Yarn Plug'n'Play installs.
+
+```sh
+yarn dlx @yarnpkg/sdks vscode
+```
+
+For development, a package can be linked into another project. This is often useful to test out new features or when trying to debug an issue in a package that manifests itself in another project. run yarn link inside of the sdk project.
+
+
+```sh
+YARN_IGNORE_PATH=1 yarn link
+```
+Use `yarn link "@monerium/sdk"` to link and test into your current project.
+
+```sh
+cd ../your-project
+yarn link "@monerium/sdk"
+```
+
 
 ## Publishing
 
