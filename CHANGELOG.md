@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.5.0](https://github.com/monerium/sdk/compare/v2.4.1...v2.5.0) (2023-06-15)
+
+
+### Features
+
+* expose rfc3339 function ([f9e5bec](https://github.com/monerium/sdk/commit/f9e5bec6fbd2209f58b240be90d833f8fdcaae0a))
+
+
+### Bug Fixes
+
+* should be client.codeVerifier ([46c986a](https://github.com/monerium/sdk/commit/46c986a246cf4623ce283b2e8b2f9bc2c4c9ad35))
+
 ## [2.4.1](https://github.com/monerium/sdk/compare/v2.4.0...v2.4.1) (2023-05-10)
 
 
