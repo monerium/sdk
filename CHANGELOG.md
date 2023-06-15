@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.1](https://github.com/monerium/sdk/compare/v2.5.0...v2.5.1) (2023-06-15)
+
+
+### Bug Fixes
+
+* extend timeout on place order test ([0a81449](https://github.com/monerium/sdk/commit/0a81449e201df00045694af693c866b801ddea32))
+
 ## [2.5.0](https://github.com/monerium/sdk/compare/v2.4.1...v2.5.0) (2023-06-15)
 
 
