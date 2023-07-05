@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.5.2](https://github.com/monerium/sdk/compare/v2.5.1...v2.5.2) (2023-07-05)
+
+
+### Bug Fixes
+
+* add state to Account type, closes [#96](https://github.com/monerium/sdk/issues/96) ([5693146](https://github.com/monerium/sdk/commit/5693146d8951e9e7024dcd1f8c262707ade8f642))
+* getBalances always returns an array, closes [#98](https://github.com/monerium/sdk/issues/98) ([144b1f9](https://github.com/monerium/sdk/commit/144b1f944c78269bf9ebed72a5da046511a15aea))
+
 ## [2.5.1](https://github.com/monerium/sdk/compare/v2.5.0...v2.5.1) (2023-06-15)
 
 

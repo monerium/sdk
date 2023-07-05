@@ -195,6 +195,12 @@ export enum KYCOutcome {
   unknown = 'unknown',
 }
 
+export enum AccountState {
+  requested = 'requested',
+  approved = 'approved',
+  pending = 'pending',
+}
+
 export interface KYC {
   state: KYCState;
   outcome: KYCOutcome;
@@ -215,6 +221,7 @@ export interface Account {
   network: Network;
   chain: Chain;
   id?: string;
+  state?: AccountState;
 }
 
 export interface Profile {
