@@ -107,9 +107,9 @@ export class MoneriumClient {
   /**
    * @param {string=} profileId - the id of the profile to fetch balances.
    */
-  getBalances(profileId?: string): Promise<Balances> | Promise<Balances[]> {
+  getBalances(profileId?: string): Promise<Balances[]> {
     if (profileId) {
-      return this.#api<Balances>('get', `profiles/${profileId}/balances`);
+      return this.#api<Balances[]>('get', `profiles/${profileId}/balances`);
     } else {
       return this.#api<Balances[]>('get', `balances`);
     }
