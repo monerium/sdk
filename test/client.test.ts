@@ -1,6 +1,6 @@
 import encodeBase64Url from 'crypto-js/enc-base64url';
 import { MoneriumClient } from '../src/index';
-import { LINK_MESSAGE, Network, Chain } from '../src/constants';
+import { LINK_MESSAGE } from '../src/constants';
 import { Currency, Order, PaymentStandard } from '../src/types';
 import SHA256 from 'crypto-js/sha256';
 
@@ -99,18 +99,18 @@ test('link address', async () => {
       signature: ownerSignatureHash,
       accounts: [
         {
-          network: Network.Goerli,
-          chain: Chain.Ethereum,
+          network: 'goerli',
+          chain: 'ethereum',
           currency: Currency.eur,
         },
         {
-          network: Network.Chiado,
-          chain: Chain.Gnosis,
+          network: 'chiado',
+          chain: 'gnosis',
           currency: Currency.eur,
         },
         {
-          network: Network.Mumbai,
-          chain: Chain.Polygon,
+          network: 'mumbai',
+          chain: 'polygon',
           currency: Currency.eur,
         },
       ],
@@ -262,8 +262,8 @@ test('place order', async () => {
     },
     message: placeOrderMessage,
     memo: 'Powered by Monerium SDK',
-    chain: Chain.Ethereum,
-    network: Network.Goerli,
+    chain: 'ethereum',
+    network: 'goerli',
   });
 
   const expected = {
@@ -306,7 +306,7 @@ test('place order by account id', async () => {
     (a) =>
       a.address === publicKey &&
       a.currency === Currency.eur &&
-      a.network === Network.Goerli,
+      a.network === 'goerli',
   );
 
   const date = 'Thu, 29 Dec 2022 14:58 +00:00';

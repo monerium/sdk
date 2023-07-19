@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.6.0](https://github.com/monerium/sdk/compare/v2.5.2...v2.6.0) (2023-07-19)
+
+
+### Features
+
+* removed Chain and Network enum ([600a634](https://github.com/monerium/sdk/commit/600a6348f4f6ce0b3f2cc472c807520620bc0d60))
+
+
+### Bug Fixes
+
+* constants typed import ([600a634](https://github.com/monerium/sdk/commit/600a6348f4f6ce0b3f2cc472c807520620bc0d60))
+
 ## [2.5.2](https://github.com/monerium/sdk/compare/v2.5.1...v2.5.2) (2023-07-05)
 
 
