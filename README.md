@@ -112,10 +112,10 @@ yarn dlx @yarnpkg/sdks vscode
 
 For development, a package can be linked into another project. This is often useful to test out new features or when trying to debug an issue in a package that manifests itself in another project. run yarn link inside of the sdk project.
 
-
 ```sh
 YARN_IGNORE_PATH=1 yarn link
 ```
+
 Use `yarn link "@monerium/sdk"` to link and test into your current project.
 
 ```sh
@@ -123,6 +123,7 @@ cd ../your-project
 yarn link "@monerium/sdk"
 ```
 
+> Troubleshooting: if the link somehow exists, you can search for it and remove it `find . -type l -ls | grep "@monerium/sdk"`
 
 ## Publishing
 

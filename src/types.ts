@@ -208,7 +208,8 @@ export interface KYC {
 
 export enum PaymentStandard {
   iban = 'iban',
-  scan = 'scan',
+  chain = 'chain',
+  // scan = 'scan',
 }
 
 export interface Account {
@@ -265,15 +266,24 @@ export interface Fee {
   amount: string;
 }
 
-export interface IBAN {
-  standard: PaymentStandard.iban;
+export interface Identifier {
+  standard: PaymentStandard;
+  bic?: string;
+}
+
+export interface IBAN extends Identifier {
   iban: string;
 }
 
 export interface SCAN {
-  standard: PaymentStandard.scan;
-  sortCode: string;
-  accountNumber: string;
+  sortCode: string; // 6-digits
+  accountNumber: string; // 8-digits
+}
+
+export interface CrossChain extends Identifier {
+  address: string;
+  chain: string;
+  network: string;
 }
 
 export interface Individual {
@@ -288,8 +298,8 @@ export interface Corporation {
 }
 
 export interface Counterpart {
-  identifier: IBAN | SCAN;
-  details: Individual | Corporation;
+  identifier: IBAN | CrossChain; // | SCAN
+  details?: Individual | Corporation;
 }
 
 export interface OrderMetadata {
@@ -343,12 +353,15 @@ export interface Token {
 
 // --placeOrder
 
-export type NewOrder = NewOrderByAddress | NewOrderByAccountId;
+export type NewOrder =
+  | NewOrderByAddress
+  | NewOrderByAccountId
+  | NewOrderMultiSig;
 
 export interface NewOrderCommon {
   amount: string;
   signature: string;
-  // currency: Currency;
+  currency?: Currency;
   counterpart: Counterpart;
   message: string;
   memo?: string;
@@ -357,10 +370,16 @@ export interface NewOrderCommon {
 export interface NewOrderByAddress extends NewOrderCommon {
   address: string;
   chain: Chain;
-  network: Network;
+  network?: Network;
 }
 export interface NewOrderByAccountId extends NewOrderCommon {
   accountId: string;
+}
+
+export interface NewOrderMultiSig extends NewOrderCommon {
+  address: string;
+  chain: Chain;
+  network: Network;
 }
 
 // -- uploadSupportingDocument
