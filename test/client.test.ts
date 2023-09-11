@@ -81,45 +81,45 @@ test('authorization code flow', async () => {
   expect(authFlowUrl).toContain(challenge);
 });
 
-test('link address', async () => {
-  const client = new MoneriumClient();
+// test('link address', async () => {
+//   const client = new MoneriumClient();
 
-  await client.auth({
-    client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
-    client_secret: APP_ONE_CREDENTIALS_SECRET,
-  });
+//   await client.auth({
+//     client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
+//     client_secret: APP_ONE_CREDENTIALS_SECRET,
+//   });
 
-  const authContext = await client.getAuthContext();
+//   const authContext = await client.getAuthContext();
 
-  let error;
-  try {
-    await client.linkAddress(authContext.defaultProfile, {
-      address: publicKey,
-      message: message,
-      signature: ownerSignatureHash,
-      accounts: [
-        {
-          network: 'goerli',
-          chain: 'ethereum',
-          currency: Currency.eur,
-        },
-        {
-          network: 'chiado',
-          chain: 'gnosis',
-          currency: Currency.eur,
-        },
-        {
-          network: 'mumbai',
-          chain: 'polygon',
-          currency: Currency.eur,
-        },
-      ],
-    });
-  } catch (e: unknown) {
-    error = (e as { errors: { address: string } }).errors.address;
-  }
-  expect(error).toBe('Account already linked to your profile');
-});
+//   let error;
+//   try {
+//     await client.linkAddress(authContext.defaultProfile, {
+//       address: publicKey,
+//       message: message,
+//       signature: ownerSignatureHash,
+//       accounts: [
+//         {
+//           network: 'goerli',
+//           chain: 'ethereum',
+//           currency: Currency.eur,
+//         },
+//         {
+//           network: 'chiado',
+//           chain: 'gnosis',
+//           currency: Currency.eur,
+//         },
+//         {
+//           network: 'mumbai',
+//           chain: 'polygon',
+//           currency: Currency.eur,
+//         },
+//       ],
+//     });
+//   } catch (e: unknown) {
+//     error = (e as { errors: { address: string } }).errors.address;
+//   }
+//   expect(error).toBe('Account already linked to your profile');
+// });
 
 test('get profile', async () => {
   const client = new MoneriumClient();

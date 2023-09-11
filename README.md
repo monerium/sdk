@@ -44,7 +44,9 @@ If you are new here, we recommend starting in the [Developer Portal](https://mon
 ```ts
 import { MoneriumClient } from '@monerium/sdk';
 
-const client = new MoneriumClient();
+// By default, the client will use the sandbox environment.
+// To change to production, pass "production" as the first argument.
+const client = new MoneriumClient('sandbox');
 ```
 
 ### Authenticate using client credentials
@@ -112,17 +114,16 @@ yarn dlx @yarnpkg/sdks vscode
 
 For development, a package can be linked into another project. This is often useful to test out new features or when trying to debug an issue in a package that manifests itself in another project. run yarn link inside of the sdk project.
 
-
 ```sh
 YARN_IGNORE_PATH=1 yarn link
 ```
+
 Use `yarn link "@monerium/sdk"` to link and test into your current project.
 
 ```sh
 cd ../your-project
 yarn link "@monerium/sdk"
 ```
-
 
 ## Publishing
 
