@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.1](https://github.com/monerium/sdk/compare/v2.6.0...v2.6.1) (2023-09-11)
+
+
+### Bug Fixes
+
+* add info how to set environment ([c803cc5](https://github.com/monerium/sdk/commit/c803cc579ea11006ab845d4a4790e2a9bffae0b0))
+
 ## [2.6.0](https://github.com/monerium/sdk/compare/v2.5.2...v2.6.0) (2023-07-19)
 
 
