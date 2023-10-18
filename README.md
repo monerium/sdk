@@ -5,6 +5,8 @@ Everything you need to interact with the [Monerium API](https://monerium.dev/api
 _This package is in development. Please make sure to check if any future updates contain commits
 that may change the behavior of your application before you upgrade._
 
+[Source code](https://github.com/monerium/sdk)
+
 [SDK Documentation](https://monerium.github.io/sdk/)
 
 [Code coverage](https://monerium.github.io/sdk/coverage)
@@ -37,7 +39,7 @@ networks: `mainnet`, `mainnet`, `mainnet`.
 
 ## Getting started
 
-If you are new here, we recommend starting in the [Developer Portal](https://monerium.dev/docs/welcome). There you will more about `client_id`'s and ways of authenticating.
+We recommend starting in the [Developer Portal](https://monerium.dev/docs/welcome). There you will learn more about `client_id`'s and ways of authenticating.
 
 ### Import the SDK and initialize a client
 
@@ -59,6 +61,9 @@ await client.auth({
 
 // User is now authenticated, get authentication data
 await client.getAuthContext()
+
+// You can now find your access and refresh token here:
+const { access_token, refresh_token } = client.bearerProfile;
 ```
 
 ### Authenticate using auth flow
@@ -66,7 +71,8 @@ await client.getAuthContext()
 ```ts
 // Construct the authFlowUrl for your application and redirect your customer.
 let authFlowUrl = client.getAuthFlowURI({
-  client_id: "your_client_authflow_uuid"
+  client_id: "your_client_authflow_uuid",
+  redirect_uri: "http://your-webpage.com/monerium-integration"
   // optional automatic wallet selection:
   network: "mumbai",
   chain: "polygon",
@@ -93,6 +99,9 @@ await client.auth({
 
 // User is now authenticated, get authentication data
 await client.getAuthContext();
+
+// You can now find your access and refresh token here:
+const { access_token, refresh_token } = client.bearerProfile;
 ```
 
 ## Contributing
