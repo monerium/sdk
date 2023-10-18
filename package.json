@@ -1,6 +1,6 @@
 {
   "name": "@monerium/sdk",
-  "version": "2.6.4",
+  "version": "2.6.5",
   "description": "Everything you need to interact with the Monerium API - an electronic money issuer.",
   "license": "MIT",
   "repository": {
@@ -29,7 +29,7 @@
     "build": "NODE_OPTIONS=--experimental-fetch yarn build:main",
     "build:main": "tsc && vite --config ./configs/vite.config.ts build && dts-bundle-generator --config ./configs/dts-bundle-generator.ts",
     "clean": "rm -rf dist && rm -rf node_modules && rm -rf static",
-    "docs": "typedoc --options configs/typedoc.json",
+    "docs": "typedoc --options configs/typedoc.json --entryPointStrategy expand && node scripts/editStatic.js",
     "docs:watch": "yarn docs --watch",
     "format": "prettier . --write --ignore-path ./configs/.prettierignore",
     "lint": "eslint . -c ./.eslintrc --ext .ts",
