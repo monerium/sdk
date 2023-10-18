@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.6.2](https://github.com/monerium/sdk/compare/v2.6.1...v2.6.2) (2023-10-18)
+
+
+### Bug Fixes
+
+* add missing info from README [no-ci] ([600bda5](https://github.com/monerium/sdk/commit/600bda52f9d8b61aa47222ace5308d3087e674e5))
+* **docs:** add source code link to README ([c2a9294](https://github.com/monerium/sdk/commit/c2a9294f49e60ba9fd9373d94ec6069b6b559fb0))
+* revert changes to action ([36eada9](https://github.com/monerium/sdk/commit/36eada92b89b9bf1de0659f74479d27b58697975))
+* update docs on every push to main ([e0f57e6](https://github.com/monerium/sdk/commit/e0f57e61312a5fce0d02608eed6fc7c5aaba5b09))
+
 ## [2.6.1](https://github.com/monerium/sdk/compare/v2.6.0...v2.6.1) (2023-09-11)
 
 
