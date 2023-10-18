@@ -3,11 +3,15 @@
 Everything you need to interact with the [Monerium API](https://monerium.dev/api-docs) - an electronic money issuer.
 
 _This package is in development. Please make sure to check if any future updates contain commits
-that may change the behavior of your application before you upgrade._
+that may change the behavior of your application before you upgrade. If you find any issues please report them [here](https://github.com/monerium/sdk/issues)._
+
+[NPM package](https://www.npmjs.com/package/@monerium/sdk)
 
 [Source code](https://github.com/monerium/sdk)
 
 [SDK Documentation](https://monerium.github.io/sdk/)
+
+[SDK JS-Docs](https://monerium.github.io/sdk/)
 
 [Code coverage](https://monerium.github.io/sdk/coverage)
 

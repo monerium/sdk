@@ -10,6 +10,9 @@
   "kindSortOrder": ["Class", "Interface", "Enum"],
   "excludePrivate": true,
   "navigationLinks": {
+    "Source code": "https://github.com/monerium/sdk",
+    "Issues": "https://github.com/monerium/sdk/issues",
+    "NPM": "https://www.npmjs.com/package/@monerium/sdk",
     "E-money": "https://monerium.com/",
     "App": "https://monerium.app/"
   },
@@ -17,7 +20,7 @@
     "Developer portal": "https://monerium.dev/",
     "API docs": "https://monerium.dev/api-docs"
   },
-  "entryPointStrategy": "Expand",
+  "entryPointStrategy": "expand",
   "plugin": ["typedoc-theme-hierarchy"],
   "theme": "hierarchy"
 }
