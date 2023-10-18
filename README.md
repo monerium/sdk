@@ -5,6 +5,8 @@ Everything you need to interact with the [Monerium API](https://monerium.dev/api
 _This package is in development. Please make sure to check if any future updates contain commits
 that may change the behavior of your application before you upgrade._
 
+[Source code](https://github.com/monerium/sdk)
+
 [SDK Documentation](https://monerium.github.io/sdk/)
 
 [Code coverage](https://monerium.github.io/sdk/coverage)
