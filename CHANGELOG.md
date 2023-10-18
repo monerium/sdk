@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.3](https://github.com/monerium/sdk/compare/v2.6.2...v2.6.3) (2023-10-18)
+
+
+### Bug Fixes
+
+* tests ([6be0014](https://github.com/monerium/sdk/commit/6be00148724942bdca74bbeea961b8b33bcd80f7))
+
 ## [2.6.2](https://github.com/monerium/sdk/compare/v2.6.1...v2.6.2) (2023-10-18)
 
 
