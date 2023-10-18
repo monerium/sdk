@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.4](https://github.com/monerium/sdk/compare/v2.6.3...v2.6.4) (2023-10-18)
+
+
+### Bug Fixes
+
+* **docs:** add links and fix sidebar not expading ([c8eab4a](https://github.com/monerium/sdk/commit/c8eab4a2006ea7068c442828c7e2e65eaedf8b71))
+
 ## [2.6.3](https://github.com/monerium/sdk/compare/v2.6.2...v2.6.3) (2023-10-18)
 
 
