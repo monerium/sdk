@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.5](https://github.com/monerium/sdk/compare/v2.6.4...v2.6.5) (2023-10-18)
+
+
+### Bug Fixes
+
+* script to manually expand static file sidebar ([7b24240](https://github.com/monerium/sdk/commit/7b24240f642b80e05d2fd67665dbd6fe10f7aca5))
+
 ## [2.6.4](https://github.com/monerium/sdk/compare/v2.6.3...v2.6.4) (2023-10-18)
 
 
