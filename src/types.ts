@@ -77,6 +77,10 @@ export type AuthArgs =
   | Omit<RefreshToken, 'grant_type'>
   | Omit<ClientCredentials, 'grant_type'>;
 
+/** One of the options for the {@link AuthArgs}.
+ *
+ * [Auth endpoint in API documentation:](https://monerium.dev/api-docs#operation/auth).
+ * */
 export interface AuthCode {
   grant_type: 'authorization_code';
   client_id: string;
