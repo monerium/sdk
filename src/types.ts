@@ -70,6 +70,9 @@ export enum Currency {
   // isk = 'isk',
 }
 
+export type TokenSymbol = 'EURe'; //| 'GBPe' | 'USDe' | 'ISKe';
+export type Ticker = 'EUR'; //| 'GBP' | 'USD' | 'ISK';
+
 // -- auth
 
 export type AuthArgs =
@@ -334,14 +337,18 @@ export interface Order {
 }
 
 // -- getTokens
-
+/**
+ * Information about the EURe token on different networks.
+ */
 export interface Token {
   currency: Currency;
-  ticker: string;
-  symbol: string;
+  ticker: Ticker;
+  symbol: TokenSymbol;
   chain: Chain;
   network: Network;
+  /** The address of the EURe contract on this network */
   address: string;
+  /** How many decimals this token supports */
   decimals: number;
 }
 

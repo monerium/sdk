@@ -29,14 +29,16 @@ export class MoneriumClient {
   #authPayload?: string;
   /** The PKCE code verifier */
   codeVerifier?: string;
+  /** The bearer profile will be available after authentication, it includes the access_token and refresh_token */
   bearerProfile?: BearerProfile;
 
   constructor(env: 'production' | 'sandbox' = 'sandbox') {
     this.#env = MONERIUM_CONFIG.environments[env];
   }
 
-  // -- Authentication
-
+  /**
+   * {@link https://monerium.dev/api-docs#operation/auth-token}
+   */
   async auth(args: AuthArgs): Promise<BearerProfile> {
     let params: AuthCode | RefreshToken | ClientCredentials;
 
@@ -66,6 +68,7 @@ export class MoneriumClient {
    * the code verifier is needed afterwards to obtain an access token and is therefore stored in `this.codeVerifier`
    * For automatic wallet link, add the following properties: `address`, `signature`, `chain` & `network`
    * @returns string
+   * {@link https://monerium.dev/api-docs#operation/auth}
    */
   getAuthFlowURI(args: PKCERequestArgs): string {
     // Using crypto-js to generate a random string was causing the following error:
@@ -92,19 +95,24 @@ export class MoneriumClient {
   pkceRequest = (args: PKCERequestArgs) => this.getAuthFlowURI(args);
 
   // -- Read Methods
-
+  /**
+   * {@link https://monerium.dev/api-docs#operation/auth-context}
+   */
   getAuthContext(): Promise<AuthContext> {
     return this.#api<AuthContext>('get', `auth/context`);
   }
 
   /**
+   * {@link https://monerium.dev/api-docs#operation/profile}
    * @param {string} profileId - the id of the profile to fetch.
+
    */
   getProfile(profileId: string): Promise<Profile> {
     return this.#api<Profile>('get', `profiles/${profileId}`);
   }
 
   /**
+   * {@link https://monerium.dev/api-docs#operation/profile-balances}
    * @param {string=} profileId - the id of the profile to fetch balances.
    */
   getBalances(profileId?: string): Promise<Balances[]> {
@@ -115,21 +123,32 @@ export class MoneriumClient {
     }
   }
 
+  /**
+   * {@link https://monerium.dev/api-docs#operation/orders}
+   */
   getOrders(filter?: OrderFilter): Promise<Order[]> {
     const searchParams = urlEncoded(filter as Record<string, string>);
     return this.#api<Order[]>('get', `orders?${searchParams}`);
   }
-
+  /**
+   * {@link https://monerium.dev/api-docs#operation/order}
+   */
   getOrder(orderId: string): Promise<Order> {
     return this.#api<Order>('get', `orders/${orderId}`);
   }
 
+  /**
+   * {@link https://monerium.dev/api-docs#operation/tokens}
+   */
   getTokens(): Promise<Token[]> {
     return this.#api<Token[]>('get', 'tokens');
   }
 
   // -- Write Methods
 
+  /**
+   * {@link https://monerium.dev/api-docs#operation/profile-addresses}
+   */
   linkAddress(profileId: string, body: LinkAddress) {
     return this.#api(
       'post',
@@ -138,6 +157,9 @@ export class MoneriumClient {
     );
   }
 
+  /**
+   * {@link https://monerium.dev/api-docs#operation/post-orders}
+   */
   placeOrder(order: NewOrder, profileId?: string): Promise<Order> {
     const req = { ...order, kind: 'redeem', currency: 'eur' };
     if (profileId) {
@@ -151,6 +173,9 @@ export class MoneriumClient {
     }
   }
 
+  /**
+   * {@link https://monerium.dev/api-docs#operation/supporting-document}
+   */
   uploadSupportingDocument(document: File): Promise<SupportingDoc> {
     const searchParams = urlEncoded(
       document as unknown as Record<string, string>,
