@@ -5,7 +5,7 @@
 
 var fs = require('fs');
 
-function readWriteAsync() {
+function forceOpenSidebar() {
   fs.readFile('static/index.html', 'utf-8', function (err, data) {
     if (err) throw err;
 
@@ -20,5 +20,25 @@ function readWriteAsync() {
     });
   });
 }
+function forceCustomCss() {
+  fs.copyFile('src/styles/typedoc.css', 'static/assets/monerium.css', (err) => {
+    if (err) throw err;
+    console.log('typedoc.css was copied to static/assets/monerium.css');
+  });
+  fs.readFile('static/index.html', 'utf-8', function (err, data) {
+    if (err) throw err;
 
-readWriteAsync();
+    var newValue = data.replace(
+      '<link rel="stylesheet" href="assets/custom.css"/>',
+      '<link rel="stylesheet" href="assets/custom.css"/><link rel="stylesheet" href="assets/monerium.css"/>',
+    );
+
+    fs.writeFile('static/index.html', newValue, 'utf-8', function (err) {
+      if (err) throw err;
+      console.log('Finished manually editing static/index.html');
+    });
+  });
+}
+
+forceOpenSidebar();
+forceCustomCss();
