@@ -1,6 +1,12 @@
 import encodeBase64Url from 'crypto-js/enc-base64url';
 import SHA256 from 'crypto-js/sha256';
-import { generateRandomString, rest, urlEncoded } from './utils';
+import {
+  generateRandomString,
+  getChain,
+  getNetwork,
+  rest,
+  urlEncoded,
+} from './utils';
 import { MONERIUM_CONFIG } from './config';
 import type {
   AuthArgs,
@@ -8,12 +14,17 @@ import type {
   AuthContext,
   Balances,
   BearerProfile,
+  Chain,
   ClientCredentials,
   Environment,
   LinkAddress,
+  MoneriumEvent,
+  MoneriumEventListener,
   NewOrder,
   Order,
   OrderFilter,
+  OrderNotification,
+  OrderState,
   PKCERequest,
   PKCERequestArgs,
   Profile,
@@ -21,6 +32,7 @@ import type {
   SupportingDoc,
   Token,
 } from './types';
+import { STORAGE_CODE_VERIFIER, STORAGE_REFRESH_TOKEN } from './constants';
 // import pjson from "../package.json";
 
 export class MoneriumClient {
@@ -31,9 +43,98 @@ export class MoneriumClient {
   codeVerifier?: string;
   /** The bearer profile will be available after authentication, it includes the access_token and refresh_token */
   bearerProfile?: BearerProfile;
+  /** The socket will be available after subscribing to an event */
+  #socket?: WebSocket;
+  /** The subscriptions map will be available after subscribing to an event */
+  #subscriptions: Map<OrderState, MoneriumEventListener> = new Map();
 
   constructor(env: 'production' | 'sandbox' = 'sandbox') {
     this.#env = MONERIUM_CONFIG.environments[env];
+  }
+
+  // TODO:
+  // DO PROPER TYPING LIKE IN this.auth
+  // CLIENT CREDENTIALS
+  // TEST auto link
+  async open(options: {
+    redirectUrl?: string;
+    clientId: string;
+    wallet?: { address: string; signature?: string; chainId?: number };
+  }) {
+    if (typeof window === 'undefined') {
+      throw new Error('This only works on client side');
+      return;
+    }
+
+    const authCode =
+      new URLSearchParams(window.location.search).get('code') || undefined;
+
+    const refreshToken =
+      sessionStorage.getItem(STORAGE_REFRESH_TOKEN) || undefined;
+
+    if (authCode) {
+      const codeVerifier = sessionStorage.getItem(STORAGE_CODE_VERIFIER) || '';
+
+      await this.auth({
+        code: authCode,
+        redirect_uri: options?.redirectUrl as string,
+        client_id: options?.clientId,
+        code_verifier: codeVerifier,
+      });
+      sessionStorage.setItem(
+        STORAGE_REFRESH_TOKEN,
+        this.bearerProfile?.refresh_token || '',
+      );
+
+      this.#cleanQueryString();
+
+      sessionStorage.removeItem(STORAGE_CODE_VERIFIER);
+    } else if (refreshToken) {
+      try {
+        await this.auth({
+          refresh_token: refreshToken,
+          client_id: options?.clientId,
+        });
+      } catch (err) {
+        console.error(err);
+      }
+
+      sessionStorage.setItem(
+        STORAGE_REFRESH_TOKEN,
+        this.bearerProfile?.refresh_token || '',
+      );
+    } else {
+      const autoLink = options.wallet
+        ? {
+            ...(options.wallet?.address !== undefined
+              ? { address: options.wallet?.address }
+              : {}),
+            ...(options.wallet?.signature !== undefined
+              ? { signature: options.wallet?.signature }
+              : {}),
+            ...(options.wallet?.chainId !== undefined
+              ? {
+                  chain: getChain(options.wallet.chainId),
+                  network: getNetwork(options.wallet.chainId),
+                }
+              : {}),
+          }
+        : {};
+      const authFlowUrl = this.getAuthFlowURI({
+        client_id: options?.clientId,
+        redirect_uri: options?.redirectUrl,
+        ...autoLink,
+      });
+
+      sessionStorage.setItem(STORAGE_CODE_VERIFIER, this.codeVerifier || '');
+      window.location.replace(authFlowUrl);
+    }
+
+    // When the user is authenticated, we connect to the order notifications socket in case
+    // the user has subscribed to any event
+    if (this.bearerProfile?.access_token && this.#subscriptions.size > 0) {
+      this.#socket = this.connectToOrderNotifications();
+    }
   }
 
   /**
@@ -220,5 +321,81 @@ export class MoneriumClient {
 
   #isClientCredentials(args: AuthArgs): args is ClientCredentials {
     return (args as ClientCredentials).client_secret != undefined;
+  }
+
+  // Notifications
+
+  connectToOrderNotifications = (): WebSocket => {
+    const socketUrl = `${this.#env.wss}/profiles/${
+      this.bearerProfile?.profile
+    }/orders?access_token=${this.bearerProfile?.access_token}`;
+
+    const socket = new WebSocket(socketUrl);
+
+    socket.addEventListener('open', () => {
+      console.info(`Socket connected: ${socketUrl}`);
+    });
+
+    socket.addEventListener('error', (event) => {
+      console.error(event);
+      throw new Error(`Socket error: ${socketUrl}`);
+    });
+
+    socket.addEventListener('message', (event) => {
+      const notification = JSON.parse(event.data) as OrderNotification;
+
+      this.#subscriptions.get(notification.meta.state as OrderState)?.(
+        notification,
+      );
+    });
+
+    socket.addEventListener('close', () => {
+      console.info(`Socket connection closed: ${socketUrl}`);
+    });
+
+    return socket;
+  };
+
+  async close() {
+    sessionStorage.removeItem(STORAGE_CODE_VERIFIER);
+    this.#subscriptions.clear();
+    this.#socket?.close();
+  }
+
+  /**
+   * Subscribe to MoneriumEvent to receive notifications using the Monerium API (WebSocket)
+   * We are setting a subscription map because we need the user to have a token to start the WebSocket connection
+   * {@link https://monerium.dev/api-docs#operation/profile-orders-notifications}
+   * @param event The event to subscribe to
+   * @param handler The handler to be called when the event is triggered
+   */
+  subscribe(event: MoneriumEvent, handler: MoneriumEventListener): void {
+    this.#subscriptions.set(event as OrderState, handler);
+  }
+
+  /**
+   * Unsubscribe from MoneriumEvent and close the socket if there are no more subscriptions
+   * @param event The event to unsubscribe from
+   */
+  unsubscribe(event: MoneriumEvent): void {
+    this.#subscriptions.delete(event as OrderState);
+
+    if (this.#subscriptions.size === 0) {
+      this.#socket?.close();
+      this.#socket = undefined;
+    }
+  }
+
+  /**
+   * Clean the query string from the URL
+   */
+  #cleanQueryString() {
+    const url = window.location.href;
+    const [baseUrl, queryString] = url.split('?');
+
+    // Check if there is a query string
+    if (queryString) {
+      window.history.replaceState(null, '', baseUrl);
+    }
   }
 }

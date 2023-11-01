@@ -1,6 +1,6 @@
 // --- Config --- //
 
-export type Environment = { api: string; web: string };
+export type Environment = { api: string; web: string; wss: string };
 
 export type Config = {
   environments: { production: Environment; sandbox: Environment };
@@ -407,3 +407,26 @@ export interface LinkAddress {
   network?: Network;
   chain?: Chain;
 }
+
+// -- Notifications
+
+export type OrderNotification = {
+  id: string;
+  profile: string;
+  accountId: string;
+  address: string;
+  kind: string;
+  amount: string;
+  currency: string;
+  totalFee: string;
+  fees: Fee[];
+  counterpart: Counterpart;
+  memo: string;
+  rejectedReason: string;
+  supportingDocumentId: string;
+  meta: OrderMetadata;
+};
+
+export type MoneriumEvent = OrderState;
+
+export type MoneriumEventListener = (notification: OrderNotification) => void;

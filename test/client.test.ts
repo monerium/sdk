@@ -1,6 +1,14 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import encodeBase64Url from 'crypto-js/enc-base64url';
 import { MoneriumClient } from '../src/index';
-import { LINK_MESSAGE } from '../src/constants';
+import {
+  LINK_MESSAGE,
+  STORAGE_CODE_VERIFIER,
+  STORAGE_REFRESH_TOKEN,
+} from '../src/constants';
 import { Currency, Order, PaymentStandard } from '../src/types';
 import SHA256 from 'crypto-js/sha256';
 
@@ -11,6 +19,7 @@ import {
   DEFAULT_PROFILE,
   PUBLIC_KEY,
 } from './constants';
+import { getChain, getNetwork } from '../src/utils';
 
 const clientAuthId = 'f99e629b-6dca-11ee-8aa6-5273f65ed05b';
 const redirectUri = 'http://localhost:5173/integration';
@@ -227,8 +236,180 @@ test('get tokens', async () => {
   expect(tokens).toEqual(expect.arrayContaining(expected));
 });
 
+test('open without refresh token and auth code', async () => {
+  const client = new MoneriumClient();
+
+  client.getAuthFlowURI = jest.fn(); // Mock the auth function
+
+  await client.open({
+    redirectUrl: 'http://example.com',
+    clientId: 'testClientId',
+  });
+
+  expect(client.getAuthFlowURI).toHaveBeenCalledWith({
+    redirect_uri: 'http://example.com',
+    client_id: 'testClientId',
+  });
+});
+
+test('open with refresh token', async () => {
+  const client = new MoneriumClient();
+
+  const localStorageMock = (() => {
+    let store = {} as Record<string, any>;
+
+    return {
+      getItem(key: string) {
+        return store[key] || null;
+      },
+      setItem(key: string, value: any) {
+        store[key] = value.toString();
+      },
+      removeItem(key: string) {
+        delete store[key];
+      },
+      clear() {
+        store = {};
+      },
+    };
+  })();
+
+  Object.defineProperty(window, 'sessionStorage', {
+    value: localStorageMock,
+  });
+
+  Object.defineProperty(window, 'location', {
+    value: {
+      href: '',
+      search: '',
+      replace: jest.fn(),
+      hash: {
+        endsWith: jest.fn(),
+        includes: jest.fn(),
+      },
+      assign: jest.fn(),
+    },
+    writable: true,
+  });
+  window.sessionStorage.setItem(STORAGE_REFRESH_TOKEN, 'testRefreshToken');
+
+  client.auth = jest.fn(); // Mock the auth function
+
+  const setItem = jest.spyOn(window.sessionStorage, 'setItem');
+
+  await client.open({
+    clientId: 'testClientId',
+  });
+
+  expect(client.auth).toHaveBeenCalledWith({
+    refresh_token: 'testRefreshToken',
+    client_id: 'testClientId',
+  });
+  expect(setItem).toHaveBeenCalled();
+});
+
+test('open with auth code', async () => {
+  const client = new MoneriumClient();
+
+  const localStorageMock = (() => {
+    let store = {} as Record<string, any>;
+
+    return {
+      getItem(key: string) {
+        return store[key] || null;
+      },
+      setItem(key: string, value: any) {
+        store[key] = value.toString();
+      },
+      removeItem(key: string) {
+        delete store[key];
+      },
+      clear() {
+        store = {};
+      },
+    };
+  })();
+
+  Object.defineProperty(window, 'sessionStorage', {
+    value: localStorageMock,
+  });
+
+  Object.defineProperty(window, 'location', {
+    value: {
+      href: '',
+      search: '',
+      replace: jest.fn(),
+      hash: {
+        endsWith: jest.fn(),
+        includes: jest.fn(),
+      },
+      assign: jest.fn(),
+    },
+    writable: true,
+  });
+  window.location.search = '?code=testAuthCode';
+  window.sessionStorage.setItem(STORAGE_CODE_VERIFIER, 'testCodeVerifier');
+
+  client.auth = jest.fn(); // Mock the auth function
+
+  const removeItem = jest.spyOn(window.sessionStorage, 'removeItem');
+
+  await client.open({
+    redirectUrl: 'http://example.com',
+    clientId: 'testClientId',
+  });
+
+  expect(client.auth).toHaveBeenCalledWith({
+    code: 'testAuthCode',
+    redirect_uri: 'http://example.com',
+    client_id: 'testClientId',
+    code_verifier: 'testCodeVerifier',
+  });
+
+  expect(removeItem).toHaveBeenCalledWith(STORAGE_CODE_VERIFIER);
+});
+
 // there is no way to test this without a real time signature, the date is now verified
-test.skip('place order', async () => {
+test('place order signature error', async () => {
+  const client = new MoneriumClient();
+
+  await client.auth({
+    client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
+    client_secret: APP_ONE_CREDENTIALS_SECRET,
+  });
+
+  const date = new Date().toISOString();
+  const placeOrderMessage = `Send EUR 10 to GR1601101250000000012300695 at ${date}`;
+  const placeOrderSignatureHash =
+    '0x23bf7e1b240d238b13cb293673c3419915402bb34435af62850b1d8e63f82c564fb73ab19691cf248594423dd01e441bb2ccb38ce2e2ecc514dfc3075bea829e1c';
+
+  await client
+    .placeOrder({
+      amount: '10',
+      signature: placeOrderSignatureHash,
+      address: PUBLIC_KEY,
+      counterpart: {
+        identifier: {
+          standard: PaymentStandard.iban,
+          iban: 'GR1601101250000000012300695',
+        },
+        details: {
+          firstName: 'Mockbank',
+          lastName: 'Testerson',
+        },
+      },
+      message: placeOrderMessage,
+      memo: 'Powered by Monerium SDK',
+      chain: 'ethereum',
+      network: 'goerli',
+    })
+    .catch((err) => {
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(err.message).toBe('Invalid signature');
+    });
+});
+
+test('place order timestamp error', async () => {
   const client = new MoneriumClient();
 
   await client.auth({
@@ -241,121 +422,40 @@ test.skip('place order', async () => {
   const placeOrderSignatureHash =
     '0x23bf7e1b240d238b13cb293673c3419915402bb34435af62850b1d8e63f82c564fb73ab19691cf248594423dd01e441bb2ccb38ce2e2ecc514dfc3075bea829e1c';
 
-  const order = await client.placeOrder({
-    amount: '10',
-    signature: placeOrderSignatureHash,
-    address: PUBLIC_KEY,
-    counterpart: {
-      identifier: {
-        standard: PaymentStandard.iban,
-        iban: 'GR1601101250000000012300695',
+  await client
+    .placeOrder({
+      amount: '10',
+      signature: placeOrderSignatureHash,
+      address: PUBLIC_KEY,
+      counterpart: {
+        identifier: {
+          standard: PaymentStandard.iban,
+          iban: 'GR1601101250000000012300695',
+        },
+        details: {
+          firstName: 'Mockbank',
+          lastName: 'Testerson',
+        },
       },
-      details: {
-        firstName: 'Mockbank',
-        lastName: 'Testerson',
-      },
-    },
-    message: placeOrderMessage,
-    memo: 'Powered by Monerium SDK',
-    chain: 'ethereum',
-    network: 'goerli',
-  });
-
-  const expected = {
-    // profile: '04f5b0d5-17d0-11ed-81e7-a6f0ef57aabb',
-    // accountId: '3cef7bfc-8779-11ed-ac14-4a76678fa2b6',
-    // address: '0x2d312198e570912844b5a230AE6f7A2E3321371C',
-    kind: 'redeem',
-    amount: '10',
-    currency: 'eur',
-    memo: 'Powered by Monerium SDK',
-    supportingDocumentId: '',
-    chain: 'ethereum',
-    network: 'goerli',
-    counterpart: {
-      details: {
-        name: 'Mockbank Testerson',
-        country: 'GR',
-        lastName: 'Testerson',
-        firstName: 'Mockbank',
-      },
-      identifier: {
-        iban: 'GR16 0110 1250 0000 0001 2300 695',
-        standard: 'iban',
-      },
-    },
-  };
-
-  expect(order).toEqual(expect.objectContaining(expected));
+      message: placeOrderMessage,
+      memo: 'Powered by Monerium SDK',
+      chain: 'ethereum',
+      network: 'goerli',
+    })
+    .catch((err) => {
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(err.message).toBe('Timestamp is expired');
+    });
 });
-test.skip('place order by account id', async () => {
-  const client = new MoneriumClient();
 
-  await client.auth({
-    client_id: APP_ONE_CREDENTIALS_CLIENT_ID,
-    client_secret: APP_ONE_CREDENTIALS_SECRET,
-  });
-  const authContext = await client.getAuthContext();
-  const profile = await client.getProfile(authContext.profiles[0].id);
-  const account = profile.accounts.find(
-    (a) =>
-      a.address === PUBLIC_KEY &&
-      a.currency === Currency.eur &&
-      a.network === 'goerli',
-  );
-
-  const date = 'Thu, 29 Dec 2022 14:58 +00:00';
-  const placeOrderMessage = `Send EUR 10 to GR1601101250000000012300695 at ${date}`;
-  const placeOrderSignatureHash =
-    '0xe2baa7df880f140e37d4a0d9cb1aaa8969b40650f69dc826373efdcc0945050d45f64cf5a2c96fe6bba959abe1bee115cfa31cedc378233e051036cdebd992181c';
-
-  const orderByAccountId = await client.placeOrder({
-    amount: '1',
-    signature: placeOrderSignatureHash,
-    accountId: account?.id as string,
-    counterpart: {
-      identifier: {
-        standard: PaymentStandard.iban,
-        iban: 'GR1601101250000000012300695',
-      },
-      details: {
-        firstName: 'Mockbank',
-        lastName: 'Testerson',
-      },
-    },
-    message: placeOrderMessage,
-    memo: 'Powered by Monerium SDK',
-  });
-
-  const expectedByAccountId = {
-    profile: '04f5b0d5-17d0-11ed-81e7-a6f0ef57aabb',
-    accountId: '3cef7bfc-8779-11ed-ac14-4a76678fa2b6',
-    address: '0x2d312198e570912844b5a230AE6f7A2E3321371C',
-    kind: 'redeem',
-    amount: '1',
-    currency: 'eur',
-    memo: 'Powered by Monerium SDK',
-    supportingDocumentId: '',
-    chain: 'ethereum',
-    network: 'goerli',
-    counterpart: {
-      details: {
-        name: 'Mockbank Testerson',
-        country: 'GR',
-        lastName: 'Testerson',
-        firstName: 'Mockbank',
-      },
-      identifier: {
-        iban: 'GR16 0110 1250 0000 0001 2300 695',
-        standard: 'iban',
-      },
-    },
-  };
-
-  expect(orderByAccountId).toEqual(
-    expect.objectContaining(expectedByAccountId),
-  );
-}, 30000);
+test('get chain and network from chainId', () => {
+  expect(getChain(1)).toBe('ethereum');
+  expect(getChain(137)).toBe('polygon');
+  expect(getChain(80001)).toBe('polygon');
+  expect(getNetwork(1)).toBe('mainnet');
+  expect(getNetwork(137)).toBe('mainnet');
+  expect(getNetwork(10200)).toBe('chiado');
+});
 
 // test("upload supporting document", async () => {
 //   const client = new MoneriumClient();
