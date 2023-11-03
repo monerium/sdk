@@ -17,5 +17,11 @@ const config: Config = {
   maxWorkers: 1,
   coverageDirectory: '../static/coverage',
   setupFiles: ['./configs/jest.setup.js'],
+  moduleNameMapper: {
+    '^utils$': '<rootDir>/src/utils',
+    '^types$': '<rootDir>/src/types',
+    '^helpers$': '<rootDir>/src/helpers',
+    // Add more aliases as needed
+  },
 };
 export default config;
