@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "module": "ESNext",
+    "target": "ESNext",
+    "types": ["jest", "node"]
+  },
+  "include": [
+    "jest.config.ts",
+    "configs/jest.setup.js",
+    "test/**/*.test.ts",
+    "test/**/*.test.mjs",
+    "test/**/*.js",
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}
