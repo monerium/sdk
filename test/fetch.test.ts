@@ -1,4 +1,4 @@
-import { rest } from '../src/utils';
+import { rest } from '../src/helpers';
 import fetchMock from 'jest-fetch-mock';
 
 global.fetch = fetch;

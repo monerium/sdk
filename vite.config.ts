@@ -3,12 +3,14 @@ import dts from 'vite-plugin-dts';
 
 import { defineConfig } from 'vite';
 
+const srcRoot = path.resolve(__dirname, './src/');
+
 export default defineConfig({
   // cacheDir: '../../node_modules/.vite/sdk',
   build: {
     sourcemap: true,
     lib: {
-      entry: path.resolve(__dirname, './src/index.ts'),
+      entry: `${srcRoot}/index.ts`,
       name: 'monerium-sdk',
       //   formats: ["es", "cjs", "umd", "iife"],
       fileName: 'index',
@@ -25,4 +27,20 @@ export default defineConfig({
     //   skipDiagnostics: true,
     // }),
   ],
+  resolve: {
+    alias: [
+      {
+        find: 'types',
+        replacement: `${srcRoot}/types.ts`,
+      },
+      {
+        find: 'utils',
+        replacement: `${srcRoot}/utils.ts`,
+      },
+      {
+        find: 'helpers',
+        replacement: `${srcRoot}/helpers/index.ts`,
+      },
+    ],
+  },
 });

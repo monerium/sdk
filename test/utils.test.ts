@@ -2,10 +2,19 @@ import {
   urlEncoded,
   placeOrderMessage,
   rfc3339,
-  generateRandomString,
+  getAmount,
+  getIban,
 } from '../src/utils';
 import encodeBase64Url from 'crypto-js/enc-base64url';
 import SHA256 from 'crypto-js/sha256';
+import { generateRandomString } from '../src/helpers';
+import {
+  Balances,
+  Currency,
+  KYC,
+  PaymentStandard,
+  Profile,
+} from '../src/types';
 
 describe('rfc3339', () => {
   test('should format Date to RFC 3339 format', () => {
@@ -64,5 +73,139 @@ describe('url params', () => {
     };
     const params = new URLSearchParams(obj);
     expect(params.toString()).toEqual(urlEncoded(obj));
+  });
+
+  describe('getAmount', () => {
+    test('getAmount returns the correct amount', () => {
+      const balances: Balances[] = [
+        {
+          id: 'testId',
+          address: 'testAddress',
+          chain: 'ethereum',
+          network: 'mainnet',
+          balances: [
+            {
+              currency: Currency.eur,
+              amount: '100',
+            },
+          ],
+        },
+      ];
+
+      const result = getAmount(balances, 'testAddress', 1);
+
+      expect(result).toBe('100');
+    });
+    test('getAmount returns 0 for no balance', () => {
+      const balances: Balances[] = [
+        {
+          id: 'testId',
+          address: 'testAddress',
+          chain: 'polygon',
+          network: 'mainnet',
+          balances: [
+            {
+              currency: Currency.eur,
+              amount: '100',
+            },
+          ],
+        },
+      ];
+
+      const result = getAmount(balances, 'testAddress', 1);
+
+      expect(result).toBe('0');
+    });
+  });
+
+  describe('getIban', () => {
+    test('should return the correct IBAN for a given address and chain', () => {
+      const profile: Profile = {
+        id: 'testId',
+        name: 'testName',
+        kyc: {} as KYC,
+        accounts: [
+          {
+            address: 'testAddress1',
+            iban: 'DE89370400440532013000',
+            currency: Currency.eur,
+            standard: 'iban' as PaymentStandard,
+            chain: 'ethereum',
+            network: 'mainnet',
+          },
+          {
+            address: 'testAddress1',
+            iban: 'DE89370400440532013001',
+            currency: Currency.eur,
+            standard: 'iban' as PaymentStandard,
+            chain: 'gnosis',
+            network: 'mainnet',
+          },
+        ],
+      };
+
+      const result = getIban(profile, 'testAddress1', 100);
+
+      expect(result).toBe('DE89370400440532013001');
+    });
+
+    test('should return an empty string if no account with the given address exists', () => {
+      const profile: Profile = {
+        id: 'testId',
+        name: 'testName',
+        kyc: {} as KYC,
+        accounts: [
+          {
+            address: 'testAddress1',
+            iban: 'DE89370400440532013000',
+            currency: Currency.eur,
+            standard: 'iban' as PaymentStandard,
+            chain: 'ethereum',
+            network: 'mainnet',
+          },
+          {
+            address: 'testAddress2',
+            iban: 'DE89370400440532013001',
+            currency: Currency.eur,
+            standard: 'iban' as PaymentStandard,
+            chain: 'ethereum',
+            network: 'mainnet',
+          },
+        ],
+      };
+
+      const result = getIban(profile, 'testAddress3', 1);
+
+      expect(result).toBe('');
+    });
+
+    test('should return an empty string if the account with the given address does not have an IBAN', () => {
+      const profile: Profile = {
+        id: 'testId',
+        name: 'testName',
+        kyc: {} as KYC,
+        accounts: [
+          {
+            address: 'testAddress1',
+            iban: 'DE89370400440532013000',
+            currency: Currency.eur,
+            standard: 'iban' as PaymentStandard,
+            chain: 'ethereum',
+            network: 'goerli',
+          },
+          {
+            address: 'testAddress2',
+            currency: Currency.eur,
+            standard: 'iban' as PaymentStandard,
+            chain: 'ethereum',
+            network: 'goerli',
+          },
+        ],
+      };
+
+      const result = getIban(profile, 'testAddress2', 5);
+
+      expect(result).toBe('');
+    });
   });
 });

@@ -1,6 +1,6 @@
 // --- Config --- //
 
-export type Environment = { api: string; web: string };
+export type Environment = { api: string; web: string; wss: string };
 
 export type Config = {
   environments: { production: Environment; sandbox: Environment };
@@ -63,6 +63,8 @@ export type Network<
     : never
   : never;
 
+export type ChainId = 1 | 5 | 100 | 137 | 10200 | 80001;
+
 export enum Currency {
   eur = 'eur',
   // usd = 'usd',
@@ -76,20 +78,48 @@ export type Ticker = 'EUR'; //| 'GBP' | 'USD' | 'ISK';
 // -- auth
 
 export type AuthArgs =
-  | Omit<AuthCode, 'grant_type'>
-  | Omit<RefreshToken, 'grant_type'>
-  | Omit<ClientCredentials, 'grant_type'>;
+  | Omit<AuthCodeRequest, 'grant_type'>
+  | Omit<RefreshTokenRequest, 'grant_type'>
+  | Omit<ClientCredentialsRequest, 'grant_type'>;
+
+export type OpenArgs =
+  | Omit<AuthCodeRequest, 'grant_type' | 'code' | 'code_verifier'>
+  | Omit<RefreshTokenRequest, 'grant_type'>
+  | Omit<ClientCredentialsRequest, 'grant_type'>
+  | PKCERequestArgs;
 
 /** One of the options for the {@link AuthArgs}.
  *
  * [Auth endpoint in API documentation:](https://monerium.dev/api-docs#operation/auth).
  * */
-export interface AuthCode {
+export interface AuthCodeRequest {
   grant_type: 'authorization_code';
   client_id: string;
   code: string;
   code_verifier: string;
   redirect_uri: string;
+  scope?: string;
+}
+
+/** One of the options for the {@link AuthArgs}.
+ *
+ * [Auth endpoint in API documentation:](https://monerium.dev/api-docs#operation/auth).
+ * */
+export interface RefreshTokenRequest {
+  grant_type: 'refresh_token';
+  client_id: string;
+  refresh_token: string;
+  scope?: string;
+}
+
+/** One of the options for the {@link AuthArgs}.
+ *
+ * [Auth endpoint in API documentation:](https://monerium.dev/api-docs#operation/auth).
+ * */
+export interface ClientCredentialsRequest {
+  grant_type: 'client_credentials';
+  client_id: string;
+  client_secret: string;
   scope?: string;
 }
 
@@ -100,20 +130,6 @@ export interface BearerProfile {
   refresh_token: string;
   profile: string;
   userId: string;
-}
-
-export interface RefreshToken {
-  grant_type: 'refresh_token';
-  client_id: string;
-  refresh_token: string;
-  scope?: string;
-}
-
-export interface ClientCredentials {
-  grant_type: 'client_credentials';
-  client_id: string;
-  client_secret: string;
-  scope?: string;
 }
 
 // -- pkceRequest
@@ -138,17 +154,19 @@ export type PKCERequest = {
   /** the state of the application */
   state?: string;
   /** the redirect uri of the application */
-  redirect_uri?: string;
+  redirect_uri: string;
   /** the scope of the application */
   scope?: string;
   /** the address of the wallet to automatically link */
   address?: string;
   /** the signature of the wallet to automatically link */
   signature?: string;
-  /** the network of the wallet to automatically link */
+  /** @deprecated - Use chainId - the network of the wallet to automatically link */
   network?: Network;
-  /** the chain of the wallet to automatically link */
+  /** @deprecated - Use chainId - the chain of the wallet to automatically link */
   chain?: Chain;
+  /** The network of the wallet to automatically link  */
+  chainId?: ChainId | number;
 };
 
 // -- authContext
@@ -407,3 +425,62 @@ export interface LinkAddress {
   network?: Network;
   chain?: Chain;
 }
+
+export interface AutoLinkWallet {
+  address: string;
+  signature?: string;
+  chainId?: number;
+}
+
+// -- Notifications
+
+export type OrderNotification = {
+  id: string;
+  profile: string;
+  accountId: string;
+  address: string;
+  kind: string;
+  amount: string;
+  currency: string;
+  totalFee: string;
+  fees: Fee[];
+  counterpart: Counterpart;
+  memo: string;
+  rejectedReason: string;
+  supportingDocumentId: string;
+  meta: OrderMetadata;
+};
+
+export type MoneriumEvent = OrderState;
+
+export type MoneriumEventListener = (notification: OrderNotification) => void;
+
+// export type Client = {
+//   clientId?: string;
+//   clientSecret?: string;
+//   redirectUrl?: string;
+// };
+
+export type ClassOptions = {
+  env?: ENV;
+} & BearerTokenCredentials;
+
+export type AuthFlowOptions = {
+  clientId: string;
+  redirectUrl: string;
+  wallet?: AutoLinkWallet;
+};
+
+export type ClientCredentials = {
+  clientId: string;
+  clientSecret: string;
+};
+
+export type AuthorizationCodeCredentials = {
+  clientId: string;
+  redirectUrl: string;
+};
+
+export type BearerTokenCredentials =
+  | ClientCredentials
+  | AuthorizationCodeCredentials;

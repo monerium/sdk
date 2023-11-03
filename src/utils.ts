@@ -1,43 +1,12 @@
-export const generateRandomString = () => {
-  let result = '';
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  let counter = 0;
-  while (counter < 128) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    counter += 1;
-  }
-  return result;
-};
+import {
+  Balances,
+  Chain,
+  ChainId,
+  Currency,
+  Networks,
+  Profile,
+} from '../src/types';
 
-export const rest = async <T>(
-  url: string,
-  method: string,
-  body?: BodyInit | Record<string, string>,
-  headers?: Record<string, string>,
-): Promise<T> => {
-  const res = await fetch(`${url}`, {
-    method,
-    headers,
-    body: body as unknown as BodyInit,
-  });
-
-  let response;
-  const text = await res.text();
-
-  try {
-    response = JSON.parse(text);
-  } catch (err) {
-    throw text;
-  }
-
-  if (!res.ok) {
-    throw response;
-  }
-
-  return response as T;
-};
 export const rfc3339 = (d: Date) => {
   if (d.toString() === 'Invalid Date') {
     throw d;
@@ -96,4 +65,76 @@ export const urlEncoded = (
         )
         .join('&')
     : '';
+};
+
+/**
+ * Get the corresponding Monerium SDK Chain from the current chain id
+ * @returns The Chain
+ */
+export const getChain = (chainId: number): Chain => {
+  switch (chainId) {
+    case 1:
+    case 5:
+      return 'ethereum';
+    case 100:
+    case 10200:
+      return 'gnosis';
+    case 137:
+    case 80001:
+      return 'polygon';
+    default:
+      throw new Error(`Chain not supported: ${chainId}`);
+  }
+};
+
+/**
+ * Get the corresponding Monerium SDK Network from the current chain id
+ * @returns The Network
+ */
+export const getNetwork = (chainId: number): Networks => {
+  switch (chainId) {
+    case 1:
+    case 100:
+    case 137:
+      return 'mainnet';
+    case 5:
+      return 'goerli';
+    case 10200:
+      return 'chiado';
+    case 80001:
+      return 'mumbai';
+    default:
+      throw new Error(`Network not supported: ${chainId}`);
+  }
+};
+
+export const getIban = (profile: Profile, address: string, chainId: number) => {
+  return (
+    profile.accounts.find(
+      (account) =>
+        account.address === address &&
+        account.iban &&
+        account.chain === getChain(chainId) &&
+        account.network === getNetwork(chainId),
+    )?.iban ?? ''
+  );
+};
+
+export const getAmount = (
+  balances?: Balances[],
+  address?: string,
+  chainId?: ChainId,
+  // currency?: Currency,
+): string => {
+  if (!balances || !address || !chainId) return '0';
+  const currency = Currency.eur;
+
+  const eurBalance = balances.find(
+    (account) =>
+      account.address === address && account.chain === getChain(chainId),
+  )?.balances;
+
+  return (
+    eurBalance?.find((balance) => balance.currency === currency)?.amount || '0'
+  );
 };

@@ -1,98 +1,233 @@
-import encodeBase64Url from 'crypto-js/enc-base64url';
-import SHA256 from 'crypto-js/sha256';
-import { generateRandomString, rest, urlEncoded } from './utils';
+import { urlEncoded } from './utils';
 import { MONERIUM_CONFIG } from './config';
 import type {
   AuthArgs,
-  AuthCode,
+  AuthorizationCodeCredentials,
+  AuthCodeRequest,
   AuthContext,
   Balances,
   BearerProfile,
-  ClientCredentials,
+  BearerTokenCredentials,
+  ClassOptions,
+  ClientCredentialsRequest,
+  ENV,
   Environment,
   LinkAddress,
+  MoneriumEvent,
+  MoneriumEventListener,
   NewOrder,
+  AuthFlowOptions,
   Order,
   OrderFilter,
-  PKCERequest,
+  OrderNotification,
+  OrderState,
   PKCERequestArgs,
   Profile,
-  RefreshToken,
+  RefreshTokenRequest,
   SupportingDoc,
   Token,
+  ClientCredentials,
 } from './types';
+import { STORAGE_CODE_VERIFIER, STORAGE_REFRESH_TOKEN } from './constants';
+
+import {
+  cleanQueryString,
+  getAuthFlowUrlAndStoreCodeVerifier,
+  isAuthCode,
+  isClientCredentials,
+  isRefreshToken,
+  rest,
+} from './helpers';
+
 // import pjson from "../package.json";
+
+const isServer = typeof window === 'undefined';
 
 export class MoneriumClient {
   #env: Environment;
 
-  #authPayload?: string;
-  /** The PKCE code verifier */
+  #authorizationHeader?: string;
+  /**
+   * @deprecated, use sessionStorage
+   * The PKCE code verifier
+   * */
   codeVerifier?: string;
   /** The bearer profile will be available after authentication, it includes the access_token and refresh_token */
   bearerProfile?: BearerProfile;
+  /** The socket will be available after subscribing to an event */
+  #socket?: WebSocket;
+  /** The subscriptions map will be available after subscribing to an event */
+  #subscriptions: Map<OrderState, MoneriumEventListener> = new Map();
+  // TODO: need this?
+  isAuthorized = !!this.bearerProfile;
 
-  constructor(env: 'production' | 'sandbox' = 'sandbox') {
-    this.#env = MONERIUM_CONFIG.environments[env];
+  #client?: BearerTokenCredentials;
+
+  /** Constructor for no arguments, defaults to sandbox */
+  constructor();
+  /** Constructor with only env as an argument*/
+  constructor(env: ENV);
+  /** Constructor with {@link ClassOptions} */
+  constructor(options: ClassOptions);
+  constructor(envOrOptions?: ENV | ClassOptions) {
+    // TODO: CHECK HERE IF REFRESH TOKEN EXISTS
+    // TODO: CHECK HERE IF REFRESH TOKEN EXISTS
+    // TODO: CHECK HERE IF REFRESH TOKEN EXISTS
+    // TODO: CHECK HERE IF REFRESH TOKEN EXISTS
+    // No arguments, default to sandbox
+    if (!envOrOptions) {
+      this.#env = MONERIUM_CONFIG.environments['sandbox'];
+      return;
+    }
+    // String argument
+    if (typeof envOrOptions === 'string') {
+      this.#env = MONERIUM_CONFIG.environments[envOrOptions];
+    } else {
+      this.#env = MONERIUM_CONFIG.environments[envOrOptions.env || 'sandbox'];
+
+      if (!isServer) {
+        const { clientId, redirectUrl } =
+          envOrOptions as AuthorizationCodeCredentials;
+        this.#client = {
+          clientId: clientId as string,
+          redirectUrl: redirectUrl as string,
+        };
+        this.connect(this.#client);
+      } else {
+        const { clientId, clientSecret } = envOrOptions as ClientCredentials;
+        this.#client = {
+          clientId: clientId as string,
+          clientSecret: clientSecret as string,
+        };
+        this.#clientCredentialsAuthorization(this.#client);
+      }
+    }
+  }
+  /**
+   * Construct the url to the authorization code flow,
+   * Code Verifier needed for the code challenge is stored in session storage
+   * For automatic wallet link, add the following properties: `address`, `signature` & `chainId`
+   * @returns string
+   * {@link https://monerium.dev/api-docs#operation/auth}
+   */
+  async authorize(client?: AuthFlowOptions) {
+    const clientId =
+      client?.clientId ||
+      (this.#client as AuthorizationCodeCredentials)?.clientId;
+    const redirectUrl =
+      client?.redirectUrl ||
+      (this.#client as AuthorizationCodeCredentials)?.redirectUrl;
+
+    if (!clientId) {
+      throw new Error('Missing ClientId');
+    }
+    if (!redirectUrl) {
+      throw new Error('Missing RedirectUrl');
+    }
+
+    const authFlowUrl = getAuthFlowUrlAndStoreCodeVerifier(this.#env.api, {
+      client_id: clientId,
+      redirect_uri: redirectUrl,
+      ...client?.wallet,
+    });
+
+    // Redirect to the authFlow
+    window.location.replace(authFlowUrl);
+  }
+
+  // TODO: TEST auto link & manual link + address
+  async connect(client: AuthorizationCodeCredentials) {
+    const clientId =
+      client?.clientId ||
+      (this.#client as AuthorizationCodeCredentials)?.clientId;
+    const redirectUrl =
+      client?.redirectUrl ||
+      (this.#client as AuthorizationCodeCredentials)?.redirectUrl;
+
+    if (!clientId) {
+      throw new Error('Missing ClientId');
+    }
+
+    if (isServer) {
+      throw new Error('This only works on client side');
+    }
+
+    // TODO: Some cleanup needed when old refresh token
+
+    const authCode =
+      new URLSearchParams(window.location.search).get('code') || undefined;
+
+    const refreshToken =
+      sessionStorage.getItem(STORAGE_REFRESH_TOKEN) || undefined;
+
+    //// TEST IF THIS CAN BE DONE
+    // if (
+    //   this.bearerProfile?.refresh_token &&
+    //   this.bearerProfile.refresh_token !== refreshToken
+    // ) {
+    //   sessionStorage.removeItem(STORAGE_REFRESH_TOKEN);
+    //   throw new Error('Does this ever happen? mismatch in refreshtokesn');
+    //   return;
+    // }
+    //////
+
+    if (authCode) {
+      await this.#authCodeAuthorization(clientId, redirectUrl, authCode);
+    } else if (refreshToken) {
+      await this.#refreshTokenAuthorization(clientId, refreshToken);
+    }
+
+    return !!this.bearerProfile;
   }
 
   /**
    * {@link https://monerium.dev/api-docs#operation/auth-token}
    */
-  async auth(args: AuthArgs): Promise<BearerProfile> {
-    let params: AuthCode | RefreshToken | ClientCredentials;
+  async getBearerToken(args: AuthArgs): Promise<BearerProfile> {
+    let params:
+      | AuthCodeRequest
+      | RefreshTokenRequest
+      | ClientCredentialsRequest;
 
-    if (this.#isAuthCode(args)) {
+    if (isAuthCode(args)) {
       params = { ...args, grant_type: 'authorization_code' };
-    } else if (this.#isRefreshToken(args)) {
+    } else if (isRefreshToken(args)) {
       params = { ...args, grant_type: 'refresh_token' };
-    } else if (this.#isClientCredentials(args)) {
+    } else if (isClientCredentials(args)) {
       params = { ...args, grant_type: 'client_credentials' };
     } else {
       throw new Error('Authentication method could not be detected.');
     }
 
-    this.bearerProfile = (await this.#api(
+    await this.#api<BearerProfile>(
       'post',
       `auth/token`,
       params as unknown as Record<string, string>,
       true,
-    )) as BearerProfile;
+    )
+      .then((res) => {
+        this.bearerProfile = res;
+        this.isAuthorized = !!res;
+        this.#authorizationHeader = `Bearer ${res?.access_token}`;
+        window.sessionStorage.setItem(
+          STORAGE_REFRESH_TOKEN,
+          this.bearerProfile?.refresh_token || '',
+        );
+      })
+      .catch((err) => {
+        sessionStorage.removeItem(STORAGE_CODE_VERIFIER);
+        sessionStorage.removeItem(STORAGE_REFRESH_TOKEN);
+        throw new Error(err?.message);
+        // if ((params as AuthCodeRequest).code) {
+        //   throw new Error('Code verifier has already been used');
+        // }
+        // if ((params as RefreshTokenRequest).refresh_token) {
+        //   throw new Error('Refresh token has already been used');
+        // }
+      });
 
-    this.#authPayload = `Bearer ${this.bearerProfile.access_token}`;
-    return this.bearerProfile;
+    return this.bearerProfile as BearerProfile;
   }
-
-  /**
-   * Construct the url to the authorization code flow,
-   * the code verifier is needed afterwards to obtain an access token and is therefore stored in `this.codeVerifier`
-   * For automatic wallet link, add the following properties: `address`, `signature`, `chain` & `network`
-   * @returns string
-   * {@link https://monerium.dev/api-docs#operation/auth}
-   */
-  getAuthFlowURI(args: PKCERequestArgs): string {
-    // Using crypto-js to generate a random string was causing the following error:
-    // `Error: Native crypto module could not be used to get secure random number.`
-    this.codeVerifier = generateRandomString();
-    const challenge = encodeBase64Url.stringify(
-      SHA256(this.codeVerifier as string),
-    );
-
-    const params: PKCERequest = {
-      ...args,
-      client_id: args?.client_id,
-      code_challenge: challenge,
-      code_challenge_method: 'S256',
-      response_type: 'code',
-    };
-
-    return `${this.#env.api}/auth?${urlEncoded(params)}`;
-  }
-
-  /**
-   *  @deprecated since v2.0.7, use {@link getAuthFlowURI} instead.
-   */
-  pkceRequest = (args: PKCERequestArgs) => this.getAuthFlowURI(args);
 
   // -- Read Methods
   /**
@@ -162,6 +297,7 @@ export class MoneriumClient {
    */
   placeOrder(order: NewOrder, profileId?: string): Promise<Order> {
     const req = { ...order, kind: 'redeem', currency: 'eur' };
+
     if (profileId) {
       return this.#api<Order>(
         'post',
@@ -202,7 +338,7 @@ export class MoneriumClient {
       method,
       isFormEncoded ? urlEncoded(body as Record<string, string>) : body,
       {
-        Authorization: this.#authPayload || '',
+        Authorization: this.#authorizationHeader || '',
         'Content-Type': `application/${
           isFormEncoded ? 'x-www-form-urlencoded' : 'json'
         }`,
@@ -210,15 +346,142 @@ export class MoneriumClient {
     );
   }
 
-  #isAuthCode(args: AuthArgs): args is AuthCode {
-    return (args as AuthCode).code != undefined;
+  /*
+   * Triggered when the client has claimed an authorization code
+   * 1. Code Verifier is picked up from the sessionStorage
+   * 2. auth service is called to claim the tokens
+   * 3. Refresh token is stored in the sessionStorage
+   */
+  #authCodeAuthorization = async (
+    clientId: string,
+    redirectUrl: string,
+    authCode: string,
+  ) => {
+    const codeVerifier = sessionStorage.getItem(STORAGE_CODE_VERIFIER) || '';
+
+    /** @deprecated, use sessionStorage */
+    this.codeVerifier = codeVerifier;
+
+    sessionStorage.removeItem(STORAGE_CODE_VERIFIER);
+    // Remove auth code from URL.
+    cleanQueryString();
+
+    return await this.getBearerToken({
+      code: authCode,
+      redirect_uri: redirectUrl as string,
+      client_id: clientId,
+      code_verifier: codeVerifier,
+    });
+  };
+
+  #clientCredentialsAuthorization = async ({
+    clientId,
+    clientSecret,
+  }: ClientCredentials) => {
+    return await this.getBearerToken({
+      client_id: clientId,
+      client_secret: clientSecret as string,
+    });
+  };
+
+  #refreshTokenAuthorization = async (
+    clientId: string,
+    refreshToken: string,
+  ) => {
+    return await this.getBearerToken({
+      refresh_token: refreshToken,
+      client_id: clientId,
+    });
+  };
+
+  // -- Notifications
+
+  async connectOrderSocket() {
+    // When the user is authenticated, we connect to the order notifications socket in case
+    // the user has subscribed to any event
+    if (this.bearerProfile?.access_token && this.#subscriptions.size > 0) {
+      this.#socket = this.subscribeToOrderNotifications();
+    }
+  }
+  subscribeToOrderNotifications = (): WebSocket => {
+    const socketUrl = `${this.#env.wss}/profiles/${
+      this.bearerProfile?.profile
+    }/orders?access_token=${this.bearerProfile?.access_token}`;
+
+    const socket = new WebSocket(socketUrl);
+
+    socket.addEventListener('open', () => {
+      console.info(`Socket connected: ${socketUrl}`);
+    });
+
+    socket.addEventListener('error', (event) => {
+      console.error(event);
+      throw new Error(`Socket error: ${socketUrl}`);
+    });
+
+    socket.addEventListener('message', (event) => {
+      const notification = JSON.parse(event.data) as OrderNotification;
+
+      this.#subscriptions.get(notification.meta.state as OrderState)?.(
+        notification,
+      );
+    });
+
+    socket.addEventListener('close', () => {
+      console.info(`Socket connection closed: ${socketUrl}`);
+    });
+
+    return socket;
+  };
+
+  async disconnect() {
+    sessionStorage.removeItem(STORAGE_CODE_VERIFIER);
+    this.#subscriptions.clear();
+    this.#socket?.close();
   }
 
-  #isRefreshToken(args: AuthArgs): args is RefreshToken {
-    return (args as RefreshToken).refresh_token != undefined;
+  /**
+   * Subscribe to MoneriumEvent to receive notifications using the Monerium API (WebSocket)
+   * We are setting a subscription map because we need the user to have a token to start the WebSocket connection
+   * {@link https://monerium.dev/api-docs#operation/profile-orders-notifications}
+   * @param event The event to subscribe to
+   * @param handler The handler to be called when the event is triggered
+   */
+
+  subscribeOrders(event: MoneriumEvent, handler: MoneriumEventListener): void {
+    this.#subscriptions.set(event as OrderState, handler);
   }
 
-  #isClientCredentials(args: AuthArgs): args is ClientCredentials {
-    return (args as ClientCredentials).client_secret != undefined;
+  /**
+   * Unsubscribe from MoneriumEvent and close the socket if there are no more subscriptions
+   * @param event The event to unsubscribe from
+   */
+  unsubscribeOrders(event: MoneriumEvent): void {
+    this.#subscriptions.delete(event as OrderState);
+
+    if (this.#subscriptions.size === 0) {
+      this.#socket?.close();
+      this.#socket = undefined;
+    }
   }
+  // -- Deprecated methods
+
+  /**
+   * @deprecated since v2.6.4, use {@link getBearerToken} instead.
+   */
+  auth = async (args: AuthArgs) => await this.getBearerToken(args);
+
+  /**
+   * @deprecated since v2.6.4, use {@link authorize} instead.
+   */
+  getAuthFlowURI = (args: PKCERequestArgs): string =>
+    getAuthFlowUrlAndStoreCodeVerifier(this.#env.api, args);
+
+  /**
+   *  @deprecated since v2.0.7, use {@link getAuthFlowURI} instead.
+   */
+  pkceRequest = (args: PKCERequestArgs) => this.getAuthFlowURI(args);
+
+  // -- Getters (mainly for testing)
+  getEnvironment = (): Environment => this.#env;
 }
