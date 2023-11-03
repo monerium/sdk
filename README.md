@@ -73,7 +73,7 @@ Interfaces:
 (await client.auth({
   client_id: 'your_client_credentials_uuid', // replace with your client ID
   client_secret: 'your_client_secret', // replace with your client secret
-})) as ClientCredentials;
+})) as ClientCredentialsRequest;
 
 // Retrieve authentication data after successful authentication.
 await client.getAuthContext();
@@ -84,7 +84,7 @@ const { access_token, refresh_token } = client.bearerProfile as BearerProfile;
 
 Interfaces:
 
-- {@link types.ClientCredentials}
+- {@link types.ClientCredentialsRequest}
 - {@link types.BearerProfile}
 
 API documentation:
@@ -134,7 +134,7 @@ const retrievedCodeVerifier = window.localStorage.getItem('myCodeVerifier');
   code: authCode,
   code_verifier: retrievedCodeVerifier,
   redirect_url: 'http://your-webpage.com/monerium-integration', // ensure this matches the redirect_uri used initially
-})) as AuthCode;
+})) as AuthCodeRequest;
 
 // Confirm the user is authenticated and retrieve the authentication data.
 await client.getAuthContext();
@@ -145,7 +145,7 @@ const { access_token, refresh_token } = client.bearerProfile as BearerProfile;
 
 Interfaces:
 
-- {@link types.AuthCode}
+- {@link types.AuthCodeRequest}
 - {@link types.BearerProfile}
 
 API documentation:

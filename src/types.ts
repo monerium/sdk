@@ -78,21 +78,21 @@ export type Ticker = 'EUR'; //| 'GBP' | 'USD' | 'ISK';
 // -- auth
 
 export type AuthArgs =
-  | Omit<AuthCode, 'grant_type'>
-  | Omit<RefreshToken, 'grant_type'>
-  | Omit<ClientCredentials, 'grant_type'>;
+  | Omit<AuthCodeRequest, 'grant_type'>
+  | Omit<RefreshTokenRequest, 'grant_type'>
+  | Omit<ClientCredentialsRequest, 'grant_type'>;
 
 export type OpenArgs =
-  | Omit<AuthCode, 'grant_type' | 'code' | 'code_verifier'>
-  | Omit<RefreshToken, 'grant_type'>
-  | Omit<ClientCredentials, 'grant_type'>
+  | Omit<AuthCodeRequest, 'grant_type' | 'code' | 'code_verifier'>
+  | Omit<RefreshTokenRequest, 'grant_type'>
+  | Omit<ClientCredentialsRequest, 'grant_type'>
   | PKCERequestArgs;
 
 /** One of the options for the {@link AuthArgs}.
  *
  * [Auth endpoint in API documentation:](https://monerium.dev/api-docs#operation/auth).
  * */
-export interface AuthCode {
+export interface AuthCodeRequest {
   grant_type: 'authorization_code';
   client_id: string;
   code: string;
@@ -105,7 +105,7 @@ export interface AuthCode {
  *
  * [Auth endpoint in API documentation:](https://monerium.dev/api-docs#operation/auth).
  * */
-export interface RefreshToken {
+export interface RefreshTokenRequest {
   grant_type: 'refresh_token';
   client_id: string;
   refresh_token: string;
@@ -116,7 +116,7 @@ export interface RefreshToken {
  *
  * [Auth endpoint in API documentation:](https://monerium.dev/api-docs#operation/auth).
  * */
-export interface ClientCredentials {
+export interface ClientCredentialsRequest {
   grant_type: 'client_credentials';
   client_id: string;
   client_secret: string;
@@ -154,7 +154,7 @@ export type PKCERequest = {
   /** the state of the application */
   state?: string;
   /** the redirect uri of the application */
-  redirect_uri?: string;
+  redirect_uri: string;
   /** the scope of the application */
   scope?: string;
   /** the address of the wallet to automatically link */
@@ -454,3 +454,33 @@ export type OrderNotification = {
 export type MoneriumEvent = OrderState;
 
 export type MoneriumEventListener = (notification: OrderNotification) => void;
+
+// export type Client = {
+//   clientId?: string;
+//   clientSecret?: string;
+//   redirectUrl?: string;
+// };
+
+export type ClassOptions = {
+  env?: ENV;
+} & BearerTokenCredentials;
+
+export type AuthFlowOptions = {
+  clientId: string;
+  redirectUrl: string;
+  wallet?: AutoLinkWallet;
+};
+
+export type ClientCredentials = {
+  clientId: string;
+  clientSecret: string;
+};
+
+export type AuthorizationCodeCredentials = {
+  clientId: string;
+  redirectUrl: string;
+};
+
+export type BearerTokenCredentials =
+  | ClientCredentials
+  | AuthorizationCodeCredentials;

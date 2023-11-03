@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { MoneriumClient } from '../dist/index.mjs';
 import {
   APP_ONE_CREDENTIALS_SECRET,

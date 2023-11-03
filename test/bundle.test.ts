@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const MoneriumClient = require('../dist/index.umd.js').MoneriumClient;
 // eslint-disable-next-line @typescript-eslint/no-var-requires

@@ -1,45 +1,12 @@
-import { Chain, Networks } from 'types';
+import {
+  Balances,
+  Chain,
+  ChainId,
+  Currency,
+  Networks,
+  Profile,
+} from '../src/types';
 
-export const generateRandomString = () => {
-  let result = '';
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  let counter = 0;
-  while (counter < 128) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    counter += 1;
-  }
-  return result;
-};
-
-export const rest = async <T>(
-  url: string,
-  method: string,
-  body?: BodyInit | Record<string, string>,
-  headers?: Record<string, string>,
-): Promise<T> => {
-  const res = await fetch(`${url}`, {
-    method,
-    headers,
-    body: body as unknown as BodyInit,
-  });
-
-  let response;
-  const text = await res.text();
-
-  try {
-    response = JSON.parse(text);
-  } catch (err) {
-    throw text;
-  }
-
-  if (!res.ok) {
-    throw response;
-  }
-
-  return response as T;
-};
 export const rfc3339 = (d: Date) => {
   if (d.toString() === 'Invalid Date') {
     throw d;
@@ -88,7 +55,7 @@ export const placeOrderMessage = (amount: string | number, iban: string) =>
  * @returns 'application/x-www-form-urlencoded' compatible string
  */
 export const urlEncoded = (
-  body: Record<string, string | number>,
+  body: Record<string, string>,
 ): string | undefined => {
   return body && Object.entries(body)?.length > 0
     ? Object.entries(body)
@@ -139,4 +106,35 @@ export const getNetwork = (chainId: number): Networks => {
     default:
       throw new Error(`Network not supported: ${chainId}`);
   }
+};
+
+export const getIban = (profile: Profile, address: string, chainId: number) => {
+  return (
+    profile.accounts.find(
+      (account) =>
+        account.address === address &&
+        account.iban &&
+        account.chain === getChain(chainId) &&
+        account.network === getNetwork(chainId),
+    )?.iban ?? ''
+  );
+};
+
+export const getAmount = (
+  balances?: Balances[],
+  address?: string,
+  chainId?: ChainId,
+  // currency?: Currency,
+): string => {
+  if (!balances || !address || !chainId) return '0';
+  const currency = Currency.eur;
+
+  const eurBalance = balances.find(
+    (account) =>
+      account.address === address && account.chain === getChain(chainId),
+  )?.balances;
+
+  return (
+    eurBalance?.find((balance) => balance.currency === currency)?.amount || '0'
+  );
 };
