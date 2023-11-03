@@ -63,6 +63,8 @@ export type Network<
     : never
   : never;
 
+export type ChainId = 1 | 5 | 100 | 137 | 10200 | 80001;
+
 export enum Currency {
   eur = 'eur',
   // usd = 'usd',
@@ -80,6 +82,12 @@ export type AuthArgs =
   | Omit<RefreshToken, 'grant_type'>
   | Omit<ClientCredentials, 'grant_type'>;
 
+export type OpenArgs =
+  | Omit<AuthCode, 'grant_type' | 'code' | 'code_verifier'>
+  | Omit<RefreshToken, 'grant_type'>
+  | Omit<ClientCredentials, 'grant_type'>
+  | PKCERequestArgs;
+
 /** One of the options for the {@link AuthArgs}.
  *
  * [Auth endpoint in API documentation:](https://monerium.dev/api-docs#operation/auth).
@@ -93,15 +101,10 @@ export interface AuthCode {
   scope?: string;
 }
 
-export interface BearerProfile {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-  refresh_token: string;
-  profile: string;
-  userId: string;
-}
-
+/** One of the options for the {@link AuthArgs}.
+ *
+ * [Auth endpoint in API documentation:](https://monerium.dev/api-docs#operation/auth).
+ * */
 export interface RefreshToken {
   grant_type: 'refresh_token';
   client_id: string;
@@ -109,11 +112,24 @@ export interface RefreshToken {
   scope?: string;
 }
 
+/** One of the options for the {@link AuthArgs}.
+ *
+ * [Auth endpoint in API documentation:](https://monerium.dev/api-docs#operation/auth).
+ * */
 export interface ClientCredentials {
   grant_type: 'client_credentials';
   client_id: string;
   client_secret: string;
   scope?: string;
+}
+
+export interface BearerProfile {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  refresh_token: string;
+  profile: string;
+  userId: string;
 }
 
 // -- pkceRequest
@@ -145,10 +161,12 @@ export type PKCERequest = {
   address?: string;
   /** the signature of the wallet to automatically link */
   signature?: string;
-  /** the network of the wallet to automatically link */
+  /** @deprecated - Use chainId - the network of the wallet to automatically link */
   network?: Network;
-  /** the chain of the wallet to automatically link */
+  /** @deprecated - Use chainId - the chain of the wallet to automatically link */
   chain?: Chain;
+  /** The network of the wallet to automatically link  */
+  chainId?: ChainId | number;
 };
 
 // -- authContext
@@ -406,6 +424,12 @@ export interface LinkAddress {
   accounts: CurrencyAccounts[];
   network?: Network;
   chain?: Chain;
+}
+
+export interface AutoLinkWallet {
+  address: string;
+  signature?: string;
+  chainId?: number;
 }
 
 // -- Notifications

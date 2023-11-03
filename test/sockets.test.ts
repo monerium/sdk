@@ -23,7 +23,7 @@ describe('Sockets', () => {
       addEventListener: eventHandler,
     });
 
-    client.connectToOrderNotifications();
+    client.subscribeToOrderNotifications();
 
     expect(WebSocket).toHaveBeenCalledWith(
       'wss://api.monerium.dev/profiles/123/orders?access_token=accessToken',

@@ -9,7 +9,7 @@ import {
   STORAGE_CODE_VERIFIER,
   STORAGE_REFRESH_TOKEN,
 } from '../src/constants';
-import { Currency, Order, PaymentStandard } from '../src/types';
+import { Order, PaymentStandard } from '../src/types';
 import SHA256 from 'crypto-js/sha256';
 
 import {
@@ -71,12 +71,13 @@ test('authenticate with client credentials', async () => {
   expect(authContext.userId).toBe(APP_ONE_OWNER_USER_ID);
 });
 
-test('authorization code flow', async () => {
+test('authorization code flow with chainId', async () => {
   const client = new MoneriumClient();
 
-  const authFlowUrl = await client.pkceRequest({
-    client_id: clientAuthId,
-    redirect_uri: redirectUri,
+  const authFlowUrl = client.getAuthFlowURI({
+    redirect_uri: 'http://example.com',
+    client_id: 'testClientId',
+    chainId: 5,
   });
 
   const challenge = encodeBase64Url.stringify(
@@ -84,6 +85,46 @@ test('authorization code flow', async () => {
   );
 
   expect(authFlowUrl).toContain(challenge);
+
+  expect(authFlowUrl).toBe(
+    `https://api.monerium.dev/auth?redirect_uri=http%3A%2F%2Fexample.com&client_id=testClientId&code_challenge=${challenge}&code_challenge_method=S256&response_type=code&chain=ethereum&network=goerli`,
+  );
+});
+
+test('authorization code flow with chain and network', async () => {
+  const client = new MoneriumClient();
+
+  const authFlowUrl = client.getAuthFlowURI({
+    redirect_uri: 'http://example.com',
+    client_id: 'testClientId',
+    chain: 'ethereum',
+    network: 'goerli',
+  });
+
+  const challenge = encodeBase64Url.stringify(
+    SHA256(client?.codeVerifier as string),
+  );
+
+  expect(authFlowUrl).toBe(
+    `https://api.monerium.dev/auth?redirect_uri=http%3A%2F%2Fexample.com&client_id=testClientId&code_challenge=${challenge}&code_challenge_method=S256&response_type=code&chain=ethereum&network=goerli`,
+  );
+});
+
+test('authorization code flow without chain info', async () => {
+  const client = new MoneriumClient();
+
+  const test = client.getAuthFlowURI({
+    redirect_uri: 'http://example.com',
+    client_id: 'testClientId',
+  });
+
+  const challenge = encodeBase64Url.stringify(
+    SHA256(client?.codeVerifier as string),
+  );
+
+  expect(test).toBe(
+    `https://api.monerium.dev/auth?redirect_uri=http%3A%2F%2Fexample.com&client_id=testClientId&code_challenge=${challenge}&code_challenge_method=S256&response_type=code`,
+  );
 });
 
 // test('link address', async () => {
@@ -239,7 +280,16 @@ test('get tokens', async () => {
 test('open without refresh token and auth code', async () => {
   const client = new MoneriumClient();
 
-  client.getAuthFlowURI = jest.fn(); // Mock the auth function
+  const replaceMock = jest.fn();
+  Object.defineProperty(window, 'location', {
+    value: {
+      replace: replaceMock,
+    },
+    writable: true,
+  });
+  client.getAuthFlowURI = jest
+    .fn()
+    .mockImplementation(() => 'http://example.com?test=url'); // Mock the auth function
 
   await client.open({
     redirectUrl: 'http://example.com',
@@ -250,6 +300,7 @@ test('open without refresh token and auth code', async () => {
     redirect_uri: 'http://example.com',
     client_id: 'testClientId',
   });
+  expect(replaceMock).toHaveBeenCalledWith('http://example.com?test=url');
 });
 
 test('open with refresh token', async () => {

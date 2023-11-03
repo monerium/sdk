@@ -88,7 +88,7 @@ export const placeOrderMessage = (amount: string | number, iban: string) =>
  * @returns 'application/x-www-form-urlencoded' compatible string
  */
 export const urlEncoded = (
-  body: Record<string, string>,
+  body: Record<string, string | number>,
 ): string | undefined => {
   return body && Object.entries(body)?.length > 0
     ? Object.entries(body)

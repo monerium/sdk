@@ -12,9 +12,9 @@ import type {
   AuthArgs,
   AuthCode,
   AuthContext,
+  AutoLinkWallet,
   Balances,
   BearerProfile,
-  Chain,
   ClientCredentials,
   Environment,
   LinkAddress,
@@ -52,14 +52,17 @@ export class MoneriumClient {
     this.#env = MONERIUM_CONFIG.environments[env];
   }
 
-  // TODO:
-  // DO PROPER TYPING LIKE IN this.auth
-  // CLIENT CREDENTIALS
-  // TEST auto link
-  async open(options: {
-    redirectUrl?: string;
+  // TODO: TEST auto link & manual link + address
+  async open({
+    redirectUrl,
+    clientId,
+    clientSecret,
+    wallet,
+  }: {
     clientId: string;
-    wallet?: { address: string; signature?: string; chainId?: number };
+    clientSecret?: string;
+    redirectUrl?: string;
+    wallet?: AutoLinkWallet;
   }) {
     if (typeof window === 'undefined') {
       throw new Error('This only works on client side');
@@ -73,67 +76,19 @@ export class MoneriumClient {
       sessionStorage.getItem(STORAGE_REFRESH_TOKEN) || undefined;
 
     if (authCode) {
-      const codeVerifier = sessionStorage.getItem(STORAGE_CODE_VERIFIER) || '';
-
-      await this.auth({
-        code: authCode,
-        redirect_uri: options?.redirectUrl as string,
-        client_id: options?.clientId,
-        code_verifier: codeVerifier,
-      });
-      sessionStorage.setItem(
-        STORAGE_REFRESH_TOKEN,
-        this.bearerProfile?.refresh_token || '',
-      );
-
-      this.#cleanQueryString();
-
-      sessionStorage.removeItem(STORAGE_CODE_VERIFIER);
+      this.#authCodeLogin(clientId, redirectUrl as string, authCode);
+    } else if (clientSecret) {
+      this.#clientCredentialsLogin(clientId, clientSecret);
     } else if (refreshToken) {
-      try {
-        await this.auth({
-          refresh_token: refreshToken,
-          client_id: options?.clientId,
-        });
-      } catch (err) {
-        console.error(err);
-      }
-
-      sessionStorage.setItem(
-        STORAGE_REFRESH_TOKEN,
-        this.bearerProfile?.refresh_token || '',
-      );
+      this.#refreshTokenLogin(clientId, refreshToken);
     } else {
-      const autoLink = options.wallet
-        ? {
-            ...(options.wallet?.address !== undefined
-              ? { address: options.wallet?.address }
-              : {}),
-            ...(options.wallet?.signature !== undefined
-              ? { signature: options.wallet?.signature }
-              : {}),
-            ...(options.wallet?.chainId !== undefined
-              ? {
-                  chain: getChain(options.wallet.chainId),
-                  network: getNetwork(options.wallet.chainId),
-                }
-              : {}),
-          }
-        : {};
-      const authFlowUrl = this.getAuthFlowURI({
-        client_id: options?.clientId,
-        redirect_uri: options?.redirectUrl,
-        ...autoLink,
-      });
-
-      sessionStorage.setItem(STORAGE_CODE_VERIFIER, this.codeVerifier || '');
-      window.location.replace(authFlowUrl);
+      this.#authFlowAuthorization(clientId, redirectUrl as string, wallet);
     }
 
     // When the user is authenticated, we connect to the order notifications socket in case
     // the user has subscribed to any event
     if (this.bearerProfile?.access_token && this.#subscriptions.size > 0) {
-      this.#socket = this.connectToOrderNotifications();
+      this.#socket = this.subscribeToOrderNotifications();
     }
   }
 
@@ -167,7 +122,7 @@ export class MoneriumClient {
   /**
    * Construct the url to the authorization code flow,
    * the code verifier is needed afterwards to obtain an access token and is therefore stored in `this.codeVerifier`
-   * For automatic wallet link, add the following properties: `address`, `signature`, `chain` & `network`
+   * For automatic wallet link, add the following properties: `address`, `signature` & `chainId`
    * @returns string
    * {@link https://monerium.dev/api-docs#operation/auth}
    */
@@ -179,12 +134,21 @@ export class MoneriumClient {
       SHA256(this.codeVerifier as string),
     );
 
+    // Deprecate usage of chain and network, use industry standard chainId instead.
+    const { chain, network, chainId, ...rest } = args;
+
     const params: PKCERequest = {
-      ...args,
+      ...rest,
       client_id: args?.client_id,
       code_challenge: challenge,
       code_challenge_method: 'S256',
       response_type: 'code',
+      ...(chainId !== undefined || chain !== undefined
+        ? { chain: chainId ? getChain(chainId) : chain }
+        : {}),
+      ...(chainId !== undefined || network !== undefined
+        ? { network: chainId ? getNetwork(chainId) : network }
+        : {}),
     };
 
     return `${this.#env.api}/auth?${urlEncoded(params)}`;
@@ -323,9 +287,104 @@ export class MoneriumClient {
     return (args as ClientCredentials).client_secret != undefined;
   }
 
+  #authCodeLogin = async (
+    clientId: string,
+    redirectUrl: string,
+    authCode: string,
+  ) => {
+    const codeVerifier = sessionStorage.getItem(STORAGE_CODE_VERIFIER) || '';
+
+    await this.auth({
+      code: authCode,
+      redirect_uri: redirectUrl as string,
+      client_id: clientId,
+      code_verifier: codeVerifier,
+    });
+
+    sessionStorage.setItem(
+      STORAGE_REFRESH_TOKEN,
+      this.bearerProfile?.refresh_token || '',
+    );
+    // Remove auth code from URL.
+    this.#cleanQueryString();
+
+    sessionStorage.removeItem(STORAGE_CODE_VERIFIER);
+  };
+
+  #clientCredentialsLogin = async (clientId: string, clientSecret: string) => {
+    try {
+      await this.auth({
+        client_id: clientId,
+        client_secret: clientSecret as string,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+
+    sessionStorage.setItem(
+      STORAGE_REFRESH_TOKEN,
+      this.bearerProfile?.refresh_token || '',
+    );
+  };
+
+  #refreshTokenLogin = async (clientId: string, refreshToken: string) => {
+    try {
+      await this.auth({
+        refresh_token: refreshToken,
+        client_id: clientId,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+
+    sessionStorage.setItem(
+      STORAGE_REFRESH_TOKEN,
+      this.bearerProfile?.refresh_token || '',
+    );
+  };
+  /**
+   *
+   * @param clientId The Auth Flow clientId
+   * @param redirectUrl The URL that the Auth Flow should redirect the user back to.
+   * @param wallet Information about the wallet if auto linking is preferred.
+   */
+  #authFlowAuthorization = async (
+    clientId: string,
+    redirectUrl: string,
+    wallet?: AutoLinkWallet,
+  ) => {
+    const autoLink = wallet
+      ? {
+          ...(wallet?.address !== undefined
+            ? { address: wallet?.address }
+            : {}),
+          ...(wallet?.signature !== undefined
+            ? { signature: wallet?.signature }
+            : {}),
+          ...(wallet?.chainId !== undefined
+            ? {
+                chain: getChain(wallet.chainId),
+                network: getNetwork(wallet.chainId),
+              }
+            : {}),
+        }
+      : {};
+
+    const authFlowUrl = this.getAuthFlowURI({
+      client_id: clientId,
+      redirect_uri: redirectUrl,
+      ...autoLink,
+    });
+
+    sessionStorage.setItem(STORAGE_CODE_VERIFIER, this.codeVerifier || '');
+
+    // Redirect to the authFlow
+    window.location.replace(authFlowUrl);
+  };
+
   // Notifications
 
-  connectToOrderNotifications = (): WebSocket => {
+  subscribeToOrderNotifications = (): WebSocket => {
     const socketUrl = `${this.#env.wss}/profiles/${
       this.bearerProfile?.profile
     }/orders?access_token=${this.bearerProfile?.access_token}`;
