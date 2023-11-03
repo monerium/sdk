@@ -45,6 +45,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "virtual:41e872abb742f865f42d0f1fc3cb0b76a13646e286dcca007ad9a2731c2e671cb1360c0418029ff53d8986b07cf01e69a62bd4166c3e405949d6e84db5a0260e#npm:29.5.0"],\
             ["jest-environment-jsdom", "virtual:41e872abb742f865f42d0f1fc3cb0b76a13646e286dcca007ad9a2731c2e671cb1360c0418029ff53d8986b07cf01e69a62bd4166c3e405949d6e84db5a0260e#npm:29.7.0"],\
             ["jest-fetch-mock", "npm:3.0.3"],\
+            ["jest-localstorage-mock", "npm:2.4.26"],\
             ["nodemon", "npm:3.0.1"],\
             ["prettier", "npm:2.8.8"],\
             ["ts-jest", "virtual:41e872abb742f865f42d0f1fc3cb0b76a13646e286dcca007ad9a2731c2e671cb1360c0418029ff53d8986b07cf01e69a62bd4166c3e405949d6e84db5a0260e#npm:29.1.0"],\
@@ -1785,6 +1786,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "virtual:41e872abb742f865f42d0f1fc3cb0b76a13646e286dcca007ad9a2731c2e671cb1360c0418029ff53d8986b07cf01e69a62bd4166c3e405949d6e84db5a0260e#npm:29.5.0"],\
             ["jest-environment-jsdom", "virtual:41e872abb742f865f42d0f1fc3cb0b76a13646e286dcca007ad9a2731c2e671cb1360c0418029ff53d8986b07cf01e69a62bd4166c3e405949d6e84db5a0260e#npm:29.7.0"],\
             ["jest-fetch-mock", "npm:3.0.3"],\
+            ["jest-localstorage-mock", "npm:2.4.26"],\
             ["nodemon", "npm:3.0.1"],\
             ["prettier", "npm:2.8.8"],\
             ["ts-jest", "virtual:41e872abb742f865f42d0f1fc3cb0b76a13646e286dcca007ad9a2731c2e671cb1360c0418029ff53d8986b07cf01e69a62bd4166c3e405949d6e84db5a0260e#npm:29.1.0"],\
@@ -5098,6 +5100,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest-leak-detector", "npm:29.5.0"],\
             ["jest-get-type", "npm:29.4.3"],\
             ["pretty-format", "npm:29.5.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["jest-localstorage-mock", [\
+        ["npm:2.4.26", {\
+          "packageLocation": "./.yarn/cache/jest-localstorage-mock-npm-2.4.26-ebb7f4ba60-d6871dd030.zip/node_modules/jest-localstorage-mock/",\
+          "packageDependencies": [\
+            ["jest-localstorage-mock", "npm:2.4.26"]\
           ],\
           "linkType": "HARD"\
         }]\

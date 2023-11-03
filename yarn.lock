@@ -1230,6 +1230,7 @@ __metadata:
     jest: ^29.5.0
     jest-environment-jsdom: ^29.7.0
     jest-fetch-mock: ^3.0.3
+    jest-localstorage-mock: ^2.4.26
     nodemon: ^3.0.1
     prettier: ^2.8.8
     ts-jest: ^29.0.3
@@ -3967,6 +3968,13 @@ __metadata:
     jest-get-type: ^29.4.3
     pretty-format: ^29.5.0
   checksum: 0fb845da7ac9cdfc9b3b2e35f6f623a41c547d7dc0103ceb0349013459d00de5870b5689a625e7e37f9644934b40e8f1dcdd5422d14d57470600350364676313
+  languageName: node
+  linkType: hard
+
+"jest-localstorage-mock@npm:^2.4.26":
+  version: 2.4.26
+  resolution: "jest-localstorage-mock@npm:2.4.26"
+  checksum: d6871dd030f04bb59c9ef71ce22e98e15e2bc0d77755f5ed466839b891a7a7aae64b6cfc8f942cbef515981c4ff2ae26ad2ccc2f9d1b426c198d0b812ab1831f
   languageName: node
   linkType: hard
 
