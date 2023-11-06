@@ -5,8 +5,8 @@ import {
   PKCERequest,
   PKCERequestArgs,
   RefreshTokenRequest,
-} from 'types';
-import { getChain, getNetwork, urlEncoded } from 'utils';
+} from '../types';
+import { getChain, getNetwork, urlEncoded } from '../utils';
 import encodeBase64Url from 'crypto-js/enc-base64url';
 import SHA256 from 'crypto-js/sha256';
 import { STORAGE_CODE_VERIFIER } from '../constants';
