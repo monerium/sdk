@@ -70,10 +70,6 @@ export class MoneriumClient {
   /** Constructor with {@link ClassOptions} */
   constructor(options: ClassOptions);
   constructor(envOrOptions?: ENV | ClassOptions) {
-    // TODO: CHECK HERE IF REFRESH TOKEN EXISTS
-    // TODO: CHECK HERE IF REFRESH TOKEN EXISTS
-    // TODO: CHECK HERE IF REFRESH TOKEN EXISTS
-    // TODO: CHECK HERE IF REFRESH TOKEN EXISTS
     // No arguments, default to sandbox
     if (!envOrOptions) {
       this.#env = MONERIUM_CONFIG.environments['sandbox'];
@@ -92,14 +88,12 @@ export class MoneriumClient {
           clientId: clientId as string,
           redirectUrl: redirectUrl as string,
         };
-        this.connect(this.#client);
       } else {
         const { clientId, clientSecret } = envOrOptions as ClientCredentials;
         this.#client = {
           clientId: clientId as string,
           clientSecret: clientSecret as string,
         };
-        this.#clientCredentialsAuthorization(this.#client);
       }
     }
   }
@@ -136,12 +130,23 @@ export class MoneriumClient {
   }
 
   // TODO: TEST auto link & manual link + address
-  async connect(client: AuthorizationCodeCredentials) {
-    const clientId =
-      client?.clientId ||
-      (this.#client as AuthorizationCodeCredentials)?.clientId;
+  async connect(client: AuthorizationCodeCredentials | ClientCredentials) {
+    const clientId = client?.clientId || this.#client?.clientId;
+    const clientSecret =
+      (client as ClientCredentials)?.clientSecret ||
+      (this.#client as ClientCredentials)?.clientSecret;
+
+    if (clientSecret) {
+      if (!isServer) {
+        throw new Error('Only use client credentials on server side');
+      }
+      return this.#clientCredentialsAuthorization(
+        this.#client as ClientCredentials,
+      );
+    }
+
     const redirectUrl =
-      client?.redirectUrl ||
+      (client as AuthorizationCodeCredentials)?.redirectUrl ||
       (this.#client as AuthorizationCodeCredentials)?.redirectUrl;
 
     if (!clientId) {
@@ -225,6 +230,15 @@ export class MoneriumClient {
         //   throw new Error('Refresh token has already been used');
         // }
       });
+
+    /**
+     * Remove auth code from URL.
+     * Make sure this is the last action before returning the bearer profile
+     * NextJS seems to overwrite this if there is data fetching in the background
+     */
+    if (isAuthCode(args)) {
+      cleanQueryString();
+    }
 
     return this.bearerProfile as BearerProfile;
   }
@@ -359,13 +373,15 @@ export class MoneriumClient {
   ) => {
     const codeVerifier = sessionStorage.getItem(STORAGE_CODE_VERIFIER) || '';
 
+    if (!codeVerifier) {
+      throw new Error('Code verifier not found');
+    }
+
     /** @deprecated, use sessionStorage */
     this.codeVerifier = codeVerifier;
 
     sessionStorage.removeItem(STORAGE_CODE_VERIFIER);
     // Remove auth code from URL.
-    cleanQueryString();
-
     return await this.getBearerToken({
       code: authCode,
       redirect_uri: redirectUrl as string,

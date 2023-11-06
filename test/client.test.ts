@@ -89,24 +89,25 @@ describe('MoneriumClient', () => {
     replaceMock.mockRestore();
   });
 
-  test('class instance with refresh_token', async () => {
-    const connectMock = jest
-      .spyOn(MoneriumClient.prototype, 'connect')
-      .mockImplementation();
-    const client = new MoneriumClient({
-      env: 'production',
-      clientId: 'testClientId',
-      clientSecret: 'testSecret',
-    });
+  // This is no longer valid, we were calling connect on the constructor, but there was no way to wait for the promise to resolve
+  // test('class instance with refresh_token', async () => {
+  //   const connectMock = jest
+  //     .spyOn(MoneriumClient.prototype, 'connect')
+  //     .mockImplementation();
+  //   const client = new MoneriumClient({
+  //     env: 'production',
+  //     clientId: 'testClientId',
+  //     clientSecret: 'testSecret',
+  //   });
 
-    expect(connectMock).toHaveBeenCalled();
-    expect(client.getEnvironment()).toEqual({
-      api: 'https://api.monerium.app',
-      web: 'https://monerium.app',
-      wss: 'wss://api.monerium.app',
-    });
-    connectMock.mockRestore();
-  });
+  //   expect(connectMock).toHaveBeenCalled();
+  //   expect(client.getEnvironment()).toEqual({
+  //     api: 'https://api.monerium.app',
+  //     web: 'https://monerium.app',
+  //     wss: 'wss://api.monerium.app',
+  //   });
+  //   connectMock.mockRestore();
+  // });
 
   test('authenticate with client credentials', async () => {
     const client = new MoneriumClient();
