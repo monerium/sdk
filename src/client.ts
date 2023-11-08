@@ -79,7 +79,8 @@ export class MoneriumClient {
     if (typeof envOrOptions === 'string') {
       this.#env = MONERIUM_CONFIG.environments[envOrOptions];
     } else {
-      this.#env = MONERIUM_CONFIG.environments[envOrOptions.env || 'sandbox'];
+      this.#env =
+        MONERIUM_CONFIG.environments[envOrOptions.environment || 'sandbox'];
 
       if (!isServer) {
         const { clientId, redirectUrl } =
@@ -130,7 +131,9 @@ export class MoneriumClient {
   }
 
   // TODO: TEST auto link & manual link + address
-  async connect(client: AuthorizationCodeCredentials | ClientCredentials) {
+  async connect(
+    client?: AuthorizationCodeCredentials | ClientCredentials,
+  ): Promise<boolean> {
     const clientId = client?.clientId || this.#client?.clientId;
     const clientSecret =
       (client as ClientCredentials)?.clientSecret ||
@@ -140,9 +143,10 @@ export class MoneriumClient {
       if (!isServer) {
         throw new Error('Only use client credentials on server side');
       }
-      return this.#clientCredentialsAuthorization(
+      await this.#clientCredentialsAuthorization(
         this.#client as ClientCredentials,
       );
+      return !!this.bearerProfile;
     }
 
     const redirectUrl =

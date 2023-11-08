@@ -462,7 +462,7 @@ export type MoneriumEventListener = (notification: OrderNotification) => void;
 // };
 
 export type ClassOptions = {
-  env?: ENV;
+  environment?: ENV;
 } & BearerTokenCredentials;
 
 export type AuthFlowOptions = {

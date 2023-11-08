@@ -1,6 +1,12 @@
 /**
  * @jest-environment jsdom
  */
+
+// Login: monerium-test-sdk@maildrop.cc
+// Password: Passw0rd!
+
+// punkWallet: https://punkwallet.io/pk#0x30fa9f64fb85dab6b4bf045443e08315d6570d4eabce7c1363acda96042a6e1a
+
 import 'jest-localstorage-mock';
 import { MoneriumClient } from '../src/index';
 import {

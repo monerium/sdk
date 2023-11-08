@@ -1,8 +1,3 @@
-// Login: monerium-test-sdk@maildrop.cc
-// Password: Passw0rd!
-
-// punkWallet: https://punkwallet.io/pk#0x30fa9f64fb85dab6b4bf045443e08315d6570d4eabce7c1363acda96042a6e1a
-
 module.exports.APP_ONE_CREDENTIALS_CLIENT_ID =
   'f99f7444-6dca-11ee-8aa6-5273f65ed05b';
 module.exports.APP_ONE_CREDENTIALS_SECRET =

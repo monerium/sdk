@@ -359,6 +359,10 @@ cd ../your-project
 yarn link "@monerium/sdk"
 ```
 
+If you get an error that there is already a package called '@monerium/sdk' registered, but you can't find it and unlinking does nothing, remove it manually with `rm -rf ~/.config/yarn/link/@monerium` and try again.
+
+```sh
+
 #### Documentation
 
 Refer to [Typedocs](https://typedoc.org/) syntaxes to use for this [documentation](https://monerium.github.io/sdk/).
@@ -390,3 +394,4 @@ Information about the software license.
 ---
 
 This template is a comprehensive starting point. Each section should contain detailed information relevant to your SDK to guide your users from installation to effective usage and troubleshooting. Be sure to adjust the headers and content to suit your SDK's unique needs and features.
+```

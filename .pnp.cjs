@@ -30,11 +30,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@commitlint/cli", "npm:17.6.1"],\
             ["@commitlint/config-conventional", "npm:17.6.1"],\
-            ["@types/crypto-js", "npm:4.1.1"],\
+            ["@types/crypto-js", "npm:4.2.1"],\
             ["@types/node", "npm:18.18.8"],\
             ["@typescript-eslint/eslint-plugin", "virtual:41e872abb742f865f42d0f1fc3cb0b76a13646e286dcca007ad9a2731c2e671cb1360c0418029ff53d8986b07cf01e69a62bd4166c3e405949d6e84db5a0260e#npm:5.59.1"],\
             ["@typescript-eslint/parser", "virtual:41e872abb742f865f42d0f1fc3cb0b76a13646e286dcca007ad9a2731c2e671cb1360c0418029ff53d8986b07cf01e69a62bd4166c3e405949d6e84db5a0260e#npm:5.59.1"],\
-            ["crypto-js", "npm:4.1.1"],\
+            ["crypto-js", "npm:4.2.0"],\
             ["dts-bundle-generator", "npm:7.2.0"],\
             ["eslint", "npm:8.39.0"],\
             ["eslint-config-prettier", "virtual:41e872abb742f865f42d0f1fc3cb0b76a13646e286dcca007ad9a2731c2e671cb1360c0418029ff53d8986b07cf01e69a62bd4166c3e405949d6e84db5a0260e#npm:8.8.0"],\
@@ -1834,11 +1834,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@monerium/sdk", "workspace:."],\
             ["@commitlint/cli", "npm:17.6.1"],\
             ["@commitlint/config-conventional", "npm:17.6.1"],\
-            ["@types/crypto-js", "npm:4.1.1"],\
+            ["@types/crypto-js", "npm:4.2.1"],\
             ["@types/node", "npm:18.18.8"],\
             ["@typescript-eslint/eslint-plugin", "virtual:41e872abb742f865f42d0f1fc3cb0b76a13646e286dcca007ad9a2731c2e671cb1360c0418029ff53d8986b07cf01e69a62bd4166c3e405949d6e84db5a0260e#npm:5.59.1"],\
             ["@typescript-eslint/parser", "virtual:41e872abb742f865f42d0f1fc3cb0b76a13646e286dcca007ad9a2731c2e671cb1360c0418029ff53d8986b07cf01e69a62bd4166c3e405949d6e84db5a0260e#npm:5.59.1"],\
-            ["crypto-js", "npm:4.1.1"],\
+            ["crypto-js", "npm:4.2.0"],\
             ["dts-bundle-generator", "npm:7.2.0"],\
             ["eslint", "npm:8.39.0"],\
             ["eslint-config-prettier", "virtual:41e872abb742f865f42d0f1fc3cb0b76a13646e286dcca007ad9a2731c2e671cb1360c0418029ff53d8986b07cf01e69a62bd4166c3e405949d6e84db5a0260e#npm:8.8.0"],\
@@ -2128,10 +2128,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/crypto-js", [\
-        ["npm:4.1.1", {\
-          "packageLocation": "./.yarn/cache/@types-crypto-js-npm-4.1.1-1c4ce3312a-ea3d6a67b6.zip/node_modules/@types/crypto-js/",\
+        ["npm:4.2.1", {\
+          "packageLocation": "./.yarn/cache/@types-crypto-js-npm-4.2.1-e032b646fb-2111fb39a8.zip/node_modules/@types/crypto-js/",\
           "packageDependencies": [\
-            ["@types/crypto-js", "npm:4.1.1"]\
+            ["@types/crypto-js", "npm:4.2.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3548,10 +3548,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["crypto-js", [\
-        ["npm:4.1.1", {\
-          "packageLocation": "./.yarn/cache/crypto-js-npm-4.1.1-38a3b8c19d-b3747c12ee.zip/node_modules/crypto-js/",\
+        ["npm:4.2.0", {\
+          "packageLocation": "./.yarn/cache/crypto-js-npm-4.2.0-d6f7744e63-f051666dbc.zip/node_modules/crypto-js/",\
           "packageDependencies": [\
-            ["crypto-js", "npm:4.1.1"]\
+            ["crypto-js", "npm:4.2.0"]\
           ],\
           "linkType": "HARD"\
         }]\
