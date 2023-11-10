@@ -1,0 +1,18 @@
+{
+  "packages": {
+    "libs/sdk": {
+      "release-type": "node",
+      "package-name": "sdk",
+      "pull-request-header": "Monerium SDK release :rocket:",
+      "changelog-types": "[{\"type\":\"feat\",\"section\":\"Features\",\"hidden\":false},{\"type\":\"fix\",\"section\":\"Bug Fixes\",\"hidden\":false},{\"type\":\"chore\",\"section\":\"Miscellaneous\",\"hidden\":false},{ \"type\": \"revert\", \"section\": \"Reverts\", \"hidden\": false }]",
+      "target-branch": "main"
+    },
+    "libs/sdk-react-provider": {
+      "release-type": "node",
+      "package-name": "sdk-react-provider",
+      "pull-request-header": "Monerium SDK React Provider release :rocket:",
+      "changelog-types": "[{\"type\":\"feat\",\"section\":\"Features\",\"hidden\":false},{\"type\":\"fix\",\"section\":\"Bug Fixes\",\"hidden\":false},{\"type\":\"chore\",\"section\":\"Miscellaneous\",\"hidden\":false},{ \"type\": \"revert\", \"section\": \"Reverts\", \"hidden\": false }]",
+      "target-branch": "main"
+    }
+  }
+}

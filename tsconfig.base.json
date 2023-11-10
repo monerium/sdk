@@ -1,0 +1,26 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@monerium/sdk": ["libs/sdk/src/index.ts"],
+      "@monerium/sdk-react-provider": ["libs/sdk-react-provider/src/index.ts"],
+      "@monorepo/sdk-example-nextjs": ["apps/sdk-example-nextjs/src/index.ts"],
+      "@monorepo/sdk-example-react": ["apps/sdk-example-react/src/index.ts"],
+      "@monorepo/sdk-example-react-old": ["apps/sdk-example-react/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
