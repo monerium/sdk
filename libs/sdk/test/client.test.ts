@@ -358,6 +358,33 @@ describe('MoneriumClient', () => {
     );
     replaceMock.mockRestore();
   });
+  test('redirect w auto-link', async () => {
+    const client = new MoneriumClient();
+
+    const replaceMock = jest.fn();
+    Object.defineProperty(window, 'location', {
+      value: {
+        replace: replaceMock,
+      },
+      writable: true,
+    });
+
+    await client.authorize({
+      redirectUrl: 'http://example.com',
+      clientId: 'testClientId',
+      address: '0x1234',
+      signature: '0x5678',
+      chainId: 137,
+    });
+
+    const codeVerifier = sessionStorage.getItem(STORAGE_CODE_VERIFIER);
+    const challenge = generateCodeChallenge(codeVerifier as string);
+
+    expect(replaceMock).toHaveBeenCalledWith(
+      `https://api.monerium.dev/auth?client_id=testClientId&redirect_uri=http%3A%2F%2Fexample.com&code_challenge=${challenge}&code_challenge_method=S256&response_type=code&address=0x1234&signature=0x5678&chain=polygon&network=mainnet`
+    );
+    replaceMock.mockRestore();
+  });
 
   test('authorize with refresh token', async () => {
     const client = new MoneriumClient();

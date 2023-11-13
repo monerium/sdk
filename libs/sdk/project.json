@@ -30,7 +30,7 @@
       "dependsOn": ["prepublish"],
       "executor": "nx:run-commands",
       "options": {
-        "command": "npm publish --access public",
+        "command": "yarn install && yarn publish",
         "cwd": "libs/sdk"
       }
     },

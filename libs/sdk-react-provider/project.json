@@ -13,14 +13,18 @@
       }
     },
     "prepublish": {
-      "command": "echo",
-      "dependsOn": ["build", "test", "lint"]
+      "dependsOn": ["build", "test", "lint"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm pack --dry-run",
+        "cwd": "libs/sdk-react-provider"
+      }
     },
     "publish": {
       "dependsOn": ["prepublish"],
       "executor": "nx:run-commands",
       "options": {
-        "command": "npm publish --access public",
+        "command": "yarn publish",
         "cwd": "libs/sdk-react-provider"
       }
     },

@@ -5,14 +5,16 @@
       "package-name": "sdk",
       "pull-request-header": "Monerium SDK release :rocket:",
       "changelog-types": "[{\"type\":\"feat\",\"section\":\"Features\",\"hidden\":false},{\"type\":\"fix\",\"section\":\"Bug Fixes\",\"hidden\":false},{\"type\":\"chore\",\"section\":\"Miscellaneous\",\"hidden\":false},{ \"type\": \"revert\", \"section\": \"Reverts\", \"hidden\": false }]",
-      "target-branch": "main"
+      "target-branch": "main",
+      "release-as": "2.7.1"
     },
     "libs/sdk-react-provider": {
       "release-type": "node",
       "package-name": "sdk-react-provider",
       "pull-request-header": "Monerium SDK React Provider release :rocket:",
       "changelog-types": "[{\"type\":\"feat\",\"section\":\"Features\",\"hidden\":false},{\"type\":\"fix\",\"section\":\"Bug Fixes\",\"hidden\":false},{\"type\":\"chore\",\"section\":\"Miscellaneous\",\"hidden\":false},{ \"type\": \"revert\", \"section\": \"Reverts\", \"hidden\": false }]",
-      "target-branch": "main"
+      "target-branch": "main",
+      "release-as": "0.0.7"
     }
   }
 }

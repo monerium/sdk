@@ -124,14 +124,15 @@ export class MoneriumClient {
     const authFlowUrl = getAuthFlowUrlAndStoreCodeVerifier(this.#env.api, {
       client_id: clientId,
       redirect_uri: redirectUrl,
-      ...client?.wallet,
+      address: client?.address,
+      signature: client?.signature,
+      chainId: client?.chainId,
     });
 
     // Redirect to the authFlow
     window.location.replace(authFlowUrl);
   }
 
-  // TODO: TEST auto link & manual link + address
   async connect(
     client?: AuthorizationCodeCredentials | ClientCredentials
   ): Promise<boolean> {
@@ -162,24 +163,11 @@ export class MoneriumClient {
       throw new Error('This only works on client side');
     }
 
-    // TODO: Some cleanup needed when old refresh token
-
     const authCode =
       new URLSearchParams(window.location.search).get('code') || undefined;
 
     const refreshToken =
       sessionStorage.getItem(STORAGE_REFRESH_TOKEN) || undefined;
-
-    //// TEST IF THIS CAN BE DONE
-    // if (
-    //   this.bearerProfile?.refresh_token &&
-    //   this.bearerProfile.refresh_token !== refreshToken
-    // ) {
-    //   sessionStorage.removeItem(STORAGE_REFRESH_TOKEN);
-    //   throw new Error('Does this ever happen? mismatch in refreshtokesn');
-    //   return;
-    // }
-    //////
 
     if (authCode) {
       await this.#authCodeAuthorization(clientId, redirectUrl, authCode);

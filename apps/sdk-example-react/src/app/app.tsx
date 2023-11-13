@@ -49,7 +49,17 @@ export function App() {
   return (
     <div>
       {!isAuthorized && (
-        <button onClick={() => monerium?.authorize()}>Connect</button>
+        <button
+          onClick={() =>
+            monerium?.authorize({
+              address: '0xValidAddress72413Fa92980B889A1eCE84dD',
+              signature: '0x',
+              chainId: 137,
+            })
+          }
+        >
+          Connect
+        </button>
       )}
 
       <p>{authCtx?.name || authCtx?.email}</p>

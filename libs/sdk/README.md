@@ -205,7 +205,7 @@ We recommend Viem as an Ethereum interface, see: https://viem.sh/docs/actions/wa
 ```ts
 
 import { constants } from '@monerium/sdk';
-import { walletClient } from '...' // See View documentation
+import { walletClient } from '...' // See Viem documentation
 
 const { LINK_MESSAGE } = constants; // "I hereby declare that I am the address owner."
 
@@ -244,7 +244,7 @@ const orders: Order[] = await monerium.getOrders(profileId);
 ```ts
 // Place a redeem order
 import { placeOrderMessage } from '@monerium/sdk';
-import { walletClient } from '...'; // See View documentation
+import { walletClient } from '...'; // See Viem documentation
 
 const amount = '100'; // replace with the amount in EUR
 const iban = 'EE12341234123412341234'; // replace with requested IBAN

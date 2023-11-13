@@ -30,7 +30,7 @@ export type NetworkSemiStrict<C extends Chain> = C extends 'ethereum'
 
 export type NetworkStrict<
   C extends Chain,
-  E extends ENV,
+  E extends ENV
 > = E extends 'production'
   ? 'mainnet'
   : E extends 'sandbox'
@@ -56,7 +56,7 @@ export type NetworkStrict<
  */
 export type Network<
   C extends Chain = Chain,
-  E extends ENV = ENV,
+  E extends ENV = ENV
 > = C extends Chain
   ? E extends ENV
     ? NetworkStrict<C, E> & NetworkSemiStrict<C>
@@ -426,12 +426,6 @@ export interface LinkAddress {
   chain?: Chain;
 }
 
-export interface AutoLinkWallet {
-  address: string;
-  signature?: string;
-  chainId?: number;
-}
-
 // -- Notifications
 
 export type OrderNotification = {
@@ -455,20 +449,16 @@ export type MoneriumEvent = OrderState;
 
 export type MoneriumEventListener = (notification: OrderNotification) => void;
 
-// export type Client = {
-//   clientId?: string;
-//   clientSecret?: string;
-//   redirectUrl?: string;
-// };
-
 export type ClassOptions = {
   environment?: ENV;
 } & BearerTokenCredentials;
 
 export type AuthFlowOptions = {
-  clientId: string;
-  redirectUrl: string;
-  wallet?: AutoLinkWallet;
+  clientId?: string;
+  redirectUrl?: string;
+  address?: string;
+  signature?: string;
+  chainId?: number;
 };
 
 export type ClientCredentials = {
