@@ -50,7 +50,7 @@ export const MoneriumProvider: FC<MoneriumProviderProps> = ({
   useEffect(() => {
     const connect = async () => {
       if (monerium) {
-        setIsAuthorized(await monerium.connect());
+        setIsAuthorized(await monerium.getAccess());
       }
     };
 
@@ -73,6 +73,7 @@ export const MoneriumProvider: FC<MoneriumProviderProps> = ({
           const balanceData = await monerium.getBalances();
           const ordersData = await monerium.getOrders();
           const tokensData = await monerium.getTokens();
+
           setProfile(profileData);
           setBalances(balanceData);
           setOrders(ordersData);

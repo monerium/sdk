@@ -14,7 +14,7 @@ import { STORAGE_CODE_VERIFIER } from '../constants';
 /** Structure the Auth Flow params, support for ChainId instead of chain & network */
 export const getAuthFlowParams = (
   args: PKCERequestArgs,
-  codeChallenge: string,
+  codeChallenge: string
 ) => {
   const {
     client_id,
@@ -82,7 +82,7 @@ export const generateCodeChallenge = (codeVerifier: string) => {
  */
 export const getAuthFlowUrlAndStoreCodeVerifier = (
   baseUrl: string,
-  args: PKCERequestArgs,
+  args: PKCERequestArgs
 ): string => {
   const codeVerifier = generateRandomString();
   const codeChallenge = generateCodeChallenge(codeVerifier);
@@ -97,6 +97,7 @@ export const getAuthFlowUrlAndStoreCodeVerifier = (
  */
 export const cleanQueryString = () => {
   const url = window.location.href;
+  if (!url || !url?.includes('?')) return;
   const [baseUrl, queryString] = url.split('?');
 
   // Check if there is a query string
@@ -114,7 +115,7 @@ export const isRefreshToken = (args: AuthArgs): args is RefreshTokenRequest => {
 };
 
 export const isClientCredentials = (
-  args: AuthArgs,
+  args: AuthArgs
 ): args is ClientCredentialsRequest => {
   return (args as ClientCredentialsRequest).client_secret != undefined;
 };

@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.7.1](https://github.com/monerium/public-monorepo/compare/sdk-v2.7.0...sdk-v2.7.1) (2023-11-13)
+## [2.7.3](https://github.com/monerium/public-monorepo/compare/sdk-v2.7.3...sdk-v2.7.3) (2023-11-17)
 
 
 ### Features
@@ -12,12 +12,175 @@
 ### Bug Fixes
 
 * add example, fix sdk for backwards compatibility and update README ([6992417](https://github.com/monerium/public-monorepo/commit/6992417e44b442a06b1d65f88d588d17e71b4562))
+* add removal date to deprecated methods and add connect as deprecated ([c1e02e2](https://github.com/monerium/public-monorepo/commit/c1e02e273b08b091475757e0e68051098e20a5a0))
+* add yarnrc to each lib ([6dc9f7a](https://github.com/monerium/public-monorepo/commit/6dc9f7a4a46e24596c862df83823f90be5dad803))
+* broken test ([6cfdd57](https://github.com/monerium/public-monorepo/commit/6cfdd57f041eba99312f5dc32fb40b7b2c2406a9))
+* clean query on error ([2620322](https://github.com/monerium/public-monorepo/commit/26203224cdfb09d5f1a8be34f0fb27ed6c95b800))
+* continue on error gh-pages ([d033048](https://github.com/monerium/public-monorepo/commit/d033048a490390815ef17dad45b526b04898c2ae))
+* debug ([b2543eb](https://github.com/monerium/public-monorepo/commit/b2543eb222cbe74131377e164c28c3093b72be5f))
+* debug ([ea1bd38](https://github.com/monerium/public-monorepo/commit/ea1bd38c8f8f98cf65a9bcab615faa540a8b7324))
+* debug ([20e3ccb](https://github.com/monerium/public-monorepo/commit/20e3ccb3297e3bba02be86349a151b1bf0ed8f5c))
+* dep ([0d9953b](https://github.com/monerium/public-monorepo/commit/0d9953b5a2e259851d05d422ecf7f2c1fa36c6ea))
+* expose getChain and getNetwork + update docs ([085d9bd](https://github.com/monerium/public-monorepo/commit/085d9bd261342d14936a7f9f1d5cc1fdd859ec26))
+* letsgo ([af653ce](https://github.com/monerium/public-monorepo/commit/af653ce744b333023892370b21ec28738c82910e))
+* lol ([630cb9f](https://github.com/monerium/public-monorepo/commit/630cb9fa3f4d7efa363b7fd9079c4e5e4e26bdd3))
+* perm ([3210011](https://github.com/monerium/public-monorepo/commit/32100114916d85b1b1982cd942c3181210943ee9))
+* props to auto-link ([ce85efd](https://github.com/monerium/public-monorepo/commit/ce85efd534cfcac7fb9e7804b733641aeb752f4f))
+* publish ([537b336](https://github.com/monerium/public-monorepo/commit/537b336180df288e0653b0db7230ae84758f8475))
+* publish not working ([50a2a05](https://github.com/monerium/public-monorepo/commit/50a2a0583c03ef7a66a605c8215f72256192b8e2))
+* releaseas ([db309d2](https://github.com/monerium/public-monorepo/commit/db309d2635196bac5df230e886d70c395c58b06b))
+* remove packageManager from sdk packagejson ([f87d93d](https://github.com/monerium/public-monorepo/commit/f87d93d51c953fdc8c72a4458f19f11ad0fd0d58))
+* rewrite the CHANGELOG after a lot messy testing ([fb1a3c9](https://github.com/monerium/public-monorepo/commit/fb1a3c9517c269c49bc6ad9e492c79481184afcd))
+* sdk version ([27c479c](https://github.com/monerium/public-monorepo/commit/27c479c3b324a33ea7e44613601e4f32269e9082))
+* static files not deployed ([a1131d7](https://github.com/monerium/public-monorepo/commit/a1131d7ab988a93e41b7f3b65429b5aa27ff588e))
+* stuff ([6b06483](https://github.com/monerium/public-monorepo/commit/6b06483ad5ca8f3e00e8d88f2739cf2526ae2101))
+* stuff ([1dadd44](https://github.com/monerium/public-monorepo/commit/1dadd44f07fb2234bf1fca1f1f20dbc4158cface))
+* syntax ([f8cfbad](https://github.com/monerium/public-monorepo/commit/f8cfbad0fa536808ddc988cf9e6ca8aef5247ef7))
+* test ([2c52f99](https://github.com/monerium/public-monorepo/commit/2c52f99e5c2fc19c502fae01e7ca105010df979f))
+* test ([21c2cb8](https://github.com/monerium/public-monorepo/commit/21c2cb8c936410f6701a87313cb1bcb4dd9f281f))
+* test ([2a612b1](https://github.com/monerium/public-monorepo/commit/2a612b1f93a59ec709c9f328c7ba4bc910971de9))
+* test ([0dfd8e1](https://github.com/monerium/public-monorepo/commit/0dfd8e1489db8096f1cb66a3816e410ddb996d64))
+* test deploy ([1a3e311](https://github.com/monerium/public-monorepo/commit/1a3e311fdc7bde2f17390e4cdb3f0a48859e5cf9))
+* test: ([e122f61](https://github.com/monerium/public-monorepo/commit/e122f61e5f907785b6076bfda855c275bcfce1d6))
+* testing ([24389c9](https://github.com/monerium/public-monorepo/commit/24389c9f243671c548d957dc499689e58e0bc3f6))
+* testing affected ([60059eb](https://github.com/monerium/public-monorepo/commit/60059ebc035dccf1dcbb4eb64cf0eeb071020caf))
+* testing affected ([a10f49a](https://github.com/monerium/public-monorepo/commit/a10f49a4840218c9f5fa76463b3132401d0a23f4))
+* tests and release action ([a18438c](https://github.com/monerium/public-monorepo/commit/a18438c2974e79975722afe8f7f9679358f32da5))
+* trigger both packages ([a8db647](https://github.com/monerium/public-monorepo/commit/a8db647e694abd753bdb06df352c1d72617d7e67))
+* trigger sdk ([ee1b950](https://github.com/monerium/public-monorepo/commit/ee1b9502c61655e5f0771827fdd116b58c748834))
+* typedoc deps ([0696536](https://github.com/monerium/public-monorepo/commit/0696536edd834b6bf2ca6bf6ea39914d37fcda9c))
+* uff ([ae8e9e5](https://github.com/monerium/public-monorepo/commit/ae8e9e510b5fad9997addd31e1153e9ef66a9d5c))
+* version ([f3a1b1d](https://github.com/monerium/public-monorepo/commit/f3a1b1d7750a2f743d84426e60ea368909dcf93d))
+* yarn instead of npm ([5b86535](https://github.com/monerium/public-monorepo/commit/5b86535ed225effa0d13b6b60388bf05783ebe63))
+
+## [2.7.3](https://github.com/monerium/public-monorepo/compare/sdk-v2.7.2...sdk-v2.7.3) (2023-11-17)
+
+
+### Bug Fixes
+
+* clean query on error ([2620322](https://github.com/monerium/public-monorepo/commit/26203224cdfb09d5f1a8be34f0fb27ed6c95b800))
+
+## [2.7.2](https://github.com/monerium/public-monorepo/compare/sdk-v2.7.2...sdk-v2.7.2) (2023-11-17)
+
+
+### Features
+
+* add docs ([f5ba19d](https://github.com/monerium/public-monorepo/commit/f5ba19d5600e01cd0c97467a0a1f2fe94a2f40fc))
+* new functions added + arguments to class instance ([b5b8c5d](https://github.com/monerium/public-monorepo/commit/b5b8c5d3fbae6ce7a90569b74d887b81d9f3a336))
+
+
+### Bug Fixes
+
+* add example, fix sdk for backwards compatibility and update README ([6992417](https://github.com/monerium/public-monorepo/commit/6992417e44b442a06b1d65f88d588d17e71b4562))
+* add removal date to deprecated methods and add connect as deprecated ([c1e02e2](https://github.com/monerium/public-monorepo/commit/c1e02e273b08b091475757e0e68051098e20a5a0))
 * add yarnrc to each lib ([6dc9f7a](https://github.com/monerium/public-monorepo/commit/6dc9f7a4a46e24596c862df83823f90be5dad803))
 * continue on error gh-pages ([d033048](https://github.com/monerium/public-monorepo/commit/d033048a490390815ef17dad45b526b04898c2ae))
 * debug ([b2543eb](https://github.com/monerium/public-monorepo/commit/b2543eb222cbe74131377e164c28c3093b72be5f))
 * debug ([ea1bd38](https://github.com/monerium/public-monorepo/commit/ea1bd38c8f8f98cf65a9bcab615faa540a8b7324))
 * debug ([20e3ccb](https://github.com/monerium/public-monorepo/commit/20e3ccb3297e3bba02be86349a151b1bf0ed8f5c))
 * dep ([0d9953b](https://github.com/monerium/public-monorepo/commit/0d9953b5a2e259851d05d422ecf7f2c1fa36c6ea))
+* expose getChain and getNetwork + update docs ([085d9bd](https://github.com/monerium/public-monorepo/commit/085d9bd261342d14936a7f9f1d5cc1fdd859ec26))
+* letsgo ([af653ce](https://github.com/monerium/public-monorepo/commit/af653ce744b333023892370b21ec28738c82910e))
+* lol ([630cb9f](https://github.com/monerium/public-monorepo/commit/630cb9fa3f4d7efa363b7fd9079c4e5e4e26bdd3))
+* perm ([3210011](https://github.com/monerium/public-monorepo/commit/32100114916d85b1b1982cd942c3181210943ee9))
+* props to auto-link ([ce85efd](https://github.com/monerium/public-monorepo/commit/ce85efd534cfcac7fb9e7804b733641aeb752f4f))
+* publish ([537b336](https://github.com/monerium/public-monorepo/commit/537b336180df288e0653b0db7230ae84758f8475))
+* publish not working ([50a2a05](https://github.com/monerium/public-monorepo/commit/50a2a0583c03ef7a66a605c8215f72256192b8e2))
+* releaseas ([db309d2](https://github.com/monerium/public-monorepo/commit/db309d2635196bac5df230e886d70c395c58b06b))
+* remove packageManager from sdk packagejson ([f87d93d](https://github.com/monerium/public-monorepo/commit/f87d93d51c953fdc8c72a4458f19f11ad0fd0d58))
+* rewrite the CHANGELOG after a lot messy testing ([fb1a3c9](https://github.com/monerium/public-monorepo/commit/fb1a3c9517c269c49bc6ad9e492c79481184afcd))
+* sdk version ([27c479c](https://github.com/monerium/public-monorepo/commit/27c479c3b324a33ea7e44613601e4f32269e9082))
+* static files not deployed ([a1131d7](https://github.com/monerium/public-monorepo/commit/a1131d7ab988a93e41b7f3b65429b5aa27ff588e))
+* stuff ([6b06483](https://github.com/monerium/public-monorepo/commit/6b06483ad5ca8f3e00e8d88f2739cf2526ae2101))
+* stuff ([1dadd44](https://github.com/monerium/public-monorepo/commit/1dadd44f07fb2234bf1fca1f1f20dbc4158cface))
+* syntax ([f8cfbad](https://github.com/monerium/public-monorepo/commit/f8cfbad0fa536808ddc988cf9e6ca8aef5247ef7))
+* test ([2c52f99](https://github.com/monerium/public-monorepo/commit/2c52f99e5c2fc19c502fae01e7ca105010df979f))
+* test ([21c2cb8](https://github.com/monerium/public-monorepo/commit/21c2cb8c936410f6701a87313cb1bcb4dd9f281f))
+* test ([2a612b1](https://github.com/monerium/public-monorepo/commit/2a612b1f93a59ec709c9f328c7ba4bc910971de9))
+* test ([0dfd8e1](https://github.com/monerium/public-monorepo/commit/0dfd8e1489db8096f1cb66a3816e410ddb996d64))
+* test deploy ([1a3e311](https://github.com/monerium/public-monorepo/commit/1a3e311fdc7bde2f17390e4cdb3f0a48859e5cf9))
+* test: ([e122f61](https://github.com/monerium/public-monorepo/commit/e122f61e5f907785b6076bfda855c275bcfce1d6))
+* testing ([24389c9](https://github.com/monerium/public-monorepo/commit/24389c9f243671c548d957dc499689e58e0bc3f6))
+* testing affected ([60059eb](https://github.com/monerium/public-monorepo/commit/60059ebc035dccf1dcbb4eb64cf0eeb071020caf))
+* testing affected ([a10f49a](https://github.com/monerium/public-monorepo/commit/a10f49a4840218c9f5fa76463b3132401d0a23f4))
+* tests and release action ([a18438c](https://github.com/monerium/public-monorepo/commit/a18438c2974e79975722afe8f7f9679358f32da5))
+* trigger both packages ([a8db647](https://github.com/monerium/public-monorepo/commit/a8db647e694abd753bdb06df352c1d72617d7e67))
+* trigger sdk ([ee1b950](https://github.com/monerium/public-monorepo/commit/ee1b9502c61655e5f0771827fdd116b58c748834))
+* typedoc deps ([0696536](https://github.com/monerium/public-monorepo/commit/0696536edd834b6bf2ca6bf6ea39914d37fcda9c))
+* uff ([ae8e9e5](https://github.com/monerium/public-monorepo/commit/ae8e9e510b5fad9997addd31e1153e9ef66a9d5c))
+* version ([f3a1b1d](https://github.com/monerium/public-monorepo/commit/f3a1b1d7750a2f743d84426e60ea368909dcf93d))
+* yarn instead of npm ([5b86535](https://github.com/monerium/public-monorepo/commit/5b86535ed225effa0d13b6b60388bf05783ebe63))
+
+## [2.7.2](https://github.com/monerium/public-monorepo/compare/sdk-v2.7.2...sdk-v2.7.2) (2023-11-17)
+
+
+### Features
+
+* add docs ([f5ba19d](https://github.com/monerium/public-monorepo/commit/f5ba19d5600e01cd0c97467a0a1f2fe94a2f40fc))
+* new functions added + arguments to class instance ([b5b8c5d](https://github.com/monerium/public-monorepo/commit/b5b8c5d3fbae6ce7a90569b74d887b81d9f3a336))
+
+
+### Bug Fixes
+
+* add example, fix sdk for backwards compatibility and update README ([6992417](https://github.com/monerium/public-monorepo/commit/6992417e44b442a06b1d65f88d588d17e71b4562))
+* add removal date to deprecated methods and add connect as deprecated ([c1e02e2](https://github.com/monerium/public-monorepo/commit/c1e02e273b08b091475757e0e68051098e20a5a0))
+* add yarnrc to each lib ([6dc9f7a](https://github.com/monerium/public-monorepo/commit/6dc9f7a4a46e24596c862df83823f90be5dad803))
+* continue on error gh-pages ([d033048](https://github.com/monerium/public-monorepo/commit/d033048a490390815ef17dad45b526b04898c2ae))
+* debug ([b2543eb](https://github.com/monerium/public-monorepo/commit/b2543eb222cbe74131377e164c28c3093b72be5f))
+* debug ([ea1bd38](https://github.com/monerium/public-monorepo/commit/ea1bd38c8f8f98cf65a9bcab615faa540a8b7324))
+* debug ([20e3ccb](https://github.com/monerium/public-monorepo/commit/20e3ccb3297e3bba02be86349a151b1bf0ed8f5c))
+* dep ([0d9953b](https://github.com/monerium/public-monorepo/commit/0d9953b5a2e259851d05d422ecf7f2c1fa36c6ea))
+* expose getChain and getNetwork + update docs ([085d9bd](https://github.com/monerium/public-monorepo/commit/085d9bd261342d14936a7f9f1d5cc1fdd859ec26))
+* letsgo ([af653ce](https://github.com/monerium/public-monorepo/commit/af653ce744b333023892370b21ec28738c82910e))
+* lol ([630cb9f](https://github.com/monerium/public-monorepo/commit/630cb9fa3f4d7efa363b7fd9079c4e5e4e26bdd3))
+* perm ([3210011](https://github.com/monerium/public-monorepo/commit/32100114916d85b1b1982cd942c3181210943ee9))
+* props to auto-link ([ce85efd](https://github.com/monerium/public-monorepo/commit/ce85efd534cfcac7fb9e7804b733641aeb752f4f))
+* publish ([537b336](https://github.com/monerium/public-monorepo/commit/537b336180df288e0653b0db7230ae84758f8475))
+* publish not working ([50a2a05](https://github.com/monerium/public-monorepo/commit/50a2a0583c03ef7a66a605c8215f72256192b8e2))
+* releaseas ([db309d2](https://github.com/monerium/public-monorepo/commit/db309d2635196bac5df230e886d70c395c58b06b))
+* rewrite the CHANGELOG after a lot messy testing ([fb1a3c9](https://github.com/monerium/public-monorepo/commit/fb1a3c9517c269c49bc6ad9e492c79481184afcd))
+* sdk version ([27c479c](https://github.com/monerium/public-monorepo/commit/27c479c3b324a33ea7e44613601e4f32269e9082))
+* static files not deployed ([a1131d7](https://github.com/monerium/public-monorepo/commit/a1131d7ab988a93e41b7f3b65429b5aa27ff588e))
+* stuff ([6b06483](https://github.com/monerium/public-monorepo/commit/6b06483ad5ca8f3e00e8d88f2739cf2526ae2101))
+* stuff ([1dadd44](https://github.com/monerium/public-monorepo/commit/1dadd44f07fb2234bf1fca1f1f20dbc4158cface))
+* syntax ([f8cfbad](https://github.com/monerium/public-monorepo/commit/f8cfbad0fa536808ddc988cf9e6ca8aef5247ef7))
+* test ([2c52f99](https://github.com/monerium/public-monorepo/commit/2c52f99e5c2fc19c502fae01e7ca105010df979f))
+* test ([21c2cb8](https://github.com/monerium/public-monorepo/commit/21c2cb8c936410f6701a87313cb1bcb4dd9f281f))
+* test ([2a612b1](https://github.com/monerium/public-monorepo/commit/2a612b1f93a59ec709c9f328c7ba4bc910971de9))
+* test ([0dfd8e1](https://github.com/monerium/public-monorepo/commit/0dfd8e1489db8096f1cb66a3816e410ddb996d64))
+* test deploy ([1a3e311](https://github.com/monerium/public-monorepo/commit/1a3e311fdc7bde2f17390e4cdb3f0a48859e5cf9))
+* test: ([e122f61](https://github.com/monerium/public-monorepo/commit/e122f61e5f907785b6076bfda855c275bcfce1d6))
+* testing ([24389c9](https://github.com/monerium/public-monorepo/commit/24389c9f243671c548d957dc499689e58e0bc3f6))
+* testing affected ([60059eb](https://github.com/monerium/public-monorepo/commit/60059ebc035dccf1dcbb4eb64cf0eeb071020caf))
+* testing affected ([a10f49a](https://github.com/monerium/public-monorepo/commit/a10f49a4840218c9f5fa76463b3132401d0a23f4))
+* tests and release action ([a18438c](https://github.com/monerium/public-monorepo/commit/a18438c2974e79975722afe8f7f9679358f32da5))
+* trigger both packages ([a8db647](https://github.com/monerium/public-monorepo/commit/a8db647e694abd753bdb06df352c1d72617d7e67))
+* trigger sdk ([ee1b950](https://github.com/monerium/public-monorepo/commit/ee1b9502c61655e5f0771827fdd116b58c748834))
+* typedoc deps ([0696536](https://github.com/monerium/public-monorepo/commit/0696536edd834b6bf2ca6bf6ea39914d37fcda9c))
+* uff ([ae8e9e5](https://github.com/monerium/public-monorepo/commit/ae8e9e510b5fad9997addd31e1153e9ef66a9d5c))
+* version ([f3a1b1d](https://github.com/monerium/public-monorepo/commit/f3a1b1d7750a2f743d84426e60ea368909dcf93d))
+* yarn instead of npm ([5b86535](https://github.com/monerium/public-monorepo/commit/5b86535ed225effa0d13b6b60388bf05783ebe63))
+
+## [2.7.2](https://github.com/monerium/public-monorepo/compare/sdk-v2.7.2...sdk-v2.7.2) (2023-11-17)
+
+
+### Features
+
+* add docs ([f5ba19d](https://github.com/monerium/public-monorepo/commit/f5ba19d5600e01cd0c97467a0a1f2fe94a2f40fc))
+* new functions added + arguments to class instance ([b5b8c5d](https://github.com/monerium/public-monorepo/commit/b5b8c5d3fbae6ce7a90569b74d887b81d9f3a336))
+
+
+### Bug Fixes
+
+* add example, fix sdk for backwards compatibility and update README ([6992417](https://github.com/monerium/public-monorepo/commit/6992417e44b442a06b1d65f88d588d17e71b4562))
+* add removal date to deprecated methods and add connect as deprecated ([c1e02e2](https://github.com/monerium/public-monorepo/commit/c1e02e273b08b091475757e0e68051098e20a5a0))
+* add yarnrc to each lib ([6dc9f7a](https://github.com/monerium/public-monorepo/commit/6dc9f7a4a46e24596c862df83823f90be5dad803))
+* continue on error gh-pages ([d033048](https://github.com/monerium/public-monorepo/commit/d033048a490390815ef17dad45b526b04898c2ae))
+* debug ([b2543eb](https://github.com/monerium/public-monorepo/commit/b2543eb222cbe74131377e164c28c3093b72be5f))
+* debug ([ea1bd38](https://github.com/monerium/public-monorepo/commit/ea1bd38c8f8f98cf65a9bcab615faa540a8b7324))
+* debug ([20e3ccb](https://github.com/monerium/public-monorepo/commit/20e3ccb3297e3bba02be86349a151b1bf0ed8f5c))
+* dep ([0d9953b](https://github.com/monerium/public-monorepo/commit/0d9953b5a2e259851d05d422ecf7f2c1fa36c6ea))
+* expose getChain and getNetwork + update docs ([085d9bd](https://github.com/monerium/public-monorepo/commit/085d9bd261342d14936a7f9f1d5cc1fdd859ec26))
 * letsgo ([af653ce](https://github.com/monerium/public-monorepo/commit/af653ce744b333023892370b21ec28738c82910e))
 * lol ([630cb9f](https://github.com/monerium/public-monorepo/commit/630cb9fa3f4d7efa363b7fd9079c4e5e4e26bdd3))
 * perm ([3210011](https://github.com/monerium/public-monorepo/commit/32100114916d85b1b1982cd942c3181210943ee9))
@@ -46,6 +209,27 @@
 * uff ([ae8e9e5](https://github.com/monerium/public-monorepo/commit/ae8e9e510b5fad9997addd31e1153e9ef66a9d5c))
 * version ([f3a1b1d](https://github.com/monerium/public-monorepo/commit/f3a1b1d7750a2f743d84426e60ea368909dcf93d))
 * yarn instead of npm ([5b86535](https://github.com/monerium/public-monorepo/commit/5b86535ed225effa0d13b6b60388bf05783ebe63))
+
+## [2.7.2](https://github.com/monerium/public-monorepo/compare/sdk-v2.7.2...sdk-v2.7.2) (2023-11-17)
+
+
+### Bug Fixes
+
+* add removal date to deprecated methods and add connect as deprecated ([c1e02e2](https://github.com/monerium/public-monorepo/commit/c1e02e273b08b091475757e0e68051098e20a5a0))
+
+## [2.7.2](https://github.com/monerium/public-monorepo/compare/sdk-v2.7.2...sdk-v2.7.2) (2023-11-17)
+
+
+### Bug Fixes
+
+* add removal date to deprecated methods and add connect as deprecated ([c1e02e2](https://github.com/monerium/public-monorepo/commit/c1e02e273b08b091475757e0e68051098e20a5a0))
+
+## [2.7.2](https://github.com/monerium/public-monorepo/compare/sdk-v2.7.1...sdk-v2.7.2) (2023-11-17)
+
+
+### Bug Fixes
+
+* expose getChain and getNetwork + update docs ([085d9bd](https://github.com/monerium/public-monorepo/commit/085d9bd261342d14936a7f9f1d5cc1fdd859ec26))
 
 ## [2.7.0](https://github.com/monerium/public-monorepo/compare/sdk-v2.7.0...sdk-v2.7.0) (2023-11-13)
 

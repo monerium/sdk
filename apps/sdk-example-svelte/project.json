@@ -1,0 +1,71 @@
+{
+  "name": "sdk-example-svelte",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/sdk-example-svelte/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/sdk-example-svelte"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "sdk-example-svelte:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "sdk-example-svelte:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "sdk-example-svelte:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "sdk-example-svelte:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "sdk-example-svelte:build:development"
+        },
+        "production": {
+          "buildTarget": "sdk-example-svelte:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/sdk-example-svelte/**/*.{ts,svelte,spec.ts}"]
+      }
+    },
+    "check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "svelte-check",
+        "cwd": "apps/sdk-example-svelte"
+      }
+    }
+  }
+}

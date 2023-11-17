@@ -3,12 +3,11 @@ import { render, screen, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { useMonerium } from './hook';
 import { MoneriumProvider } from './provider';
-import { MoneriumClient } from '@monerium/sdk';
 
 jest.mock('@monerium/sdk', () => {
   const mockMoneriumClient = {
     authorize: jest.fn().mockResolvedValue(true),
-    connect: jest.fn().mockResolvedValue(true),
+    getAccess: jest.fn().mockResolvedValue(true),
     disconnect: jest.fn(),
     getAuthContext: jest
       .fn()

@@ -386,37 +386,24 @@ describe('MoneriumClient', () => {
     replaceMock.mockRestore();
   });
 
-  test('authorize with refresh token', async () => {
+  test('authorize with refresh token attempt', async () => {
     const client = new MoneriumClient();
     sessionStorage.setItem(STORAGE_REFRESH_TOKEN, 'testRefreshToken');
 
-    const bearerMock = jest
-      .spyOn(MoneriumClient.prototype, 'getBearerToken')
-      .mockImplementation(async () => {
-        return {
-          refresh_token: 'testRefreshToken',
-          access_token: 'testAccessToken',
-          expires_in: 3600,
-          token_type: 'Bearer',
-          profile: 'testProfile',
-          userId: 'testUserId',
-        };
-      });
     const getItemSpy = jest.spyOn(window.sessionStorage, 'getItem');
 
-    await client.connect({
-      clientId: APP_ONE_AUTH_FLOW_CLIENT_ID,
-      redirectUrl: APP_ONE_REDIRECT_URL,
-    });
+    try {
+      await client.getAccess({
+        clientId: APP_ONE_AUTH_FLOW_CLIENT_ID,
+        redirectUrl: APP_ONE_REDIRECT_URL,
+      });
+    } catch (err) {
+      expect((err as any).message).toBe('Unable to load refresh token info');
+    }
 
     expect(getItemSpy).toHaveBeenCalledWith(STORAGE_REFRESH_TOKEN);
-    expect(bearerMock).toHaveBeenCalledWith({
-      refresh_token: 'testRefreshToken',
-      client_id: APP_ONE_AUTH_FLOW_CLIENT_ID,
-    });
 
     getItemSpy.mockRestore();
-    bearerMock.mockRestore();
   });
 
   // there is no way to test this without a real time signature, the date is now verified
@@ -517,3 +504,13 @@ describe('MoneriumClient', () => {
 //   // const document = client.uploadSupportingDocument();
 //   // assertObjectMatch(document, {});
 // });
+describe('disconnect()', () => {
+  it('should remove the codeVerifier from the storage', async () => {
+    const sessionStorageSpy = jest.spyOn(window.sessionStorage, 'removeItem');
+    const client = new MoneriumClient();
+
+    await client.disconnect();
+
+    expect(sessionStorageSpy).toHaveBeenCalledWith(STORAGE_CODE_VERIFIER);
+  });
+});

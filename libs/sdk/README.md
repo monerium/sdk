@@ -64,6 +64,8 @@ const monerium = new MoneriumClient({
   clientSecret: 'your_client_secret', // replace with your client secret
 });
 
+await monerium.getAccess();
+
 // Retrieve authentication data after successful authentication.
 await monerium.getAuthContext();
 
@@ -107,7 +109,7 @@ export function App() {
   useEffect(() => {
     const connect = async () => {
       if (monerium) {
-        setIsAuthorized(await monerium.connect());
+        setIsAuthorized(await monerium.getAccess());
       }
     };
 
@@ -311,6 +313,35 @@ API documentation:
 
 - [/files](https://monerium.dev/api-docs#operation/supporting-document)
 
+#### Subscribe to order events
+
+````ts
+import { OrderState } from '@monerium/sdk';
+const [orderState, setOrderState] = useState<OrderState>();
+// Subscribe to order events
+monerium.subscribeOrders(OrderState.pending, (notification) => {
+  setOrderState(notification.meta.state)
+})
+
+  monerium.subscribeOrders(OrderState.placed, (notification) => {
+  setOrderState(notification.meta.state)
+})
+
+  monerium.subscribeOrders(OrderState.rejected, (notification) => {
+  setOrderState(notification.meta.state)
+  setTimeout(() => {
+    setOrderState(undefined)
+  }, 5000)
+})
+
+  monerium.subscribeOrders(OrderState.processed, (notification) => {
+  setOrderState(notification.meta.state)
+  setTimeout(() => {
+    setOrderState(undefined)
+  }, 5000)
+})
+```
+
 ## API Reference
 
 [API Documentation](https://monerium.dev/docs/api)
@@ -334,7 +365,7 @@ yarn watch
 # Update the docs. This will run the build and update the docs in the static folder.
 # Open static/index.html in your browser to view the docs. Refresh the page to see changes.
 yarn docs:watch
-```
+````
 
 Smart IDEs (such as VSCode) require [special configuration](https://yarnpkg.com/getting-started/editor-sdks) for TypeScript to work when using Yarn Plug'n'Play installs.
 

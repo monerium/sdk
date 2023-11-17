@@ -4,6 +4,7 @@
   "sourceRoot": "libs/sdk-react-provider/src",
   "projectType": "library",
   "tags": [],
+  "implicitDependencies": ["sdk"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",

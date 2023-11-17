@@ -1,6 +1,6 @@
 {
   "name": "@monerium/sdk",
-  "version": "2.7.1",
+  "version": "2.7.3",
   "description": "Everything you need to interact with the Monerium API - an electronic money issuer.",
   "license": "MIT",
   "repository": {
@@ -25,7 +25,6 @@
   "engines": {
     "node": ">= 16.15"
   },
-  "packageManager": "yarn@3.5.0",
   "dependencies": {
     "crypto-js": "^4.2.0"
   },

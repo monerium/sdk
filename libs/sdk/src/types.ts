@@ -377,7 +377,7 @@ export type NewOrder = NewOrderByAddress | NewOrderByAccountId;
 export interface NewOrderCommon {
   amount: string;
   signature: string;
-  // currency: Currency;
+  currency?: Currency /** Not needed right now, only EUR */;
   counterpart: Counterpart;
   message: string;
   memo?: string;
